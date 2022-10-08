@@ -1,0 +1,12 @@
+.vscode
+.next
+.vercel
+.env
+.git
+.gitignore
+.gitattributes
+**/.gitkeep
+**/Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+node_modules

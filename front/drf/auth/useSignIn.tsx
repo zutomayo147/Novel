@@ -3,6 +3,12 @@ import { useCallback } from "react"
 import { useRouter } from "next/router"
 import { drfApiRoot } from "constants/drf"
 import { useCookies } from 'react-cookie';
+// import { useSetRecoilState } from "recoil"
+import { useRecoilValue } from "recoil"
+import { todoListState } from "store/todo"
+// import { GetJwtToken } from "./getJwtToken"
+import GetJwtToken from "./getJwtToken"
+
 
 // import { useSetRecoilState } from "recoil"
 
@@ -15,20 +21,27 @@ type userInfo = {
 
 export const useSignIn = () => {
   const router = useRouter()
+  const getJWT = GetJwtToken()
+  // const todoList = useRecoilValue(todoListState);
+  // console.log(todoList);
 
   // TODO
+  // const [cookie, setCookie] = useCookies(['isLogin']);
   const [cookie, setCookie] = useCookies(['isLogin']);
+  const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
 
   const signIn = useCallback(async (props: userInfo) => {
-    // const { email, password, userName } = props
-    const { password, userName } = props
+    const { password, userName } = { ...props }
+    console.log(props)
     await axios
       .post(
-        `${drfApiRoot}auth/token/login`,
+        `${drfApiRoot}/auth/token/login`,
         {
           // 'email': email,
           'password': password,
           'username': userName,
+          // [...props]
+
         },
         {
           headers: {
@@ -39,10 +52,11 @@ export const useSignIn = () => {
         }
       ).then((res) => {
         // TODO
-        setCookie("isLogin", true)
+        setCookie("isLogin", true, { path: '/', maxAge: 10000000000000 })
+        getJWT({ password, userName })
         // setCookie("isLogin", true,{path:'/',httpOnly:true})
         router.push("/user/")
-        console.log(res.data)
+        // console.log(res.data)
       })
       .catch(err => {
         console.log(err)

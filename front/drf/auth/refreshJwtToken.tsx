@@ -7,7 +7,7 @@ export const refreshJwtToken = async () => {
   // const response = await
   await axios
     .post(
-      `${drfApiRoot}auth/jwt/refresh`,
+      `${drfApiRoot}/auth/jwt/refresh`,
       {
         'username': 'sin',
         'password': 'aws'

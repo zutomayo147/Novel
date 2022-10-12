@@ -22,7 +22,7 @@ services:
         build:
             context: ./back
             dockerfile: ./Dockerfile
-        command: python3 /back/manage.py runserver 0.0.0.0:8000
+        command: python /back/manage.py runserver 0.0.0.0:8000
         ports:
             - 8000:8000
         environment:

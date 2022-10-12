@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from "next/link"
 import {
   Box,
   Flex,
@@ -18,17 +19,32 @@ import {
 import { useCookies } from 'react-cookie';
 
 
-const userHome: NextPage = () => {
+// const UserHome: NextPage = () => {
+const UserHome: NextPage = () => {
   const [cookie, setCookie] = useCookies(['isLogin']);
-  console.log(cookie.isLogin)
-  console.log(typeof (cookie.isLogin))
-  // <Text>MyPage</Text>
-  // if (cookie.isLogin === "true") {
-  if (cookie) {
-    return <span>MyPage</span>
+  const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
+  // console.log(cookie.isLogin)
+  // console.log(accsesToken)
+  if (cookie.isLogin) {
+    return (
+      <>
+        <p suppressHydrationWarning>MyPage</p>
+        <Link href = "/snippets/">
+          <Button>投稿</Button>
+        </Link>
+      </>
+    )
   } else {
-    return <span>No Cookie</span>
+    return (
+      <div>
+        <p>No cookie</p>
+        <p>Please login onemore</p>
+        <Link href="/signIn">
+          <Button>re-login</Button>
+        </Link>
+      </div>
+    )
   }
 }
 
-export default userHome
+export default UserHome

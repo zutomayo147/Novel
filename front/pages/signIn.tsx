@@ -10,6 +10,13 @@ import { useSignIn } from "drf/auth/useSignIn"
 import { NextPage } from "next"
 // import { AppTop } from "components/Layouts/AppTop"
 
+// TODO
+// type userInfo = {
+//   userName: string
+//   password: string
+// }
+
+
 const SignIn: NextPage = () => {
   // const [email, setEmail] = useState("")
   const [userName, setuserName] = useState("")
@@ -22,6 +29,8 @@ const SignIn: NextPage = () => {
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
   const handleClick = () => setShowPassword(!showPassword)
   const onClickLogin = () => signIn({ userName, password })
+// TODO
+  // const onClickLogin = () => signIn({props:userInfo})
 
   return (
     <Flex alignItems="center" justifyContent="center">

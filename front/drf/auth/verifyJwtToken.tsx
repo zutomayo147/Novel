@@ -9,7 +9,7 @@ export const verifyJwtToken = async () => {
   // const response = await
   await axios
     .post(
-      `${drfApiRoot}auth/jwt/verify`,
+      `${drfApiRoot}/auth/jwt/verify`,
       {
         'username': 'sin',
         'password': 'aws'

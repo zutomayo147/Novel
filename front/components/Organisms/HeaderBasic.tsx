@@ -4,7 +4,7 @@ import { AppLogo } from "../atoms/appLogo"
 import { HeaderBase as Base } from "./HeaderBase"
 import { Avatar, Text, IconButton, Icon } from "@chakra-ui/react"
 import { Spacer, Flex } from "@chakra-ui/layout"
-import { userState } from "store/userState"
+// import { userState } from "store/userState"
 import { useRecoilValue } from "recoil"
 import { RiMenuFill } from "react-icons/ri"
 import { useIsMobile } from "hooks/useIsMobile"
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const HeaderBasic: React.FC<Props> = () => {
-  const user = useRecoilValue(userState)
+  // const user = useRecoilValue(userState)
   const isMobile = useIsMobile()
   return (
     <>
@@ -35,9 +35,6 @@ export const HeaderBasic: React.FC<Props> = () => {
         )}
         <Spacer />
         <Flex alignItems="center">
-          <Link href="/mypage">
-            <Avatar size={isMobile ? "sm" : "md"} src={user.iconURL}></Avatar>
-          </Link>
         </Flex>
       </Base>
     </>

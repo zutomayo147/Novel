@@ -16,7 +16,7 @@ import {
   Icon,
 } from '@chakra-ui/react';
 
-const userSetting: NextPage = () => {
+const UserSetting: NextPage = () => {
   return (
     <Text>user設定</Text>
   )

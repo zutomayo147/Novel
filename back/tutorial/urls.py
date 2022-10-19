@@ -10,8 +10,8 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api-auth/", include("rest_framework.urls")),  # 追加
-    path("", include("snippets.urls")),  # 追加
+    path("api-auth/", include("rest_framework.urls")),
+    path("", include("snippets.urls")),
     # path("api/auth/", include("accounts.urls")),
     # path("api/v1/", include("apiv1.urls")),
     # path(r"^auth/", include("djoser.urls")),
@@ -24,15 +24,20 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += [
-        path("api/schema/", SpectacularAPIView.as_view(), name="schema"),  # 追加
+        path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
         path(
             "api/schema/swagger-ui/",
             SpectacularSwaggerView.as_view(url_name="schema"),
             name="swagger-ui",
-        ),  # 追加
+        ),
         path(
             "api/schema/redoc/",
             SpectacularRedocView.as_view(url_name="schema"),
             name="redoc",
-        ),  # 追加
+        ),
+    ]
+    import debug_toolbar
+
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
     ]

@@ -1,0 +1,2064 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /:
+    get:
+      operationId: root_retrieve
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /{format}:
+    get:
+      operationId: root_formatted_retrieve
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /auth/jwt/create/:
+    post:
+      operationId: auth_jwt_create_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /auth/jwt/refresh/:
+    post:
+      operationId: auth_jwt_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /auth/jwt/verify/:
+    post:
+      operationId: auth_jwt_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+  /auth/token/login/:
+    post:
+      operationId: auth_token_login_create
+      description: Use this endpoint to obtain user authentication token.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenCreate'
+          description: ''
+  /auth/token/logout/:
+    post:
+      operationId: auth_token_logout_create
+      description: Use this endpoint to logout user (remove user authentication token).
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /auth/users/:
+    get:
+      operationId: auth_users_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+    post:
+      operationId: auth_users_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreate'
+          description: ''
+  /auth/users/{id}/:
+    get:
+      operationId: auth_users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: auth_users_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: auth_users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: auth_users_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /auth/users/activation/:
+    post:
+      operationId: auth_users_activation_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Activation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Activation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Activation'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activation'
+          description: ''
+  /auth/users/me/:
+    get:
+      operationId: auth_users_me_retrieve
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: auth_users_me_update
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: auth_users_me_partial_update
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: auth_users_me_destroy
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /auth/users/resend_activation/:
+    post:
+      operationId: auth_users_resend_activation_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
+  /auth/users/reset_password/:
+    post:
+      operationId: auth_users_reset_password_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
+  /auth/users/reset_password_confirm/:
+    post:
+      operationId: auth_users_reset_password_confirm_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirm'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordResetConfirm'
+          description: ''
+  /auth/users/reset_username/:
+    post:
+      operationId: auth_users_reset_username_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendEmailReset'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendEmailReset'
+          description: ''
+  /auth/users/reset_username_confirm/:
+    post:
+      operationId: auth_users_reset_username_confirm_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsernameResetConfirm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UsernameResetConfirm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UsernameResetConfirm'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsernameResetConfirm'
+          description: ''
+  /auth/users/set_password/:
+    post:
+      operationId: auth_users_set_password_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetPassword'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SetPassword'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SetPassword'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetPassword'
+          description: ''
+  /auth/users/set_username/:
+    post:
+      operationId: auth_users_set_username_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetUsername'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SetUsername'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SetUsername'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetUsername'
+          description: ''
+  /snippets/:
+    get:
+      operationId: snippets_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSnippetList'
+          description: ''
+    post:
+      operationId: snippets_create
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+  /snippets{format}:
+    get:
+      operationId: snippets_formatted_list
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSnippetList'
+          description: ''
+    post:
+      operationId: snippets_formatted_create
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+  /snippets/{id}/:
+    get:
+      operationId: snippets_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+    put:
+      operationId: snippets_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+    patch:
+      operationId: snippets_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSnippet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSnippet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSnippet'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+    delete:
+      operationId: snippets_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /snippets/{id}{format}:
+    get:
+      operationId: snippets_formatted_retrieve
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+    put:
+      operationId: snippets_formatted_update
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Snippet'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+    patch:
+      operationId: snippets_formatted_partial_update
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSnippet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSnippet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSnippet'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Snippet'
+          description: ''
+    delete:
+      operationId: snippets_formatted_destroy
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /snippets/{id}/highlight/:
+    get:
+      operationId: snippets_highlight_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /snippets/{id}/highlight{format}:
+    get:
+      operationId: snippets_highlight_formatted_retrieve
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .html
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - snippets
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /users/:
+    get:
+      operationId: users_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserSerializer2List'
+          description: ''
+  /users{format}:
+    get:
+      operationId: users_formatted_list
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserSerializer2List'
+          description: ''
+  /users/{id}/:
+    get:
+      operationId: users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSerializer2'
+          description: ''
+  /users/{id}{format}:
+    get:
+      operationId: users_formatted_retrieve
+      parameters:
+      - in: path
+        name: format
+        schema:
+          type: string
+          enum:
+          - .json
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSerializer2'
+          description: ''
+components:
+  schemas:
+    Activation:
+      type: object
+      properties:
+        uid:
+          type: string
+        token:
+          type: string
+      required:
+      - token
+      - uid
+    LanguageEnum:
+      enum:
+      - abap
+      - abnf
+      - actionscript
+      - actionscript3
+      - ada
+      - adl
+      - agda
+      - aheui
+      - alloy
+      - ambienttalk
+      - amdgpu
+      - ampl
+      - ansys
+      - antlr
+      - antlr-actionscript
+      - antlr-cpp
+      - antlr-csharp
+      - antlr-java
+      - antlr-objc
+      - antlr-perl
+      - antlr-python
+      - antlr-ruby
+      - apacheconf
+      - apl
+      - applescript
+      - arduino
+      - arrow
+      - aspectj
+      - aspx-cs
+      - aspx-vb
+      - asymptote
+      - augeas
+      - autohotkey
+      - autoit
+      - awk
+      - bare
+      - basemake
+      - bash
+      - batch
+      - bbcbasic
+      - bbcode
+      - bc
+      - befunge
+      - bibtex
+      - blitzbasic
+      - blitzmax
+      - bnf
+      - boa
+      - boo
+      - boogie
+      - brainfuck
+      - bst
+      - bugs
+      - c
+      - c-objdump
+      - ca65
+      - cadl
+      - camkes
+      - capdl
+      - capnp
+      - cbmbas
+      - cddl
+      - ceylon
+      - cfc
+      - cfengine3
+      - cfm
+      - cfs
+      - chaiscript
+      - chapel
+      - charmci
+      - cheetah
+      - cirru
+      - clay
+      - clean
+      - clojure
+      - clojurescript
+      - cmake
+      - cobol
+      - cobolfree
+      - coffeescript
+      - common-lisp
+      - componentpascal
+      - console
+      - coq
+      - cpp
+      - cpp-objdump
+      - cpsa
+      - cr
+      - crmsh
+      - croc
+      - cryptol
+      - csharp
+      - csound
+      - csound-document
+      - csound-score
+      - css
+      - css+django
+      - css+genshitext
+      - css+lasso
+      - css+mako
+      - css+mozpreproc
+      - css+myghty
+      - css+php
+      - css+ruby
+      - css+smarty
+      - cuda
+      - cypher
+      - cython
+      - d
+      - d-objdump
+      - dart
+      - dasm16
+      - debcontrol
+      - debsources
+      - delphi
+      - devicetree
+      - dg
+      - diff
+      - django
+      - docker
+      - doscon
+      - dpatch
+      - dtd
+      - duel
+      - dylan
+      - dylan-console
+      - dylan-lid
+      - earl-grey
+      - easytrieve
+      - ebnf
+      - ec
+      - ecl
+      - eiffel
+      - elixir
+      - elm
+      - emacs-lisp
+      - email
+      - erb
+      - erl
+      - erlang
+      - evoque
+      - execline
+      - extempore
+      - ezhil
+      - factor
+      - fan
+      - fancy
+      - felix
+      - fennel
+      - fish
+      - flatline
+      - floscript
+      - forth
+      - fortran
+      - fortranfixed
+      - foxpro
+      - freefem
+      - fsharp
+      - fstar
+      - futhark
+      - gap
+      - gas
+      - gcode
+      - gdscript
+      - genshi
+      - genshitext
+      - gherkin
+      - glsl
+      - gnuplot
+      - go
+      - golo
+      - gooddata-cl
+      - gosu
+      - graphviz
+      - groff
+      - groovy
+      - gst
+      - haml
+      - handlebars
+      - haskell
+      - haxe
+      - haxeml
+      - hexdump
+      - hlsl
+      - hsail
+      - hspec
+      - html
+      - html+cheetah
+      - html+django
+      - html+evoque
+      - html+genshi
+      - html+handlebars
+      - html+lasso
+      - html+mako
+      - html+myghty
+      - html+ng2
+      - html+php
+      - html+smarty
+      - html+twig
+      - html+velocity
+      - http
+      - hybris
+      - hylang
+      - i6t
+      - icon
+      - idl
+      - idris
+      - iex
+      - igor
+      - inform6
+      - inform7
+      - ini
+      - io
+      - ioke
+      - irc
+      - isabelle
+      - j
+      - jags
+      - jasmin
+      - java
+      - javascript
+      - javascript+cheetah
+      - javascript+django
+      - javascript+lasso
+      - javascript+mako
+      - javascript+mozpreproc
+      - javascript+myghty
+      - javascript+php
+      - javascript+ruby
+      - javascript+smarty
+      - jcl
+      - jlcon
+      - js+genshitext
+      - jsgf
+      - json
+      - jsonld
+      - jsp
+      - julia
+      - juttle
+      - kal
+      - kconfig
+      - kmsg
+      - koka
+      - kotlin
+      - kuin
+      - lasso
+      - lean
+      - less
+      - lighttpd
+      - limbo
+      - liquid
+      - literate-agda
+      - literate-cryptol
+      - literate-haskell
+      - literate-idris
+      - livescript
+      - llvm
+      - llvm-mir
+      - llvm-mir-body
+      - logos
+      - logtalk
+      - lsl
+      - lua
+      - make
+      - mako
+      - maql
+      - markdown
+      - mask
+      - mason
+      - mathematica
+      - matlab
+      - matlabsession
+      - mime
+      - minid
+      - miniscript
+      - modelica
+      - modula2
+      - monkey
+      - monte
+      - moocode
+      - moonscript
+      - mosel
+      - mozhashpreproc
+      - mozpercentpreproc
+      - mql
+      - mscgen
+      - mupad
+      - mxml
+      - myghty
+      - mysql
+      - nasm
+      - ncl
+      - nemerle
+      - nesc
+      - nestedtext
+      - newlisp
+      - newspeak
+      - ng2
+      - nginx
+      - nimrod
+      - nit
+      - nixos
+      - notmuch
+      - nsis
+      - numpy
+      - nusmv
+      - objdump
+      - objdump-nasm
+      - objective-c
+      - objective-c++
+      - objective-j
+      - ocaml
+      - octave
+      - odin
+      - omg-idl
+      - ooc
+      - opa
+      - openedge
+      - pacmanconf
+      - pan
+      - parasail
+      - pawn
+      - peg
+      - perl
+      - perl6
+      - php
+      - pig
+      - pike
+      - pkgconfig
+      - plpgsql
+      - pointless
+      - pony
+      - postgresql
+      - postscript
+      - pot
+      - pov
+      - powershell
+      - praat
+      - prolog
+      - promql
+      - properties
+      - protobuf
+      - ps1con
+      - psql
+      - psysh
+      - pug
+      - puppet
+      - py2tb
+      - pycon
+      - pypylog
+      - pytb
+      - python
+      - python2
+      - qbasic
+      - qml
+      - qvto
+      - racket
+      - ragel
+      - ragel-c
+      - ragel-cpp
+      - ragel-d
+      - ragel-em
+      - ragel-java
+      - ragel-objc
+      - ragel-ruby
+      - rbcon
+      - rconsole
+      - rd
+      - reasonml
+      - rebol
+      - red
+      - redcode
+      - registry
+      - resourcebundle
+      - restructuredtext
+      - rexx
+      - rhtml
+      - ride
+      - rng-compact
+      - roboconf-graph
+      - roboconf-instances
+      - robotframework
+      - rql
+      - rsl
+      - ruby
+      - rust
+      - sarl
+      - sas
+      - sass
+      - scala
+      - scaml
+      - scdoc
+      - scheme
+      - scilab
+      - scss
+      - sgf
+      - shen
+      - shexc
+      - sieve
+      - silver
+      - singularity
+      - slash
+      - slim
+      - slurm
+      - smali
+      - smalltalk
+      - smarty
+      - sml
+      - snobol
+      - snowball
+      - solidity
+      - sp
+      - sparql
+      - spec
+      - splus
+      - sql
+      - sqlite3
+      - squidconf
+      - ssp
+      - stan
+      - stata
+      - supercollider
+      - swift
+      - swig
+      - systemverilog
+      - tads3
+      - tap
+      - tasm
+      - tcl
+      - tcsh
+      - tcshcon
+      - tea
+      - teal
+      - teratermmacro
+      - termcap
+      - terminfo
+      - terraform
+      - tex
+      - text
+      - thrift
+      - ti
+      - tid
+      - tnt
+      - todotxt
+      - toml
+      - trac-wiki
+      - trafficscript
+      - treetop
+      - tsql
+      - turtle
+      - twig
+      - typescript
+      - typoscript
+      - typoscriptcssdata
+      - typoscripthtmldata
+      - ucode
+      - unicon
+      - urbiscript
+      - usd
+      - vala
+      - vb.net
+      - vbscript
+      - vcl
+      - vclsnippets
+      - vctreestatus
+      - velocity
+      - verilog
+      - vgl
+      - vhdl
+      - vim
+      - wast
+      - wdiff
+      - webidl
+      - whiley
+      - x10
+      - xml
+      - xml+cheetah
+      - xml+django
+      - xml+evoque
+      - xml+lasso
+      - xml+mako
+      - xml+myghty
+      - xml+php
+      - xml+ruby
+      - xml+smarty
+      - xml+velocity
+      - xorg.conf
+      - xquery
+      - xslt
+      - xtend
+      - xul+mozpreproc
+      - yaml
+      - yaml+jinja
+      - yang
+      - zeek
+      - zephir
+      - zig
+      type: string
+    PaginatedSnippetList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Snippet'
+    PaginatedUserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PaginatedUserSerializer2List:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSerializer2'
+    PasswordResetConfirm:
+      type: object
+      properties:
+        uid:
+          type: string
+        token:
+          type: string
+        new_password:
+          type: string
+      required:
+      - new_password
+      - token
+      - uid
+    PatchedSnippet:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        highlight:
+          type: string
+          format: uri
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+        linenos:
+          type: boolean
+        language:
+          $ref: '#/components/schemas/LanguageEnum'
+        style:
+          $ref: '#/components/schemas/StyleEnum'
+        owner:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          readOnly: true
+    PatchedUser:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+    SendEmailReset:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    SetPassword:
+      type: object
+      properties:
+        new_password:
+          type: string
+        current_password:
+          type: string
+      required:
+      - current_password
+      - new_password
+    SetUsername:
+      type: object
+      properties:
+        current_password:
+          type: string
+        new_username:
+          type: string
+          title: Username
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+      required:
+      - current_password
+      - new_username
+    Snippet:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        highlight:
+          type: string
+          format: uri
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        code:
+          type: string
+        linenos:
+          type: boolean
+        language:
+          $ref: '#/components/schemas/LanguageEnum'
+        style:
+          $ref: '#/components/schemas/StyleEnum'
+        owner:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          readOnly: true
+      required:
+      - code
+      - highlight
+      - id
+      - owner
+      - url
+    StyleEnum:
+      enum:
+      - abap
+      - algol
+      - algol_nu
+      - arduino
+      - autumn
+      - borland
+      - bw
+      - colorful
+      - default
+      - emacs
+      - friendly
+      - fruity
+      - gruvbox-dark
+      - gruvbox-light
+      - igor
+      - inkpot
+      - lovelace
+      - manni
+      - material
+      - monokai
+      - murphy
+      - native
+      - paraiso-dark
+      - paraiso-light
+      - pastie
+      - perldoc
+      - rainbow_dash
+      - rrt
+      - sas
+      - solarized-dark
+      - solarized-light
+      - stata
+      - stata-dark
+      - stata-light
+      - tango
+      - trac
+      - vim
+      - vs
+      - xcode
+      - zenburn
+      type: string
+    TokenCreate:
+      type: object
+      properties:
+        password:
+          type: string
+        username:
+          type: string
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - password
+      - refresh
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+      required:
+      - id
+      - username
+    UserCreate:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - id
+      - password
+      - username
+    UserSerializer2:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        snippets:
+          type: array
+          items:
+            type: string
+            format: uri
+          readOnly: true
+      required:
+      - id
+      - snippets
+      - url
+      - username
+    UsernameResetConfirm:
+      type: object
+      properties:
+        new_username:
+          type: string
+          title: Username
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+      required:
+      - new_username
+  securitySchemes:
+    jwtAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "JWT"

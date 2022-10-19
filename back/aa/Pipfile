@@ -21,9 +21,9 @@ django-debug-toolbar = "==3.5.0"
 django-security = "==0.12.0"
 django-storages = "==1.13.1"
 django-environ = "==0.9.0"
-django-extensions = "==3.2.1"
 
 [dev-packages]
+django-extensions = "==3.2.1"
 
 [requires]
 python_version = "3.10"

@@ -95,6 +95,8 @@ SIMPLE_JWT = {
 # 'SERIALIZERS': {},
 # }
 # LOGIN_URL = "/"
+# LOGOUT_REDIRECT_URL
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",

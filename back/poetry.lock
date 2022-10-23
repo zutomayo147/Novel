@@ -303,6 +303,14 @@ Faker = ">=0.7.7"
 toposort = ">=1.5"
 
 [[package]]
+name = "django-simple-history"
+version = "3.1.1"
+description = "Store model history and view/revert changes from admin site."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "django-storages"
 version = "1.13.1"
 description = "Support for many storage backends in Django"
@@ -501,6 +509,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "drf-writable-nested"
+version = "0.7.0"
+description = "Writable nested helpers for django-rest-framework's serializers"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "Faker"
 version = "15.1.1"
 description = "Faker is a Python package that generates fake data for you."
@@ -521,18 +537,18 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "inflect"
-version = "6.0.0"
+version = "6.0.2"
 description = "Correctly generate plurals, singular nouns, ordinals, indefinite articles; convert numbers to words"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-pydantic = "*"
+pydantic = ">=1.9.1"
 
 [package.extras]
-docs = ["jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx"]
-testing = ["pygments", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)"]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)"]
+testing = ["flake8 (<5)", "pygments", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)"]
 
 [[package]]
 name = "inflection"
@@ -694,19 +710,18 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "PyJWT"
-version = "2.5.0"
+version = "2.6.0"
 description = "JSON Web Token implementation in Python"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-cryptography = {version = ">=3.3.1", optional = true, markers = "extra == \"crypto\""}
-types-cryptography = {version = ">=3.3.21", optional = true, markers = "extra == \"crypto\""}
+cryptography = {version = ">=3.4.0", optional = true, markers = "extra == \"crypto\""}
 
 [package.extras]
-crypto = ["cryptography (>=3.3.1)", "types-cryptography (>=3.3.21)"]
-dev = ["coverage[toml] (==5.0.4)", "cryptography (>=3.3.1)", "pre-commit", "pytest (>=6.0.0,<7.0.0)", "sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "types-cryptography (>=3.3.21)", "zope.interface"]
+crypto = ["cryptography (>=3.4.0)"]
+dev = ["coverage[toml] (==5.0.4)", "cryptography (>=3.4.0)", "pre-commit", "pytest (>=6.0.0,<7.0.0)", "sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 docs = ["sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
 
@@ -878,14 +893,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "types-cryptography"
-version = "3.3.23.1"
-description = "Typing stubs for cryptography"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "types-Markdown"
 version = "3.4.2.1"
 description = "Typing stubs for Markdown"
@@ -982,7 +989,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "3.10.7"
-content-hash = "181a9834dea848e6e95b2fc1456498bc7b6044a01bd4c5a7b8c1393248e6c584"
+content-hash = "81b89327b6cb8ca8033e3b0389f4142b4d74382197fae3acf530deacd470cfcd"
 
 [metadata.files]
 asgiref = [
@@ -1166,6 +1173,9 @@ django-security = [
 django-seed = [
     {file = "django-seed-0.3.1.tar.gz", hash = "sha256:93e65d2c10449c464b83e9031be02763ec10e786aa064d649c4dd5ad06fa0eea"},
 ]
+django-simple-history = [
+    {file = "django-simple-history-3.1.1.tar.gz", hash = "sha256:eab6dbddb7da756cc5579f7d6f28a32b2e8bb1697a5c37794d96309793ffec38"},
+]
 django-storages = [
     {file = "django-storages-1.13.1.tar.gz", hash = "sha256:b3d98ecc09f1b1627c2b2cf430964322ce4e08617dbf9b4236c16a32875a1e0b"},
     {file = "django_storages-1.13.1-py3-none-any.whl", hash = "sha256:3540b45618b04be2c867c0982e8d2bd8e34f84dae922267fcebe4691fb93daf0"},
@@ -1221,6 +1231,9 @@ drf-spectacular = [
 drf-typed = [
     {file = "drf-typed-0.2.0.tar.gz", hash = "sha256:8de1bebfb13639dc433387fff11908744bdb9e624707cedb919cda455fb4b4e0"},
 ]
+drf-writable-nested = [
+    {file = "drf_writable_nested-0.7.0-py3-none-any.whl", hash = "sha256:154c0381e8a3a477e0fd539d5e1caf8ff4c1097a9c0c0fe741d4858b11b0455b"},
+]
 Faker = [
     {file = "Faker-15.1.1-py3-none-any.whl", hash = "sha256:096c15e136adb365db24d8c3964fe26bfc68fe060c9385071a339f8c14e09c8a"},
     {file = "Faker-15.1.1.tar.gz", hash = "sha256:a741b77f484215c3aab2604100669657189548f440fcb2ed0f8b7ee21c385629"},
@@ -1230,8 +1243,8 @@ idna = [
     {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
 ]
 inflect = [
-    {file = "inflect-6.0.0-py3-none-any.whl", hash = "sha256:e3b85d65a296843268f35f4136283ad7c012a129375db1529d49b4b01ecb400b"},
-    {file = "inflect-6.0.0.tar.gz", hash = "sha256:0bc1516ec2725e2d8221707a612245093cb6f1cea209cfd8cbd4fc5e96fa6365"},
+    {file = "inflect-6.0.2-py3-none-any.whl", hash = "sha256:182741ec7e9e4c8f7f55b01fa6d80bcd3c4a183d349dfa6d9abbff0a1279e98f"},
+    {file = "inflect-6.0.2.tar.gz", hash = "sha256:f1a6bcb0105046f89619fde1a7d044c612c614c2d85ef182582d9dc9b86d309a"},
 ]
 inflection = [
     {file = "inflection-0.5.1-py2.py3-none-any.whl", hash = "sha256:f38b2b640938a4f35ade69ac3d053042959b62a0f1076a5bbaa1b9526605a8a2"},
@@ -1439,8 +1452,8 @@ pygraphviz = [
     {file = "pygraphviz-1.10.zip", hash = "sha256:457e093a888128903251a266a8cc16b4ba93f3f6334b3ebfed92c7471a74d867"},
 ]
 PyJWT = [
-    {file = "PyJWT-2.5.0-py3-none-any.whl", hash = "sha256:8d82e7087868e94dd8d7d418e5088ce64f7daab4b36db654cbaedb46f9d1ca80"},
-    {file = "PyJWT-2.5.0.tar.gz", hash = "sha256:e77ab89480905d86998442ac5788f35333fa85f65047a534adc38edf3c88fc3b"},
+    {file = "PyJWT-2.6.0-py3-none-any.whl", hash = "sha256:d83c3d892a77bbb74d3e1a2cfa90afaadb60945205d1095d9221f04466f64c14"},
+    {file = "PyJWT-2.6.0.tar.gz", hash = "sha256:69285c7e31fc44f68a1feb309e948e0df53259d579295e6cfe2b1792329f05fd"},
 ]
 pyrsistent = [
     {file = "pyrsistent-0.18.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:df46c854f490f81210870e509818b729db4488e1f30f2a1ce1698b2295a878d1"},
@@ -1559,10 +1572,6 @@ tomli = [
 toposort = [
     {file = "toposort-1.7-py2.py3-none-any.whl", hash = "sha256:8ed8e109e96ae30bf66da2d2155e4eb9989d9c5c743c837e37d9774a4eddd804"},
     {file = "toposort-1.7.tar.gz", hash = "sha256:ddc2182c42912a440511bd7ff5d3e6a1cabc3accbc674a3258c8c41cbfbb2125"},
-]
-types-cryptography = [
-    {file = "types-cryptography-3.3.23.1.tar.gz", hash = "sha256:f108e7a7161eedd9fe391e1a8ae5a98d40c1da2f0418bc0812a9119990272314"},
-    {file = "types_cryptography-3.3.23.1-py3-none-any.whl", hash = "sha256:b9f8aa93d9e4d7ff920961cdce3dc7cca479946890924d68356b66f15f4f35e3"},
 ]
 types-Markdown = [
     {file = "types-Markdown-3.4.2.1.tar.gz", hash = "sha256:03c0904cf5886a7d8193e2f50bcf842afc89e0ab80f060f389f6c2635c65628f"},

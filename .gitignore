@@ -14,6 +14,9 @@ front/node_modules
 front/.next/
 /out/
 
+# back
+back/.venv
+
 # production
 /build
 
@@ -31,6 +34,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel

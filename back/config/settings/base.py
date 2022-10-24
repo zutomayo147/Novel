@@ -25,12 +25,10 @@ SECRET_KEY = "django-insecure-d62*89_^dag(j)0%)v4ztuz&*$hxivmni@-@5a#so3-miw1_oz
 
 INSTALLED_APPS = [
     # my apps
-    "accounts.apps.AccountsConfig",
-    "apiv1.apps.Apiv1Config",
-    "novel.apps.Apiv1Config",
-    # "accounts",
-    # "apiv1",
-    # "books",
+    "accounts",
+    "apiv1",
+    "posts",
+    "profiles",
     # 3dr paty apps
     "rest_framework",
     "rest_framework.authtoken",

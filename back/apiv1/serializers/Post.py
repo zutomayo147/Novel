@@ -30,7 +30,8 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "post_title",
-            "owner" "post_caption",
+            "owner",
+            "post_caption",
             "post_content",
             "tagList",
         ]

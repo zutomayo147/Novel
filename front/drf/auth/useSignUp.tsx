@@ -19,14 +19,14 @@ export const useSignUp = () => {
   const router = useRouter()
 
   const signUp = useCallback(async (props: userInfo) => {
-    const { email, password, userName } = { ...props }
+    const { email, password, userName } = props
     await axios
       .post(
         `${drfApiRoot}/auth/users/`,
         {
-          'email': email,
-          'password': password,
-          'username': userName,
+          email,
+          password,
+          userName,
         },
         {
           headers: {

@@ -13,8 +13,8 @@ import GetJwtToken from "./getJwtToken"
 // import { useSetRecoilState } from "recoil"
 
 type userInfo = {
-  // email: string
-  userName: string
+  email: string
+  // userName: string
   password: string
 }
 
@@ -31,15 +31,15 @@ export const useSignIn = () => {
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
 
   const signIn = useCallback(async (props: userInfo) => {
-    const { password, userName } = { ...props }
+    const { email, password, } = props
     console.log(props)
     await axios
       .post(
         `${drfApiRoot}/auth/token/login`,
         {
-          // 'email': email,
-          'password': password,
-          'username': userName,
+          email, password
+
+          // 'username': userName,
           // [...props]
 
         },
@@ -53,7 +53,8 @@ export const useSignIn = () => {
       ).then((res) => {
         // TODO
         setCookie("isLogin", true, { path: '/', maxAge: 10000000000000 })
-        getJWT({ password, userName })
+        // getJWT({ password, userName })
+        getJWT({ email, password })
         // setCookie("isLogin", true,{path:'/',httpOnly:true})
         router.push("/user/")
         // console.log(res.data)
@@ -61,11 +62,7 @@ export const useSignIn = () => {
       .catch(err => {
         console.log(err)
         alert(err)
-        console.error("failed to signIn")
-      })
-      .catch((err) => {
-        alert(err)
-        console.error("failed to signIn")
+        console.error("failed to signIn 1")
       })
   }, [])
   return signIn

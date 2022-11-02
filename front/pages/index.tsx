@@ -6,75 +6,39 @@
 // import { PrimaryButton } from "components/atoms/button/PrimaryButton"
 // import { useSignIn } from "hooks/useSignIn"
 // import { AppTop } from "components/Layouts/AppTop"
-
+// import { AppName } from "components/atoms/appName"
+import { AppHeader } from "components/Molecules/AppHeader"
+import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
+import { Box, Divider, Heading, Stack } from "@chakra-ui/layout"
+import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
+import { IconButton } from "@chakra-ui/button"
+import { PrimaryButton } from "components/atoms/button/PrimaryButton"
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import { Button, ButtonGroup } from '@chakra-ui/react'
 // import { Stack, HStack, VStack } from '@chakra-ui/react'
 import { Flex, Spacer } from '@chakra-ui/react'
 import { Text } from '@chakra-ui/react'
 import Link from "next/link"
-import { NextPage } from "next"
+// import { NextPage } from "next"
+import useSignUp from "drf/auth/useSignUp"
 // import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
-import { ReactElement } from "react"
 
 const Home = () => {
-  // const setUserData = useSetRecoilState(userState);
-  // const [loggedIn, setLoggedIn] = useRecoilState(isLoggedIn);
-  // const [loading, setLoading] = React.useState(auth);
-  //
-  // useEffect(() => {
-  //   // console.log(loggedIn);
-  //   if (checkToken()) {
-  //     setLoggedIn(true);
-  //     setLoading(false);
-  //     const token = fetchToken();
-  //     fetch(serverConfig.serverURL + serverConfig.routes.fetchUser, {
-  //       method: "GET",
-  //       mode: 'cors',
-  //       cache: 'no-cache',
-  //       credentials: 'same-origin',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${token.token}`
-  //       },
-  //       redirect: 'follow',
-  //       referrerPolicy: 'no-referrer',
-  //     })
-  //       .then(res => res.json())
-  //       .then(res => {
-  //         setUserData(res.user);
-  //       });
-  //   } else {
-  //     setLoading(false);
-  //   }
-  //
-  // }, [auth, authFallback, loggedIn, setLoggedIn, setUserData])
 
+  // const [userName, setUserName] = useState("")
+  // const [password, setPassword] = useState("")
+  // const [email, setEmail] = useState("")
+  // const [showPassword, setShowPassword] = useState(false)
+  // const signUp = useSignUp()
+  // const onChangeUserName = (e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)
+  // const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
+  // const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
+  // const handleClick = () => setShowPassword(!showPassword)
+  // const onClickSignUp = () => signUp({ email, password, userName })
   return (
-    //     <>
-    //   {loading ? <Loading /> : (
-    //     <>
-    //       {/* Fallback Redirect */}
-    //       {auth && !loggedIn ? <Redirect to={authFallback} /> : (<>
-    //
-    //         <Head>
-    //           <title>{title} | NightKit</title>
-    //         </Head>
-    //         <div>
-    //           <Nav />
-    //           <div className="container flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">  {/* container my-6 */}
-    //             {children}
-    //           </div>
-    //         </div>
-    //
-    //       </>)}
-    //
-    //     </>
-    //   )}
-    // </>
-
     <>
       <Flex flexDirection='column' alignItems='center' >
-        <Text>ランディングページ</Text>
+        <Text>LandingPage</Text>
         <Link href="/signUp">
           <Button colorScheme='teal' variant='solid'>
             signUp

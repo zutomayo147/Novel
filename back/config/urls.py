@@ -7,9 +7,21 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+# from django.urls import include, path
+# from rest_framework import routers
+# from apiv1 import views
+#
+# router = routers.DefaultRouter()
+# router.register(r"questions", views.QuestionViewSet)
+#
+# urlpatterns = [
+#     path("", include(router.urls)),
+# ]
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/v1/", include("apiv1.urls")),
     path("api-auth/", include("rest_framework.urls")),  # 追加
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.authtoken")),  # login logot
@@ -17,6 +29,7 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    import debug_toolbar
     urlpatterns += [
         path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
         path(
@@ -29,4 +42,5 @@ if settings.DEBUG:
             SpectacularRedocView.as_view(url_name="schema"),
             name="redoc",
         ),
+        path("__debug__/", include("debug_toolbar.urls")),
     ]

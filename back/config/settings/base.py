@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "apiv1",
     "posts",
     "profiles",
+    "notifications",
     # 3dr paty apps
     "rest_framework",
     "rest_framework.authtoken",
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     "djoser",
     "corsheaders",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -44,17 +46,23 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    # "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        # "rest_framework.authentication.SessionAuthentication",
+        # "rest_framework.authentication.BasicAuthentication"
+        # "rest_framework.authentication.TokenAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
 }
+
 
 # custom user model
 AUTH_USER_MODEL = "accounts.User"
@@ -116,6 +124,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        # "ATOMIC_REQUESTS": True,
     }
 }
 

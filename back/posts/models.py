@@ -10,15 +10,18 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL, verbose_name="作成者", on_delete=models.CASCADE
     )
     post_caption = models.CharField(max_length=100, blank=True)
-    post_created = models.DateTimeField(auto_now_add=True)
     # post_content = models.TextField(blank=True, null=True)
     post_content = models.TextField(verbose_name="内容")
+
+    post_created = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     # post_git = models.FileField(upload_to="file/%Y/%m/%d")
     # post_history = models.FileField(upload_to="")
     # is_fork = models.BooleanField()
+    # is_original = models.BooleanField()
+    # is_original = models.BooleanField()
 
     # @property
     # def no_of_likes(self):

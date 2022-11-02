@@ -4,8 +4,8 @@ import { drfApiRoot } from "constants/drf"
 import { useCallback } from "react"
 
 type userInfo = {
-  // email: string
-  userName: string
+  email: string
+  // userName: string
   password: string
 }
 
@@ -20,13 +20,13 @@ export const GetJwtToken = () => {
   // const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
 
   const getJWT = useCallback(async (props: userInfo) => {
-    const { password, userName } = { ...props }
+    // const { password, userName } = { ...props }
+    const { email, password } = props
     await axios
       .post(
         `${drfApiRoot}/auth/jwt/create`,
         {
-          'username': userName,
-          'password': password
+          email, password
         },
         {
           headers: {

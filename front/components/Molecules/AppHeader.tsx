@@ -4,7 +4,7 @@ import { AppName } from "components/atoms/appName"
 import { Flex, Spacer } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/react'
 
-export const AppHeader: React.FC = () => {
+const AppHeader: React.FC = () => {
   const isMobile = useIsMobile()
   return (
     <>
@@ -25,3 +25,5 @@ export const AppHeader: React.FC = () => {
     </>
   )
 }
+
+export default AppHeader

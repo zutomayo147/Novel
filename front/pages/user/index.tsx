@@ -23,15 +23,15 @@ import { useCookies } from 'react-cookie';
 const UserHome: NextPage = () => {
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
-  // console.log(cookie.isLogin)
-  // console.log(accsesToken)
   if (cookie.isLogin) {
     return (
       <>
-        <p suppressHydrationWarning>MyPage</p>
-        <Link href = "/snippets/">
-          <Button>投稿</Button>
-        </Link>
+        <Flex flexDirection = "column" alignItems = "center">
+          <p suppressHydrationWarning>MyPage</p>
+          <Link href="/user/post">
+            <Button>投稿</Button>
+          </Link>
+        </Flex>
       </>
     )
   } else {
@@ -46,5 +46,12 @@ const UserHome: NextPage = () => {
     )
   }
 }
+
+UserHome.getLayout = (page) => {
+  return (
+    page
+  )
+}
+
 
 export default UserHome

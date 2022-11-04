@@ -20,12 +20,12 @@ urlpatterns = [
         "post/comments/<pk>/", views.CommentDestroyAPIView.as_view({"get": "destroy"})
     ),
     # path("tags/", views.TagListAPIView.as_view({"get": "list"})),
-    # path(
-    #     "profiles/<username>/",
-    #     views.ProfileViewSet.as_view({"get": "retrieve", "post": "update"}),
-    # ),
-    # path(
-    #     "profiles/image/<username>/",
-    #     views.ProfileImageViewSet.as_view({"post": "update"}),
-    # ),
+    path(
+        "profiles/<username>/",
+        views.ProfileViewSet.as_view({"get": "retrieve", "post": "update"}),
+    ),
+    path(
+        "profiles/image/<username>/",
+        views.ProfileImageViewSet.as_view({"post": "update"}),
+    ),
 ]

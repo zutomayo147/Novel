@@ -1,9 +1,24 @@
+from statistics import mode
+import uuid
 from django.db import models
-from django.conf import settings
 
 
 class Profile(models.Model):
-    user_name = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    user_showname = models.CharField(null=False, max_length=20)
-    user_img = models.ImageField(null=True, upload_to="upload", max_length=None)
-    user_detail = models.CharField(null=False, max_length=100)
+    """Profile Model"""
+
+    class Meta:
+        db_table = "profile"
+        ordering = [
+            "created_at",
+        ]
+        verbose_name = verbose_name_plural = "プロファイル"
+
+    user = models.OneToOneField("accounts.User", on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    image = models.FileField(upload_to="images/", blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username

@@ -2,6 +2,7 @@ from pathlib import Path
 from datetime import timedelta
 
 import environ
+import os
 
 #
 env = environ.Env()
@@ -46,6 +47,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 REST_FRAMEWORK = {

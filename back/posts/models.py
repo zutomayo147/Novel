@@ -53,10 +53,21 @@ class Tag(models.Model):
 
 
 class Comment(models.Model):
+    class Meta:
+        db_table = "comment"
+        ordering = [
+            "created_at",
+        ]
+        verbose_name = verbose_name_plural = "コメント"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data = models.TextField(null=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     parent_post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now=True)
+    # date = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 
 class Like(models.Model):

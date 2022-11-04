@@ -7,7 +7,7 @@
 // import { useSignIn } from "hooks/useSignIn"
 // import { AppTop } from "components/Layouts/AppTop"
 // import { AppName } from "components/atoms/appName"
-import { AppHeader } from "components/Molecules/AppHeader"
+import AppHeader from "components/Molecules/AppHeader"
 import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 import { Box, Divider, Heading, Stack } from "@chakra-ui/layout"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
@@ -27,10 +27,12 @@ const Home = () => {
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
   const [showPassword, setShowPassword] = useState(false)
+
   const signUp = useSignUp()
   const onChangeUserName = (e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
+
   const handleClick = () => setShowPassword(!showPassword)
   const onClickSignUp = () => signUp({ email, password, userName })
   return (

@@ -23,7 +23,7 @@ class TagRelatedField(serializers.RelatedField):
 class PostSerializer(serializers.ModelSerializer):
 
     owner = UserSerializer(read_only=True)
-    tagList = TagRelatedField(many=True, source="tags")
+    # tagList = TagRelatedField(many=True, source="tags")
 
     class Meta:
         model = Post
@@ -33,29 +33,30 @@ class PostSerializer(serializers.ModelSerializer):
             "owner",
             "post_caption",
             "post_content",
-            "tagList",
+            # "tagList",
         ]
 
-    def create(self, validated_data):
-        """tagを同時に追加できるようにする"""
-        tags = validated_data.pop("tags", [])
-        book = Post.objects.create(**validated_data)
-
-        for tag in tags:
-            book.tags.add(tag)
-
-        return book
+    # def create(self, validated_data):
+    #     """tagを同時に追加できるようにする"""
+    #     tags = validated_data.pop("tags", [])
+    #     book = Post.objects.create(**validated_data)
+    #
+    #     for tag in tags:
+    #         book.tags.add(tag)
+    #
+    #     return book
 
 
 class CommentSerializer(serializers.ModelSerializer):
     """Serializer for Comment Model"""
 
     owner = UserSerializer(read_only=True)
-    book = PostSerializer(read_only=True)
+    parent_post = PostSerializer(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ["id", "body", "book", "owner"]
+        # fields = ["id", "data", "parent_post", "owner"]
+        fields = ["data", "parent_post", "owner", "created_at", "updated_at"]
 
 
 class TagSerializer(serializers.ModelSerializer):

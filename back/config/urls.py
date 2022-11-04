@@ -21,7 +21,8 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/", include("apiv1.urls")),
+    # path("api/v1/", include("apiv1.urls")),
+    path("", include("apiv1.urls")),
     path("api-auth/", include("rest_framework.urls")),  # 追加
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.authtoken")),  # login logot
@@ -30,6 +31,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns += [
         path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
         path(

@@ -30,6 +30,8 @@ INSTALLED_APPS += [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://0.0.0.0:3000",
+    # "localhost:3000",
+    # "0.0.0.0:3000",
 ]
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost"]
 
@@ -85,6 +87,3 @@ if DEBUG:
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": lambda request: True,
 }
-
-# REST_FRAMEWORK  += {
-# }

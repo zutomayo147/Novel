@@ -62,22 +62,22 @@ if you add or remove packages from Pipfile,please run 'docker-compose build'
 ```mermaid
 sequenceDiagram
     react->>djoser: Create new account (/auth/users/)
-    djoser->>react: auth_token
+    djoser-->>react: auth_token
 
     react->>djoser: login (auth/token/login/)
-    djoser->>react: auth_token
+    djoser-->>react: auth_token
 
     react->>djoser: Create access token (/auth/jwt/create/)
-    djoser->>react: access token, refresh token
+    djoser-->>react: access token, refresh token
 
-    react-->>djoser: Refresh access token(/auth/jwt/refresh/)
-    djoser->>react: New access token, New refresh token
+    react->>djoser: Refresh access token(/auth/jwt/refresh/)
+    djoser-->>react: New access token, New refresh token
 
     react->>drf: API request (Beare:JWT)
-    drf->>react: API Response
+    drf-->>react: API Response
 
     react->>djoser: logout (auth/token/logout/)(Beare:JWT)
-    djoser->>react: success or error
+    djoser-->>react: success or error
 
 ```
 

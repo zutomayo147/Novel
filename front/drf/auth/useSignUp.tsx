@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCallback } from "react"
 import { useRouter } from "next/router"
 import { drfApiRoot } from "constants/drf"
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
 // import { useSetRecoilState } from "recoil"
 // import { GetJwtToken } from "./getJwtToken"
 
@@ -11,8 +11,8 @@ import { useCookies } from 'react-cookie';
 
 type userInfo = {
   email: string
-  userName: string
   password: string
+  userName: string
 }
 
 export const useSignUp = () => {
@@ -24,15 +24,12 @@ export const useSignUp = () => {
       .post(
         `${drfApiRoot}/auth/users/`,
         {
-          email,
-          password,
-          userName,
+          email, password, userName,
         },
         {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            // 'X-CSRFTOKEN': 'r6E3T8oqTuChTEGjCMakASZ6q430qlWS1GpZ0pr9lgX902WDt15i53NPThYLTBTv'
           }
         }
       ).then((res) => {

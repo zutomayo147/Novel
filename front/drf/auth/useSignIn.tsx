@@ -32,7 +32,6 @@ export const useSignIn = () => {
 
   const signIn = useCallback(async (props: userInfo) => {
     const { email, password, } = props
-    console.log(props)
     await axios
       .post(
         `${drfApiRoot}/auth/token/login`,
@@ -51,7 +50,6 @@ export const useSignIn = () => {
           }
         }
       ).then((res) => {
-        // TODO
         setCookie("isLogin", true, { path: '/', maxAge: 10000000000000 })
         // getJWT({ password, userName })
         getJWT({ email, password })

@@ -10,6 +10,11 @@
 
 ![businessmodel](https://user-images.githubusercontent.com/42014197/200145886-cb086285-8f38-4657-884e-afcde7960236.png)
 
+### Service Outline
+
+[GitNovel.pdf](https://github.com/zutomayo147/Novel/files/9944859/GitNovel.pdf)
+
+
 ### Built With
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.

@@ -21,6 +21,25 @@ import { Text } from '@chakra-ui/react'
 import Link from "next/link"
 // import { NextPage } from "next"
 import useSignUp from "drf/auth/useSignUp"
+// import { css } from '@emotion/react'
+// import styled from '@emotion/styled'
+//
+// const bgcolor = "#666666";
+//
+// const Box3 = styled.div`
+//   width: 200px;
+//   height: 100px;
+//   background-color: ${bgcolor};
+//   color: white;
+// `
+// const helloStyle = css({
+//   color: 'red'
+// });
+// <h1 css={helloStyle}>Hello</h1>
+// <Box3>box3</Box3>
+
+
+
 // import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 
 const Home = () => {
@@ -37,6 +56,7 @@ const Home = () => {
   // const onClickSignUp = () => signUp({ email, password, userName })
   return (
     <>
+
       <Flex flexDirection='column' alignItems='center' >
         <Text>LandingPage</Text>
         <Link href="/signUp">

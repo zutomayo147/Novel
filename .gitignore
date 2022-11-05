@@ -16,6 +16,7 @@ front/.next/
 
 # back
 back/.venv
+back/fixture/*.json
 
 # production
 /build

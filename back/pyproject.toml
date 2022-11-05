@@ -47,6 +47,7 @@ Faker = "15.1.1"
 django-dbbackup = "4.0.2"
 drf-writable-nested = "0.7.0"
 django-simple-history = "3.1.1"
+factory-boy = "3.2.1"
 
 [tool.poetry.group.dev.dependencies]
 django-extensions = "3.2.1"

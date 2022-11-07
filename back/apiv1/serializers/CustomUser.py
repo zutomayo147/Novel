@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from accounts.models import User
+from accounts.models import CustomUser
 
 
-class UserSerializer(serializers.ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = CustomUser
         fields = (
             "username",
             "email",

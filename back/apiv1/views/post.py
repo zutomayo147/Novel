@@ -1,4 +1,4 @@
-from accounts.models import User
+from accounts.models import CustomUser
 # from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -11,7 +11,7 @@ from posts.models import Post, Tag, Comment, Like, Saved_post
 from apiv1.permissions import IsOwnerOrReadOnly
 
 from apiv1.serializers.Post import *
-from apiv1.serializers.User import *
+from apiv1.serializers.CustomUser import *
 # from apiv1.serializers.Profile import *
 
 

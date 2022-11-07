@@ -1,4 +1,4 @@
-from accounts.models import User
+from accounts.models import CustomUser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -15,7 +15,7 @@ from .permissions import IsOwnerOrReadOnly
 # from .serializers import SnippetSerializer, UserSerializer2
 # from .serializers.snippet import SnippetSerializer
 from .serializers.Post import *
-from .serializers.User import *
+from .serializers.CustomUser import *
 from .serializers.Profile import *
 
 
@@ -48,12 +48,12 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
 

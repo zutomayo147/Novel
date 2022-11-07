@@ -3,14 +3,22 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .forms import UserChangeForm, UserCreationForm
-from .models import User
+from .models import CustomUser
 
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ("email", "username", "role", "is_active", "is_staff")
+    list_display = (
+        "email",
+        "username",
+        "role",
+        "is_active",
+        "is_staff",
+        "created_at",
+        "updated_at",
+    )
     list_filter = ("is_staff",)
     fieldsets = (
         (None, {"fields": ("username", "email", "password")}),
@@ -32,5 +40,5 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(CustomUser, UserAdmin)
 admin.site.unregister(Group)

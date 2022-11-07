@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from profiles.models import Profile
-from .User import UserSerializer
+from .CustomUser import CustomUserSerializer
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     """Serializer for Profile Model"""
 
-    user = UserSerializer(read_only=True)
+    user = CustomUserSerializer(read_only=True)
 
     class Meta:
         model = Profile
@@ -17,7 +17,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class ProfileImageSerializer(serializers.ModelSerializer):
     """Serializer for Profile Model"""
 
-    user = UserSerializer(read_only=True)
+    user = CustomUserSerializer(read_only=True)
     image = serializers.ImageField(use_url=True)
 
     class Meta:

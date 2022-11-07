@@ -74,7 +74,7 @@ class CustomUserManager(BaseUserManager):
     #     return self.none()
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     ADMIN = 1
     MANAGER = 2
     EMPLOYEE = 3

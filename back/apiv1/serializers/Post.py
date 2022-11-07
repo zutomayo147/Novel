@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from posts.models import Post, Tag, Comment, Like, Saved_post
-from .User import UserSerializer
+from .CustomUser import CustomUserSerializer
 
 
 class TagRelatedField(serializers.RelatedField):
@@ -22,7 +22,7 @@ class TagRelatedField(serializers.RelatedField):
 
 class PostSerializer(serializers.ModelSerializer):
 
-    owner = UserSerializer(read_only=True)
+    owner = CustomUserSerializer(read_only=True)
     # tagList = TagRelatedField(many=True, source="tags")
 
     class Meta:
@@ -50,7 +50,7 @@ class PostSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     """Serializer for Comment Model"""
 
-    owner = UserSerializer(read_only=True)
+    owner = CustomUserSerializer(read_only=True)
     parent_post = PostSerializer(read_only=True)
 
     class Meta:

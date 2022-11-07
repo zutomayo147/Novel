@@ -13,7 +13,7 @@ class Profile(models.Model):
         ]
         verbose_name = verbose_name_plural = "プロファイル"
 
-    user = models.OneToOneField("accounts.User", on_delete=models.CASCADE)
+    user = models.OneToOneField("accounts.CustomUser", on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
     image = models.FileField(upload_to="images/", blank=True, null=True)
 

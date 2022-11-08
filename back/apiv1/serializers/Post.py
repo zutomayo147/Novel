@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from posts.models import Post, Tag, Comment, Like, Saved_post
+from posts.models import Post, Tag, Comment, Like, Saved_post, UploadImage
 from .CustomUser import CustomUserSerializer
 
 
@@ -18,6 +18,12 @@ class TagRelatedField(serializers.RelatedField):
 
     def to_representation(self, value):
         return value.content
+
+
+class UploadImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadImage
+        fields = "__all__"
 
 
 class PostSerializer(serializers.ModelSerializer):

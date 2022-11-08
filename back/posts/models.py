@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 import uuid
+import os
 
 
 class Post(models.Model):
@@ -9,6 +10,10 @@ class Post(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name="作成者", on_delete=models.CASCADE
     )
+    owner.username
+    filePath = ["userPost", owner.username]
+    filePath = os.path.join(*filePath)
+    filePath = str(filePath)
     post_caption = models.CharField(max_length=100, blank=True)
     # post_content = models.TextField(blank=True, null=True)
     post_content = models.TextField(verbose_name="内容")
@@ -16,8 +21,8 @@ class Post(models.Model):
     post_created = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     # post_git = models.FileField(upload_to="file/%Y/%m/%d")
+    post_git = models.FileField(upload_to=filePath)
     # post_history = models.FileField(upload_to="")
     # is_fork = models.BooleanField()
     # is_original = models.BooleanField()
@@ -31,6 +36,10 @@ class Post(models.Model):
     # def no_of_comments(self):
     #     return Comments.objects.filter(parent_post=self).count()
     #
+
+
+class UploadImage(models.Model):
+    image = models.ImageField(upload_to="img/")
 
 
 class Tag(models.Model):
@@ -67,7 +76,6 @@ class Comment(models.Model):
     # date = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
 
 class Like(models.Model):

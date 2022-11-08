@@ -1,21 +1,45 @@
 import { extendTheme } from '@chakra-ui/react'
-// https://chakra-ui.com/docs/styled-system/theme#breakpoints
 
-// example theme
 const theme = extendTheme({
+  // styles: {
+  //   global: {
+  //     body: {
+  //       backgroundColor: "orange.50",
+  //       color: "gray.800",
+  //     },
+  //     p: {
+  //       fontSize: { base: "md", md: "lg" },
+  //       lineHeight: "tall",
+  //     },
+  //   },
+  // },
+  // textStyles: {
+  //   h1: {
+  //     fontSize: ["25px", "40px"], // responsive
+  //     color: "blue",
+  //   },
+  //   h2: {
+  //     fontSize: "24px",
+  //     color: "red",
+  //   },
+  //   h3: {
+  //     fontSize: "16px",
+  //     color: "orange",
+  //   }
+  // },
   colors: {
     transparent: 'transparent',
     black: '#000',
     white: '#fff',
     gray: {
       50: '#f7fafc',
-      // ...
       900: '#171923',
     },
     // ...
   },
   fonts: {
-    body: "system-ui, sans-serif",
+    // body: "system-ui, sans-serif",
+    body: "Helvetica Neue, Arial,Hiragino Kaku Gothic ProN,Hiragino Sans,Meiryo,sans-serif",
     heading: "Georgia, serif",
     mono: "Menlo, monospace",
   },

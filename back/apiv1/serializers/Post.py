@@ -39,11 +39,9 @@ class PostSerializer(serializers.ModelSerializer):
             "owner",
             "post_caption",
             "post_content",
-            # "tagList",
         ]
 
     # def create(self, validated_data):
-    #     """tagを同時に追加できるようにする"""
     #     tags = validated_data.pop("tags", [])
     #     book = Post.objects.create(**validated_data)
     #

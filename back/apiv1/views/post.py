@@ -21,42 +21,83 @@ from rest_framework.response import Response
 from django.views import View
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.exceptions import ParseError
-
-
 import os
+import git
 
-# )
-# @api_view(["GET", "POST"])
-# def hello_world(request):
-#     if request.method == "POST":
-#         return Response({"message": "Got some data!", "data": request.data})
-#     return Response({"message": "Hello, world!"})
-def moveUserPost(user:str,postname:str)-->None:
-    dir = str(settings.BASE_DIR)
-    media_root = str(settings.MEDIA_ROOT)
-    os.chdir("MEDIA_ROOT")
+# media_root = str(settings.MEDIA_ROOT)
+def moveToUserPost(username: str, postname: str):
+    root = settings.BASE_DIR
+    os.chdir("../")
+    os.chdir("../")
+    os.chdir("../")
+    os.chdir("media/Novels")
+    # os.mkdir(username)
+    os.chdir(username)
+    # os.mkdir(postname)
+    os.chdir(postname)
 
-    pass
+
+# def moveToUserRepo(user: str) -> None:
+#     dir = str(settings.BASE_DIR)
+#     media_root = str(settings.MEDIA_ROOT)
+#     repo_path = os.path.join(media_root, user)
+#     os.chdir(repo_path)
+
+
+# def moveToUserPost(user: str, postname: str) -> None:
+#     dir = str(settings.BASE_DIR)
+#     media_root = str(settings.MEDIA_ROOT)
+#     repo_path = os.path.join(media_root, user, postname)
+#     os.chdir(repo_path)
+
+
+def gitInit(username: str, postname: str):
+    os.chdir("../")
+    os.chdir("../")
+    os.chdir("../")
+    os.chdir("media/Novels")
+    os.mkdir(username)
+    os.chdir(username)
+    os.mkdir(postname)
+    os.chdir(postname)
+    url = os.getcwd()
+    git.Repo.init(url)
+
+
+#
+#     pass
 # class SampleView(APIView):
 class NewPost(GenericAPIView):
     # class NewPost(CreateAPIView):
     # authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticated]
-    # serializer_class = PostSerializer
+    serializer_class = PostSerializer
 
-    def get(self, request):
+    # def get(self, request):
+    #     # user = self.request.user
+    #     # host = self.request.get_host
+    #     user = str(self.request.user.username)
+    #     moveToUserRepo(user)
+    #
+    #     data = {"user": user}
+    #     return JsonResponse(data, status=status.HTTP_200_OK)
+    def post(self, request, post_title):
         # user = self.request.user
         # host = self.request.get_host
-        user = self.request.user.username
         user = str(self.request.user.username)
-        # dir = settings.BASE_DIR
-        dir = str(settings.BASE_DIR)
-        media_root = str(settings.MEDIA_ROOT)
+        # post_content = get_object_or_404(Post, id=book_id)
+        post = get_object_or_404(Post, post_title=post_title)
+        gitInit(user, post.post_title)
 
-        wd = os.path.join(media_root, user)
-        # user = json.loads(user)
-        print(user)
-        data = {"user": user, "dir": dir, "media": media_root, "wd": wd}
+        # f = open('write_test.txt', 'w')
+        f = open(f"{post.post_title}.txt", "w")
+        f.write(post.post_content)
+        f.close()
+
+        # repo.git.add('bar.txt')
+
+
+        data = {"user": user}
         return JsonResponse(data, status=status.HTTP_200_OK)
 
 
@@ -94,8 +135,6 @@ class UploadImageAPI(GenericAPIView):
 #     view_obj.args = args
 #     view_obj.kwargs = kwargs
 #     return view_obj.dispatch(request, *args, **kwargs)
-
-
 
 
 class PostList(generics.ListCreateAPIView):

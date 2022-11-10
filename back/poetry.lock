@@ -79,21 +79,6 @@ python-versions = "*"
 jinja2 = "*"
 
 [[package]]
-name = "crispy-bootstrap5"
-version = "0.7"
-description = "Bootstrap5 template pack for django-crispy-forms"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[package.dependencies]
-django = ">=3.2"
-django-crispy-forms = ">=1.13.0"
-
-[package.extras]
-test = ["pytest", "pytest-django"]
-
-[[package]]
 name = "cryptography"
 version = "38.0.3"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -122,7 +107,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "django"
-version = "3.2.16"
+version = "3.2.15"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
@@ -138,21 +123,6 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
-name = "django-allauth"
-version = "0.51.0"
-description = "Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-Django = ">=2.0"
-pyjwt = {version = ">=1.7", extras = ["crypto"]}
-python3-openid = ">=3.0.8"
-requests = "*"
-requests-oauthlib = ">=0.3.0"
-
-[[package]]
 name = "django-cors-headers"
 version = "3.13.0"
 description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
@@ -164,18 +134,10 @@ python-versions = ">=3.7"
 Django = ">=3.2"
 
 [[package]]
-name = "django-crispy-forms"
-version = "1.14.0"
-description = "Best way to have Django DRY forms"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[[package]]
 name = "django-dbbackup"
 version = "4.0.2"
 description = "Management commands to help backup and restore a project database and media."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -231,52 +193,6 @@ python-versions = ">=3.7"
 Django = ">=3.2"
 
 [[package]]
-name = "django-maintenance-mode"
-version = "0.16.3"
-description = "django-maintenance-mode shows a 503 error page when maintenance-mode is on."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-python-fsutil = ">=0.6.0"
-
-[[package]]
-name = "django-model-utils"
-version = "4.2.0"
-description = "Django model mixins and utilities"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-Django = ">=2.0.1"
-
-[[package]]
-name = "django-model2puml"
-version = "0.2.1"
-description = "A Django app to generate PlantUML diagram of project models."
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "django-rest-auth"
-version = "0.9.5"
-description = "Create a set of REST API endpoints for Authentication and Registration"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-Django = ">=1.8.0"
-djangorestframework = ">=3.1.3"
-six = ">=1.9.0"
-
-[package.extras]
-with-social = ["django-allauth (>=0.25.0)"]
-
-[[package]]
 name = "django-security"
 version = "0.12.0"
 description = "A collection of tools to help secure a Django project."
@@ -303,33 +219,6 @@ Faker = ">=0.7.7"
 toposort = ">=1.5"
 
 [[package]]
-name = "django-simple-history"
-version = "3.1.1"
-description = "Store model history and view/revert changes from admin site."
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[[package]]
-name = "django-storages"
-version = "1.13.1"
-description = "Support for many storage backends in Django"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[package.dependencies]
-Django = ">=3.2"
-
-[package.extras]
-azure = ["azure-storage-blob (>=12.0.0)"]
-boto3 = ["boto3 (>=1.4.4)"]
-dropbox = ["dropbox (>=7.2.1)"]
-google = ["google-cloud-storage (>=1.27.0)"]
-libcloud = ["apache-libcloud"]
-sftp = ["paramiko"]
-
-[[package]]
 name = "django-stubs"
 version = "1.12.0"
 description = "Mypy stubs for Django"
@@ -351,11 +240,11 @@ compatible-mypy = ["mypy (>=0.930,<0.970)"]
 
 [[package]]
 name = "django-stubs-ext"
-version = "0.5.0"
+version = "0.7.0"
 description = "Monkey-patching and extensions for django-stubs"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 django = "*"
@@ -461,26 +350,6 @@ inflect = "*"
 isort = "*"
 
 [[package]]
-name = "drf-nested-routers"
-version = "0.93.4"
-description = "Nested resources for the Django Rest Framework"
-category = "main"
-optional = false
-python-versions = ">=3.5"
-
-[package.dependencies]
-Django = ">=1.11"
-djangorestframework = ">=3.6.0"
-
-[[package]]
-name = "drf-social-auth"
-version = "0.1.0"
-description = "DRF_social_auth is an ultra-lightweight solution for social authentication support in Django REST Framework."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[[package]]
 name = "drf-spectacular"
 version = "0.24.2"
 description = "Sane and flexible OpenAPI 3 schema generation for Django REST framework"
@@ -509,38 +378,37 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "drf-writable-nested"
-version = "0.7.0"
-description = "Writable nested helpers for django-rest-framework's serializers"
-category = "main"
-optional = false
-python-versions = ">=3.7"
-
-[[package]]
-name = "factory-boy"
-version = "3.2.1"
-description = "A versatile test fixtures replacement based on thoughtbot's factory_bot for Ruby."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-Faker = ">=0.7.0"
-
-[package.extras]
-dev = ["Django", "Pillow", "SQLAlchemy", "coverage", "flake8", "isort", "mongoengine", "tox", "wheel (>=0.32.0)", "zest.releaser[recommended]"]
-doc = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
-
-[[package]]
 name = "faker"
 version = "15.1.1"
 description = "Faker is a Python package that generates fake data for you."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
 python-dateutil = ">=2.4"
+
+[[package]]
+name = "gitdb"
+version = "4.0.9"
+description = "Git Object Database"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+smmap = ">=3.0.1,<6"
+
+[[package]]
+name = "gitpython"
+version = "3.1.29"
+description = "GitPython is a python library used to interact with Git repositories"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+gitdb = ">=4.0.1,<5"
 
 [[package]]
 name = "idna"
@@ -635,7 +503,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "mypy"
-version = "0.982"
+version = "0.990"
 description = "Optional static typing for Python"
 category = "dev"
 optional = false
@@ -648,6 +516,7 @@ typing-extensions = ">=3.10"
 
 [package.extras]
 dmypy = ["psutil (>=4.0)"]
+install-types = ["pip"]
 python2 = ["typed-ast (>=1.4.0,<2)"]
 reports = ["lxml"]
 
@@ -708,23 +577,12 @@ dotenv = ["python-dotenv (>=0.10.4)"]
 email = ["email-validator (>=1.0.3)"]
 
 [[package]]
-name = "pygments"
-version = "2.9.0"
-description = "Pygments is a syntax highlighting package written in Python."
-category = "main"
-optional = false
-python-versions = ">=3.5"
-
-[[package]]
 name = "pyjwt"
 version = "2.6.0"
 description = "JSON Web Token implementation in Python"
 category = "main"
 optional = false
 python-versions = ">=3.7"
-
-[package.dependencies]
-cryptography = {version = ">=3.4.0", optional = true, markers = "extra == \"crypto\""}
 
 [package.extras]
 crypto = ["cryptography (>=3.4.0)"]
@@ -750,14 +608,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [package.dependencies]
 six = ">=1.5"
-
-[[package]]
-name = "python-fsutil"
-version = "0.7.0"
-description = "file-system utilities for lazy devs."
-category = "main"
-optional = false
-python-versions = "*"
 
 [[package]]
 name = "python3-openid"
@@ -838,6 +688,14 @@ description = "Python 2 and 3 compatibility utilities"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "smmap"
+version = "5.0.0"
+description = "A pure Python implementation of a sliding window memory map manager"
+category = "main"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "social-auth-app-django"
@@ -925,7 +783,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-requests"
-version = "2.28.11.2"
+version = "2.28.11.3"
 description = "Typing stubs for requests"
 category = "dev"
 optional = false
@@ -936,7 +794,7 @@ types-urllib3 = "<1.27"
 
 [[package]]
 name = "types-urllib3"
-version = "1.26.25.1"
+version = "1.26.25.2"
 description = "Typing stubs for urllib3"
 category = "dev"
 optional = false
@@ -996,7 +854,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "3.10.8"
-content-hash = "16b9e2de4b2d257010f9bbff249bc5293d894c156aba4e03b9a6d20dba657ecb"
+content-hash = "56aab1cbc28a52bcee762f3c876952bf445a6c86919c4d8e8a0966eca86af36f"
 
 [metadata.files]
 asgiref = [
@@ -1089,10 +947,6 @@ coreschema = [
     {file = "coreschema-0.0.4-py2-none-any.whl", hash = "sha256:5e6ef7bf38c1525d5e55a895934ab4273548629f16aed5c0a6caa74ebf45551f"},
     {file = "coreschema-0.0.4.tar.gz", hash = "sha256:9503506007d482ab0867ba14724b93c18a33b22b6d19fb419ef2d239dd4a1607"},
 ]
-crispy-bootstrap5 = [
-    {file = "crispy-bootstrap5-0.7.tar.gz", hash = "sha256:0745a67199619149b7feca87dab7a45664876ed50fb582b38fd2aeb3f8a8d869"},
-    {file = "crispy_bootstrap5-0.7-py3-none-any.whl", hash = "sha256:f3ff1ef5cb379fe80b1b02e245008f276444098a4bdb8d855bed84c623798a85"},
-]
 cryptography = [
     {file = "cryptography-38.0.3-cp36-abi3-macosx_10_10_universal2.whl", hash = "sha256:984fe150f350a3c91e84de405fe49e688aa6092b3525f407a18b9646f6612320"},
     {file = "cryptography-38.0.3-cp36-abi3-macosx_10_10_x86_64.whl", hash = "sha256:ed7b00096790213e09eb11c97cc6e2b757f15f3d2f85833cd2d3ec3fe37c1722"},
@@ -1126,19 +980,12 @@ defusedxml = [
     {file = "defusedxml-0.7.1.tar.gz", hash = "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69"},
 ]
 django = [
-    {file = "Django-3.2.16-py3-none-any.whl", hash = "sha256:18ba8efa36b69cfcd4b670d0fa187c6fe7506596f0ababe580e16909bcdec121"},
-    {file = "Django-3.2.16.tar.gz", hash = "sha256:3adc285124244724a394fa9b9839cc8cd116faf7d159554c43ecdaa8cdf0b94d"},
-]
-django-allauth = [
-    {file = "django-allauth-0.51.0.tar.gz", hash = "sha256:ca1622733b6faa591580ccd3984042f12d8c79ade93438212de249b7ffb6f91f"},
+    {file = "Django-3.2.15-py3-none-any.whl", hash = "sha256:115baf5049d5cf4163e43492cdc7139c306ed6d451e7d3571fe9612903903713"},
+    {file = "Django-3.2.15.tar.gz", hash = "sha256:f71934b1a822f14a86c9ac9634053689279cd04ae69cb6ade4a59471b886582b"},
 ]
 django-cors-headers = [
     {file = "django-cors-headers-3.13.0.tar.gz", hash = "sha256:f9dc6b4e3f611c3199700b3e5f3398c28757dcd559c2f82932687f3d0443cfdf"},
     {file = "django_cors_headers-3.13.0-py3-none-any.whl", hash = "sha256:37e42883b5f1f2295df6b4bba96eb2417a14a03270cb24b2a07f021cd4487cf4"},
-]
-django-crispy-forms = [
-    {file = "django-crispy-forms-1.14.0.tar.gz", hash = "sha256:35887b8851a931374dd697207a8f56c57a9c5cb9dbf0b9fa54314da5666cea5b"},
-    {file = "django_crispy_forms-1.14.0-py3-none-any.whl", hash = "sha256:bc4d2037f6de602d39c0bc452ac3029d1f5d65e88458872cc4dbc01c3a400604"},
 ]
 django-dbbackup = [
     {file = "django-dbbackup-4.0.2.tar.gz", hash = "sha256:1874d684abc22260972a67668a6db3331b24d7e1e8af89eaffdcd61eb27dbc2a"},
@@ -1160,40 +1007,19 @@ django-filter = [
     {file = "django-filter-22.1.tar.gz", hash = "sha256:ed473b76e84f7e83b2511bb2050c3efb36d135207d0128dfe3ae4b36e3594ba5"},
     {file = "django_filter-22.1-py3-none-any.whl", hash = "sha256:ed429e34760127e3520a67f415bec4c905d4649fbe45d0d6da37e6ff5e0287eb"},
 ]
-django-maintenance-mode = [
-    {file = "django-maintenance-mode-0.16.3.tar.gz", hash = "sha256:f9a702e333aa48bf9366af7b412ad15790ecf1e6c3892fd991b7c02b6bcedaa4"},
-    {file = "django_maintenance_mode-0.16.3-py3-none-any.whl", hash = "sha256:adacbfdce4b467390ca98bc975fe5957b1f9984317c7da434b9c07c8ff086f99"},
-]
-django-model-utils = [
-    {file = "django-model-utils-4.2.0.tar.gz", hash = "sha256:e7a95e102f9c9653427eadab980d5d59e1dea972913b9c9e01ac37f86bba0ddf"},
-    {file = "django_model_utils-4.2.0-py3-none-any.whl", hash = "sha256:a768a25c80514e0ad4e4a6f9c02c44498985f36c5dfdea47b5b1e8cf994beba6"},
-]
-django-model2puml = [
-    {file = "django-model2puml-0.2.1.tar.gz", hash = "sha256:7ce67cdffdba014ab32ba55da607aa57b966e93e70a1164994482c479223c20a"},
-]
-django-rest-auth = [
-    {file = "django-rest-auth-0.9.5.tar.gz", hash = "sha256:f11e12175dafeed772f50d740d22caeab27e99a3caca24ec65e66a8d6de16571"},
-]
 django-security = [
     {file = "django-security-0.12.0.tar.gz", hash = "sha256:da749b0cc2f8ad3acefc1b4038bdd1dc5cbef75993fda2ed69a8ebc8dc3904bd"},
 ]
 django-seed = [
     {file = "django-seed-0.3.1.tar.gz", hash = "sha256:93e65d2c10449c464b83e9031be02763ec10e786aa064d649c4dd5ad06fa0eea"},
 ]
-django-simple-history = [
-    {file = "django-simple-history-3.1.1.tar.gz", hash = "sha256:eab6dbddb7da756cc5579f7d6f28a32b2e8bb1697a5c37794d96309793ffec38"},
-]
-django-storages = [
-    {file = "django-storages-1.13.1.tar.gz", hash = "sha256:b3d98ecc09f1b1627c2b2cf430964322ce4e08617dbf9b4236c16a32875a1e0b"},
-    {file = "django_storages-1.13.1-py3-none-any.whl", hash = "sha256:3540b45618b04be2c867c0982e8d2bd8e34f84dae922267fcebe4691fb93daf0"},
-]
 django-stubs = [
     {file = "django-stubs-1.12.0.tar.gz", hash = "sha256:ea8b35d0da49f7b2ee99a79125f1943e033431dd114726d6643cc35de619230e"},
     {file = "django_stubs-1.12.0-py3-none-any.whl", hash = "sha256:0dff8ec0ba3abe046450b3d8a29ce9e72629893d2c1ef679189cc2bfdb6d2f64"},
 ]
 django-stubs-ext = [
-    {file = "django-stubs-ext-0.5.0.tar.gz", hash = "sha256:9bd7418376ab00b7f88d6d56be9fece85bfa0c7c348ac621155fa4d7a91146f2"},
-    {file = "django_stubs_ext-0.5.0-py3-none-any.whl", hash = "sha256:c5d8db53d29c756e7e3d0820a5a079a43bc38d8fab0e1b8bd5df2f3366c54b5a"},
+    {file = "django-stubs-ext-0.7.0.tar.gz", hash = "sha256:4fd8cdbc68d1a421f21bb7e0d9e76d50f6a4b504d350ba786405daf536e90c21"},
+    {file = "django_stubs_ext-0.7.0-py3-none-any.whl", hash = "sha256:d729fbc7fe8970a7e26b35956c35b48502516f011d523c0577bdfb02ed956284"},
 ]
 django-templated-mail = [
     {file = "django-templated-mail-1.1.1.tar.gz", hash = "sha256:8db807effebb42a532622e2d142dfd453dafcd0d7794c4c3332acb90656315f9"},
@@ -1223,14 +1049,6 @@ dr-scaffold = [
     {file = "dr_scaffold-2.1.2-py3-none-any.whl", hash = "sha256:d4dcb62b3d45ab9c060425f81ab41ea315b59a12e08445492dbd893e2a9d1047"},
     {file = "dr_scaffold-2.1.2.tar.gz", hash = "sha256:38915d204ed2ea718268d5692a164ecd34e54d1e937e76fc586cd0b41417446c"},
 ]
-drf-nested-routers = [
-    {file = "drf-nested-routers-0.93.4.tar.gz", hash = "sha256:01aa556b8c08608bb74fb34f6ca065a5183f2cda4dc0478192cc17a2581d71b0"},
-    {file = "drf_nested_routers-0.93.4-py2.py3-none-any.whl", hash = "sha256:996b77f3f4dfaf64569e7b8f04e3919945f90f95366838ca5b8bed9dd709d6c5"},
-]
-drf-social-auth = [
-    {file = "drf_social_auth-0.1.0-py2.py3-none-any.whl", hash = "sha256:9c5ef25cc92e65dac89aedd7a319734ca4d270e6abac22cf8f3ecdb271cd11bb"},
-    {file = "drf_social_auth-0.1.0.tar.gz", hash = "sha256:99bf7b4f8302f4cd6c49c99a2b6177e3b63ac614080f42003c0baf81b6b22ba9"},
-]
 drf-spectacular = [
     {file = "drf-spectacular-0.24.2.tar.gz", hash = "sha256:be32417594080a52f996afd83fd47ea9c2b83cbf13f6d3fbf3de809a0dfa7ead"},
     {file = "drf_spectacular-0.24.2-py3-none-any.whl", hash = "sha256:b276e6f7bda6dfb911e742dab87c6e97bc67da2dafe82d6fd8df7cec6c8b03ec"},
@@ -1238,16 +1056,17 @@ drf-spectacular = [
 drf-typed = [
     {file = "drf-typed-0.2.0.tar.gz", hash = "sha256:8de1bebfb13639dc433387fff11908744bdb9e624707cedb919cda455fb4b4e0"},
 ]
-drf-writable-nested = [
-    {file = "drf_writable_nested-0.7.0-py3-none-any.whl", hash = "sha256:154c0381e8a3a477e0fd539d5e1caf8ff4c1097a9c0c0fe741d4858b11b0455b"},
-]
-factory-boy = [
-    {file = "factory_boy-3.2.1-py2.py3-none-any.whl", hash = "sha256:eb02a7dd1b577ef606b75a253b9818e6f9eaf996d94449c9d5ebb124f90dc795"},
-    {file = "factory_boy-3.2.1.tar.gz", hash = "sha256:a98d277b0c047c75eb6e4ab8508a7f81fb03d2cb21986f627913546ef7a2a55e"},
-]
 faker = [
     {file = "Faker-15.1.1-py3-none-any.whl", hash = "sha256:096c15e136adb365db24d8c3964fe26bfc68fe060c9385071a339f8c14e09c8a"},
     {file = "Faker-15.1.1.tar.gz", hash = "sha256:a741b77f484215c3aab2604100669657189548f440fcb2ed0f8b7ee21c385629"},
+]
+gitdb = [
+    {file = "gitdb-4.0.9-py3-none-any.whl", hash = "sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd"},
+    {file = "gitdb-4.0.9.tar.gz", hash = "sha256:bac2fd45c0a1c9cf619e63a90d62bdc63892ef92387424b855792a6cabe789aa"},
+]
+gitpython = [
+    {file = "GitPython-3.1.29-py3-none-any.whl", hash = "sha256:41eea0deec2deea139b459ac03656f0dd28fc4a3387240ec1d3c259a2c47850f"},
+    {file = "GitPython-3.1.29.tar.gz", hash = "sha256:cc36bfc4a3f913e66805a28e84703e419d9c264c1077e537b54f0e1af85dbefd"},
 ]
 idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
@@ -1320,30 +1139,36 @@ markupsafe = [
     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
 ]
 mypy = [
-    {file = "mypy-0.982-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:5085e6f442003fa915aeb0a46d4da58128da69325d8213b4b35cc7054090aed5"},
-    {file = "mypy-0.982-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:41fd1cf9bc0e1c19b9af13a6580ccb66c381a5ee2cf63ee5ebab747a4badeba3"},
-    {file = "mypy-0.982-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:f793e3dd95e166b66d50e7b63e69e58e88643d80a3dcc3bcd81368e0478b089c"},
-    {file = "mypy-0.982-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:86ebe67adf4d021b28c3f547da6aa2cce660b57f0432617af2cca932d4d378a6"},
-    {file = "mypy-0.982-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:175f292f649a3af7082fe36620369ffc4661a71005aa9f8297ea473df5772046"},
-    {file = "mypy-0.982-cp310-cp310-win_amd64.whl", hash = "sha256:8ee8c2472e96beb1045e9081de8e92f295b89ac10c4109afdf3a23ad6e644f3e"},
-    {file = "mypy-0.982-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:58f27ebafe726a8e5ccb58d896451dd9a662a511a3188ff6a8a6a919142ecc20"},
-    {file = "mypy-0.982-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d6af646bd46f10d53834a8e8983e130e47d8ab2d4b7a97363e35b24e1d588947"},
-    {file = "mypy-0.982-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:e7aeaa763c7ab86d5b66ff27f68493d672e44c8099af636d433a7f3fa5596d40"},
-    {file = "mypy-0.982-cp37-cp37m-win_amd64.whl", hash = "sha256:724d36be56444f569c20a629d1d4ee0cb0ad666078d59bb84f8f887952511ca1"},
-    {file = "mypy-0.982-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:14d53cdd4cf93765aa747a7399f0961a365bcddf7855d9cef6306fa41de01c24"},
-    {file = "mypy-0.982-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:26ae64555d480ad4b32a267d10cab7aec92ff44de35a7cd95b2b7cb8e64ebe3e"},
-    {file = "mypy-0.982-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:6389af3e204975d6658de4fb8ac16f58c14e1bacc6142fee86d1b5b26aa52bda"},
-    {file = "mypy-0.982-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7b35ce03a289480d6544aac85fa3674f493f323d80ea7226410ed065cd46f206"},
-    {file = "mypy-0.982-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:c6e564f035d25c99fd2b863e13049744d96bd1947e3d3d2f16f5828864506763"},
-    {file = "mypy-0.982-cp38-cp38-win_amd64.whl", hash = "sha256:cebca7fd333f90b61b3ef7f217ff75ce2e287482206ef4a8b18f32b49927b1a2"},
-    {file = "mypy-0.982-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:a705a93670c8b74769496280d2fe6cd59961506c64f329bb179970ff1d24f9f8"},
-    {file = "mypy-0.982-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:75838c649290d83a2b83a88288c1eb60fe7a05b36d46cbea9d22efc790002146"},
-    {file = "mypy-0.982-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:91781eff1f3f2607519c8b0e8518aad8498af1419e8442d5d0afb108059881fc"},
-    {file = "mypy-0.982-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:eaa97b9ddd1dd9901a22a879491dbb951b5dec75c3b90032e2baa7336777363b"},
-    {file = "mypy-0.982-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:a692a8e7d07abe5f4b2dd32d731812a0175626a90a223d4b58f10f458747dd8a"},
-    {file = "mypy-0.982-cp39-cp39-win_amd64.whl", hash = "sha256:eb7a068e503be3543c4bd329c994103874fa543c1727ba5288393c21d912d795"},
-    {file = "mypy-0.982-py3-none-any.whl", hash = "sha256:1021c241e8b6e1ca5a47e4d52601274ac078a89845cfde66c6d5f769819ffa1d"},
-    {file = "mypy-0.982.tar.gz", hash = "sha256:85f7a343542dc8b1ed0a888cdd34dca56462654ef23aa673907305b260b3d746"},
+    {file = "mypy-0.990-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:aaf1be63e0207d7d17be942dcf9a6b641745581fe6c64df9a38deb562a7dbafa"},
+    {file = "mypy-0.990-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d555aa7f44cecb7ea3c0ac69d58b1a5afb92caa017285a8e9c4efbf0518b61b4"},
+    {file = "mypy-0.990-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:8f694d6d09a460b117dccb6857dda269188e3437c880d7b60fa0014fa872d1e9"},
+    {file = "mypy-0.990-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:269f0dfb6463b8780333310ff4b5134425157ef0d2b1d614015adaf6d6a7eabd"},
+    {file = "mypy-0.990-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:8798c8ed83aa809f053abff08664bdca056038f5a02af3660de00b7290b64c47"},
+    {file = "mypy-0.990-cp310-cp310-win_amd64.whl", hash = "sha256:47a9955214615108c3480a500cfda8513a0b1cd3c09a1ed42764ca0dd7b931dd"},
+    {file = "mypy-0.990-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:4a8a6c10f4c63fbf6ad6c03eba22c9331b3946a4cec97f008e9ffb4d3b31e8e2"},
+    {file = "mypy-0.990-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:cd2dd3730ba894ec2a2082cc703fbf3e95a08479f7be84912e3131fc68809d46"},
+    {file = "mypy-0.990-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:7da0005e47975287a92b43276e460ac1831af3d23032c34e67d003388a0ce8d0"},
+    {file = "mypy-0.990-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:262c543ef24deb10470a3c1c254bb986714e2b6b1a67d66daf836a548a9f316c"},
+    {file = "mypy-0.990-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:3ff201a0c6d3ea029d73b1648943387d75aa052491365b101f6edd5570d018ea"},
+    {file = "mypy-0.990-cp311-cp311-win_amd64.whl", hash = "sha256:1767830da2d1afa4e62b684647af0ff79b401f004d7fa08bc5b0ce2d45bcd5ec"},
+    {file = "mypy-0.990-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:6826d9c4d85bbf6d68cb279b561de6a4d8d778ca8e9ab2d00ee768ab501a9852"},
+    {file = "mypy-0.990-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:46897755f944176fbc504178422a5a2875bbf3f7436727374724842c0987b5af"},
+    {file = "mypy-0.990-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:0680389c34284287fe00e82fc8bccdea9aff318f7e7d55b90d967a13a9606013"},
+    {file = "mypy-0.990-cp37-cp37m-win_amd64.whl", hash = "sha256:b08541a06eed35b543ae1a6b301590eb61826a1eb099417676ddc5a42aa151c5"},
+    {file = "mypy-0.990-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:be88d665e76b452c26fb2bdc3d54555c01226fba062b004ede780b190a50f9db"},
+    {file = "mypy-0.990-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:9b8f4a8213b1fd4b751e26b59ae0e0c12896568d7e805861035c7a15ed6dc9eb"},
+    {file = "mypy-0.990-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:2b6f85c2ad378e3224e017904a051b26660087b3b76490d533b7344f1546d3ff"},
+    {file = "mypy-0.990-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1ee5f99817ee70254e7eb5cf97c1b11dda29c6893d846c8b07bce449184e9466"},
+    {file = "mypy-0.990-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:49082382f571c3186ce9ea0bd627cb1345d4da8d44a8377870f4442401f0a706"},
+    {file = "mypy-0.990-cp38-cp38-win_amd64.whl", hash = "sha256:aba38e3dd66bdbafbbfe9c6e79637841928ea4c79b32e334099463c17b0d90ef"},
+    {file = "mypy-0.990-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:9d851c09b981a65d9d283a8ccb5b1d0b698e580493416a10942ef1a04b19fd37"},
+    {file = "mypy-0.990-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d847dd23540e2912d9667602271e5ebf25e5788e7da46da5ffd98e7872616e8e"},
+    {file = "mypy-0.990-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:cc6019808580565040cd2a561b593d7c3c646badd7e580e07d875eb1bf35c695"},
+    {file = "mypy-0.990-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2a3150d409609a775c8cb65dbe305c4edd7fe576c22ea79d77d1454acd9aeda8"},
+    {file = "mypy-0.990-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:3227f14fe943524f5794679156488f18bf8d34bfecd4623cf76bc55958d229c5"},
+    {file = "mypy-0.990-cp39-cp39-win_amd64.whl", hash = "sha256:c76c769c46a1e6062a84837badcb2a7b0cdb153d68601a61f60739c37d41cc74"},
+    {file = "mypy-0.990-py3-none-any.whl", hash = "sha256:8f1940325a8ed460ba03d19ab83742260fa9534804c317224e5d4e5aa588e2d6"},
+    {file = "mypy-0.990.tar.gz", hash = "sha256:72382cb609142dba3f04140d016c94b4092bc7b4d98ca718740dc989e5271b8d"},
 ]
 mypy-extensions = [
     {file = "mypy_extensions-0.4.3-py2.py3-none-any.whl", hash = "sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d"},
@@ -1354,6 +1179,8 @@ oauthlib = [
     {file = "oauthlib-3.2.2.tar.gz", hash = "sha256:9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918"},
 ]
 pillow = [
+    {file = "Pillow-9.3.0-1-cp37-cp37m-win32.whl", hash = "sha256:e6ea6b856a74d560d9326c0f5895ef8050126acfdc7ca08ad703eb0081e82b74"},
+    {file = "Pillow-9.3.0-1-cp37-cp37m-win_amd64.whl", hash = "sha256:32a44128c4bdca7f31de5be641187367fe2a450ad83b833ef78910397db491aa"},
     {file = "Pillow-9.3.0-cp310-cp310-macosx_10_10_x86_64.whl", hash = "sha256:0b7257127d646ff8676ec8a15520013a698d1fdc48bc2a79ba4e53df792526f2"},
     {file = "Pillow-9.3.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:b90f7616ea170e92820775ed47e136208e04c967271c9ef615b6fbd08d9af0e3"},
     {file = "Pillow-9.3.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:68943d632f1f9e3dce98908e873b3a090f6cba1cbb1b892a9e8d97c938871fbe"},
@@ -1456,10 +1283,6 @@ pydantic = [
     {file = "pydantic-1.10.2-py3-none-any.whl", hash = "sha256:1b6ee725bd6e83ec78b1aa32c5b1fa67a3a65badddde3976bca5fe4568f27709"},
     {file = "pydantic-1.10.2.tar.gz", hash = "sha256:91b8e218852ef6007c2b98cd861601c6a09f1aa32bbbb74fab5b1c33d4a1e410"},
 ]
-pygments = [
-    {file = "Pygments-2.9.0-py3-none-any.whl", hash = "sha256:d66e804411278594d764fc69ec36ec13d9ae9147193a1740cd34d272ca383b8e"},
-    {file = "Pygments-2.9.0.tar.gz", hash = "sha256:a18f47b506a429f6f4b9df81bb02beab9ca21d0a5fee38ed15aef65f0545519f"},
-]
 pyjwt = [
     {file = "PyJWT-2.6.0-py3-none-any.whl", hash = "sha256:d83c3d892a77bbb74d3e1a2cfa90afaadb60945205d1095d9221f04466f64c14"},
     {file = "PyJWT-2.6.0.tar.gz", hash = "sha256:69285c7e31fc44f68a1feb309e948e0df53259d579295e6cfe2b1792329f05fd"},
@@ -1491,10 +1314,6 @@ pyrsistent = [
 python-dateutil = [
     {file = "python-dateutil-2.8.0.tar.gz", hash = "sha256:c89805f6f4d64db21ed966fda138f8a5ed7a4fdbc1a8ee329ce1b74e3c74da9e"},
     {file = "python_dateutil-2.8.0-py2.py3-none-any.whl", hash = "sha256:7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb"},
-]
-python-fsutil = [
-    {file = "python-fsutil-0.7.0.tar.gz", hash = "sha256:f46fe8c26d930cf9fb1816d9881407666ca1f805bb795b2d7d5da0795cb32b0c"},
-    {file = "python_fsutil-0.7.0-py3-none-any.whl", hash = "sha256:5adee65b1b991275604c7dc9e37d0a03d0be512ac083bfc8a2c350706901e398"},
 ]
 python3-openid = [
     {file = "python3-openid-3.2.0.tar.gz", hash = "sha256:33fbf6928f401e0b790151ed2b5290b02545e8775f982485205a066f874aaeaf"},
@@ -1562,6 +1381,10 @@ six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
+smmap = [
+    {file = "smmap-5.0.0-py3-none-any.whl", hash = "sha256:2aba19d6a040e78d8b09de5c57e96207b09ed71d8e55ce0959eeee6c8e190d94"},
+    {file = "smmap-5.0.0.tar.gz", hash = "sha256:c840e62059cd3be204b0c9c9f74be2c09d5648eddd4580d9314c3ecde0b30936"},
+]
 social-auth-app-django = [
     {file = "social-auth-app-django-4.0.0.tar.gz", hash = "sha256:2c69e57df0b30c9c1823519c5f1992cbe4f3f98fdc7d95c840e091a752708840"},
     {file = "social_auth_app_django-4.0.0-py2-none-any.whl", hash = "sha256:df5212370bd250108987c4748419a1a1d0cec750878856c2644c36aaa0fd3e58"},
@@ -1596,12 +1419,12 @@ types-pyyaml = [
     {file = "types_PyYAML-6.0.12.1-py3-none-any.whl", hash = "sha256:aaf5e51444c13bd34104695a89ad9c48412599a4f615d65a60e649109714f608"},
 ]
 types-requests = [
-    {file = "types-requests-2.28.11.2.tar.gz", hash = "sha256:fdcd7bd148139fb8eef72cf4a41ac7273872cad9e6ada14b11ff5dfdeee60ed3"},
-    {file = "types_requests-2.28.11.2-py3-none-any.whl", hash = "sha256:14941f8023a80b16441b3b46caffcbfce5265fd14555844d6029697824b5a2ef"},
+    {file = "types-requests-2.28.11.3.tar.gz", hash = "sha256:be9007affb17f0a09bb48e77db18bb6e0be9f82609c78f1dae6db30259d721d6"},
+    {file = "types_requests-2.28.11.3-py3-none-any.whl", hash = "sha256:b39c23011f389ce842e7d025b8386854fefdaa2f8ce628d7a8f1ea486f158acf"},
 ]
 types-urllib3 = [
-    {file = "types-urllib3-1.26.25.1.tar.gz", hash = "sha256:a948584944b2412c9a74b9cf64f6c48caf8652cb88b38361316f6d15d8a184cd"},
-    {file = "types_urllib3-1.26.25.1-py3-none-any.whl", hash = "sha256:f6422596cc9ee5fdf68f9d547f541096a20c2dcfd587e37c804c9ea720bf5cb2"},
+    {file = "types-urllib3-1.26.25.2.tar.gz", hash = "sha256:a3a510db609b363670cc62edb76598b8270bd34d4eb2f6c9f088d0e7d8196d6b"},
+    {file = "types_urllib3-1.26.25.2-py3-none-any.whl", hash = "sha256:7b78e4304b4534a010cfef97d1a3f3ebff0fa7119b205d08a355266d7c4e8e22"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.4.0-py3-none-any.whl", hash = "sha256:16fa4864408f655d35ec496218b85f79b3437c829e93320c7c9215ccfd92489e"},

@@ -6,23 +6,25 @@ import os
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    post_title = models.CharField(verbose_name="タイトル", max_length=50)
+    post_title = models.CharField(verbose_name="タイトル", max_length=50, unique=True)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name="作成者", on_delete=models.CASCADE
     )
-    owner.username
-    filePath = ["userPost", owner.username]
-    filePath = os.path.join(*filePath)
-    filePath = str(filePath)
     post_caption = models.CharField(max_length=100, blank=True)
     # post_content = models.TextField(blank=True, null=True)
-    post_content = models.TextField(verbose_name="内容")
+    post_content = models.TextField(
+        verbose_name="内容",
+        max_length=10000,
+    )
 
     post_created = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # post_git = models.FileField(upload_to="file/%Y/%m/%d")
-    post_git = models.FileField(upload_to=filePath)
+    # filePath = ["userPost", owner.username]
+    # filePath = os.path.join(*filePath)
+    # filePath = str(filePath)
+    # post_git = models.FileField(upload_to=filePath)
     # post_history = models.FileField(upload_to="")
     # is_fork = models.BooleanField()
     # is_original = models.BooleanField()
@@ -38,8 +40,8 @@ class Post(models.Model):
     #
 
 
-class UploadImage(models.Model):
-    image = models.ImageField(upload_to="img/")
+# class UploadImage(models.Model):
+#     image = models.ImageField(upload_to="img/")
 
 
 class Tag(models.Model):
@@ -53,7 +55,7 @@ class Tag(models.Model):
         verbose_name = verbose_name_plural = "タグ"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    content = models.CharField(max_length=255)
+    content = models.CharField(max_length=10,unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

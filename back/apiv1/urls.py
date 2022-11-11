@@ -10,8 +10,8 @@ router = routers.DefaultRouter()
 # app_name = "apiv1"
 urlpatterns = [
     path("", include(router.urls)),
-    path("test/", post.NewPost.as_view(), name="test"),
-    path("post/", post.PostList.as_view(), name="post-list"),
+    path("post/", post.NewPost.as_view(), name="test"),
+    # path("post/", post.PostList.as_view(), name="post-list"),
     # path("myview/", post.MyView.as_view(), name="post-list"),
     # path("post/comment", views.CommentList.as_view(), name="comment-list"),
     path(

@@ -72,7 +72,7 @@ CORS_ALLOW_HEADERS = (
     "x-csrftoken",
     "csrftoken",
     "x-requested-with",
-    # "access-control-allow-origin",
+    "access-control-allow-origin",
 )
 
 CORS_ALLOW_CREDENTIALS = True

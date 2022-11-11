@@ -22,6 +22,7 @@ import { Textarea } from '@chakra-ui/react'
 import { ChangeEvent, ReactElement, ReactNode } from "react"
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
+import { CreateNovel } from "drf/posts/CreateNovel"
 
 // const UserHome: NextPage = () => {
 const PostPage: NextPage = () => {
@@ -30,26 +31,44 @@ const PostPage: NextPage = () => {
   const [value, setValue] = useState('i')
   const [resize, setResize] = useState('horizontal')
 
-  const inputEl = useRef(null)
+  // const inputEl = useRef("")
 
-  const [title, setTitle] = useState("")
+  const [post_title, setTitle] = useState("")
   // const [userName, setuserName] = useState("")
-  const [caption, setCaption] = useState("")
-  const [content, setContent] = useState("")
+  const [post_caption, setCaption] = useState("")
+  const [post_content, setContent] = useState("")
   // const signIn = useSignIn()
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
   const onChangeCaption = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value)
-  const onChangeContent = (e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value)
-  // const onClickPost = () => signIn({ email, password })
+  const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
+  // const onClickPost = () => CreateNovel({ post_title, post_caption, post_content })
+  const newNovel = CreateNovel()
+  const onClickPost = () => newNovel({ post_title, post_caption, post_content })
 
 
   // <Button disabled={email === "" || password === ""} onClick={onClickLogin} m="50px">新規作成</Button>
   // const onClickNewPost = () => newPost({ email, password })
+  //   < Textarea
+  // ref = { inputEl }
+  // value = { content }
+  // onChange = { handleInputChange }
+  // placeholder = 'Here is a sample placeholder'
+  // size = 'sm'
+  // w = "50vw"
+  //   />
+  // <Textarea
+  //   ref={inputEl}
+  //   onChange={handleInputChange}
+  //   placeholder='Here is a sample placeholder'
+  //   size='sm'
+  //   w="50vw"
+  // />
+  // < button onClick = {() => alert(inputEl.current.value)}> 値の確認</button >
 
-  const handleInputChange = (e) => {
-    const inputValue = e.target.value
-    setValue(inputValue)
-  }
+  // const handleInputChange = (e) => {
+  //   const inputValue = e.target.value
+  //   setValue(inputValue)
+  // }
 
   if (cookie.isLogin) {
     return (
@@ -59,12 +78,12 @@ const PostPage: NextPage = () => {
           <Text>新規小説作成</Text>
           <Text>タイトル</Text>
           <InputGroup>
-            <Input placeholder="タイトル" value={title} onChange={onChangeTitle} />
+            <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
           </InputGroup>
 
           <Text>概略</Text>
           <InputGroup>
-            <Input placeholder="概略" value={caption} onChange={onChangeCaption} />
+            <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
           </InputGroup>
         </Flex>
         <Flex flexDirection="column" alignItems="flex-end">
@@ -74,18 +93,16 @@ const PostPage: NextPage = () => {
           </Box>
         </Flex>
         <Flex flexDirection="column" alignItems="center">
-
-          <button onClick={() => alert(inputEl.current.value)}>値の確認</button>
           <Textarea
-            ref={inputEl}
-            value={content}
+            onChange={onChangeContent}
             placeholder='Here is a sample placeholder'
             size='sm'
-            resize={resize}
             w="50vw"
           />
+          <Input placeholder='Basic usage' />
           <Link href="/snippets/">
           </Link>
+          <Button m="50px" disabled={post_title === "" || post_caption === "" || post_content === ""} onClick={onClickPost}>新規作成</Button>
         </Flex>
       </>
     )
@@ -101,7 +118,6 @@ const PostPage: NextPage = () => {
     )
   }
 }
-// <Button m="50px" disabled={title === "" || caption === "" || inputEl.current.value} onClick={onClickLogin}>新規作成</Button>
 
 PostPage.getLayout = (page) => {
   return (

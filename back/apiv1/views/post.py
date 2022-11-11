@@ -4,7 +4,8 @@ from django.conf import settings
 
 # from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.http import JsonResponse
+
+# from django.http import JsonResponse
 from rest_framework.reverse import reverse
 from rest_framework import generics, permissions, renderers
 
@@ -22,21 +23,22 @@ from django.views import View
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.exceptions import ParseError
 import os
+os.environ["GIT_PYTHON_REFRESH"] = "quiet"
 import git
 
 # media_root = str(settings.MEDIA_ROOT)
-def moveToUserPost(username: str, postname: str):
+def moveToUserPost(userName: str, postname: str):
     os.chdir(settings.BASE_DIR)
     os.chdir("../")
-    os.chdir(f"media/Novels/{username}/{postname}")
+    os.chdir(f"media/Novels/{userName}/{postname}")
 
 
-def gitInit(username: str, postname: str):
+def gitInit(userName: str, postname: str):
     # os.chdir(settings.BASE_DIR)
     os.chdir(f"../media/Novels")
     # os.chdir("media/Novels")
-    os.mkdir(username)
-    os.chdir(username)
+    os.mkdir(userName)
+    os.chdir(userName)
     os.mkdir(postname)
     os.chdir(postname)
     url = os.getcwd()
@@ -46,35 +48,44 @@ def gitInit(username: str, postname: str):
 #
 #     pass
 # class SampleView(APIView):
-class NewPost(GenericAPIView):
-    # class NewPost(CreateAPIView):
-    # authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+class NewPost(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    # def get(self, request):
-    #     # user = self.request.user
-    #     # host = self.request.get_host
-    #     user = str(self.request.user.username)
-    #     moveToUserRepo(user)
-    #
-    #     data = {"user": user}
-    #     return JsonResponse(data, status=status.HTTP_200_OK)
-    def post(self, request, post_title):
-        user = str(self.request.user.username)
-        # post_content = get_object_or_404(Post, id=book_id)
-        post = get_object_or_404(Post, post_title=post_title)
-        gitInit(user, post.post_title)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
-        # f = open('write_test.txt', 'w')
-        f = open(f"{post.post_title}.txt", "w")
-        f.write(post.post_content)
-        f.close()
 
-        # repo.git.add('bar.txt')
-
-        data = {"user": user}
-        return JsonResponse(data, status=status.HTTP_200_OK)
+# class NewPost(GenericAPIView):
+#     # class NewPost(CreateAPIView):
+#     # authentication_classes = [TokenAuthentication]
+#     # permission_classes = [IsAuthenticated]
+#     serializer_class = PostSerializer
+#
+#     # def get(self, request):
+#     #     # user = self.request.user
+#     #     # host = self.request.get_host
+#     #     user = str(self.request.user.username)
+#     #     moveToUserRepo(user)
+#     #
+#     #     data = {"user": user}
+#     #     return JsonResponse(data, status=status.HTTP_200_OK)
+#     def post(self, request, post_title):
+#         user = str(self.request.user.username)
+#         # post_content = get_object_or_404(Post, id=book_id)
+#         post = get_object_or_404(Post, post_title=post_title)
+#         gitInit(user, post.post_title)
+#
+#         # f = open('write_test.txt', 'w')
+#         f = open(f"{post.post_title}.txt", "w")
+#         f.write(post.post_content)
+#         f.close()
+#
+#         # repo.git.add('bar.txt')
+#
+#         data = {"user": user}
+#         return Response(data, status=status.HTTP_200_OK)
 
 
 class EditPost(GenericAPIView):
@@ -92,7 +103,7 @@ class EditPost(GenericAPIView):
     #     data = {"user": user}
     #     return JsonResponse(data, status=status.HTTP_200_OK)
     def post(self, request, post_title):
-        user = str(self.request.user.username)
+        user = str(self.request.user.userName)
         # post_content = get_object_or_404(Post, id=book_id)
         post = get_object_or_404(Post, post_title=post_title)
         gitInit(user, post.post_title)
@@ -108,17 +119,17 @@ class EditPost(GenericAPIView):
         return JsonResponse(data, status=status.HTTP_200_OK)
 
 
-class UploadImageAPI(GenericAPIView):
-    queryset = UploadImage.objects.all()
-    parser_classes = [FormParser, MultiPartParser]
-
-    def post(self, request, *args, **kwargs):
-        try:
-            file = request.data["file"]
-            # logger.info(file)
-        except KeyError:
-            raise ParseError("Request has no resource file attached")
-        return JsonResponse({}, status=status.HTTP_201_CREATED)
+# class UploadImageAPI(GenericAPIView):
+#     queryset = UploadImage.objects.all()
+#     parser_classes = [FormParser, MultiPartParser]
+#
+#     def post(self, request, *args, **kwargs):
+#         try:
+#             file = request.data["file"]
+#             # logger.info(file)
+#         except KeyError:
+#             raise ParseError("Request has no resource file attached")
+#         return JsonResponse({}, status=status.HTTP_201_CREATED)
 
 
 class PostList(generics.ListCreateAPIView):

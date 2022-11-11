@@ -27,9 +27,12 @@ INSTALLED_APPS += [
 #     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 # }
 
+# CORS_ORIGIN_ALLOW_ALL = True
+
+
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "http://0.0.0.0:3000",
+    # "http://0.0.0.0:3000",
     # "localhost:3000",
     # "0.0.0.0:3000",
 ]
@@ -69,8 +72,10 @@ CORS_ALLOW_HEADERS = (
     "x-csrftoken",
     "csrftoken",
     "x-requested-with",
-    "access-control-allow-origin",
+    # "access-control-allow-origin",
 )
+
+CORS_ALLOW_CREDENTIALS = True
 
 
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]

@@ -11,7 +11,7 @@ export const verifyJwtToken = async () => {
     .post(
       `${drfApiRoot}/auth/jwt/verify`,
       {
-        'username': 'sin',
+        'userName': 'sin',
         'password': 'aws'
       },
       {

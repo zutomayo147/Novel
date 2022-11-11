@@ -9,7 +9,7 @@ export const refreshJwtToken = async () => {
     .post(
       `${drfApiRoot}/auth/jwt/refresh`,
       {
-        'username': 'sin',
+        'userName': 'sin',
         'password': 'aws'
       },
       {

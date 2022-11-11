@@ -20,11 +20,15 @@ export const useSignUp = () => {
 
   const signUp = useCallback(async (props: userInfo) => {
     const { email, password, userName } = props
+    // alert(email)
+    // alert(password)
+    // alert(userName)
     await axios
       .post(
         `${drfApiRoot}/auth/users/`,
         {
-          email, password, userName,
+          // email, password, userName,
+          userName, email, password
         },
         {
           headers: {
@@ -39,7 +43,7 @@ export const useSignUp = () => {
       })
       .catch((err) => {
         alert(err)
-        console.error("failed to create New Account")
+        console.error("failed to create New Account by axios")
       })
   }, [])
   return signUp

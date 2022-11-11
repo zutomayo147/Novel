@@ -10,8 +10,6 @@ import { todoListState } from "store/todo"
 import GetJwtToken from "./getJwtToken"
 
 
-// import { useSetRecoilState } from "recoil"
-
 type userInfo = {
   email: string
   // userName: string
@@ -34,7 +32,7 @@ export const useSignIn = () => {
     const { email, password, } = props
     await axios
       .post(
-        `${drfApiRoot}/auth/token/login`,
+        `${drfApiRoot}/auth/token/login/`,
         {
           email, password
 
@@ -60,7 +58,7 @@ export const useSignIn = () => {
       .catch(err => {
         console.log(err)
         alert(err)
-        console.error("failed to signIn 1")
+        console.error("failed to post signIn by axios")
       })
   }, [])
   return signIn

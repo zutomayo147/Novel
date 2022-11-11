@@ -62,7 +62,7 @@ const SignIn: NextPage = () => {
               />
             </InputRightElement>
           </InputGroup>
-          <PrimaryButton disabled={userName === "" || password === ""} onClick={onClickLogin}>
+          <PrimaryButton disabled={email === "" || password === ""} onClick={onClickLogin}>
             ログイン
           </PrimaryButton>
           <Link href="/signUp">ユーザー登録されていない方はこちら</Link>

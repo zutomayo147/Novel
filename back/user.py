@@ -10,7 +10,7 @@ class RandomUserFactory(factory.django.DjangoModelFactory):
 
     id = factory.Faker("id")
     email = factory.Faker("email")
-    userName = factory.Faker("username")
+    userName = factory.Faker("userName")
     role = factory.Faker("role")
     is_active = factory.Faker("is_active")
     is_staff = factory.Faker("is_staff")

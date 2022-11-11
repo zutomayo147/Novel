@@ -130,16 +130,16 @@ class ProfileViewSet(
     # permission_classes = (IsAuthenticated,)
     serializer_class = ProfileSerializer
 
-    def retrieve(self, request, username):
+    def retrieve(self, request, userName):
 
-        profile = self.queryset.get(user__username=username)
+        profile = self.queryset.get(user__userName=userName)
 
         serializer = self.serializer_class(instance=profile)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def update(self, request, username):
-        instance = get_object_or_404(Profile, user__username=username)
+    def update(self, request, userName):
+        instance = get_object_or_404(Profile, user__userName=userName)
 
         serializer = self.serializer_class(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
@@ -154,9 +154,9 @@ class ProfileImageViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
     serializer_class = ProfileImageSerializer
     parser_classes = [FormParser, MultiPartParser]
 
-    def update(self, request, username):
+    def update(self, request, userName):
 
-        instance = get_object_or_404(Profile, user__username=username)
+        instance = get_object_or_404(Profile, user__userName=userName)
 
         serializer = self.serializer_class(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)

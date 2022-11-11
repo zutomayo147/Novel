@@ -21,7 +21,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # post_git = models.FileField(upload_to="file/%Y/%m/%d")
-    # filePath = ["userPost", owner.username]
+    # filePath = ["userPost", owner.userName]
     # filePath = os.path.join(*filePath)
     # filePath = str(filePath)
     # post_git = models.FileField(upload_to=filePath)

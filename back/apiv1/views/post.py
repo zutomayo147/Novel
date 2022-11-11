@@ -66,13 +66,13 @@ class NewPost(generics.ListCreateAPIView):
 #     # def get(self, request):
 #     #     # user = self.request.user
 #     #     # host = self.request.get_host
-#     #     user = str(self.request.user.username)
+#     #     user = str(self.request.user.userName)
 #     #     moveToUserRepo(user)
 #     #
 #     #     data = {"user": user}
 #     #     return JsonResponse(data, status=status.HTTP_200_OK)
 #     def post(self, request, post_title):
-#         user = str(self.request.user.username)
+#         user = str(self.request.user.userName)
 #         # post_content = get_object_or_404(Post, id=book_id)
 #         post = get_object_or_404(Post, post_title=post_title)
 #         gitInit(user, post.post_title)
@@ -97,7 +97,7 @@ class EditPost(GenericAPIView):
     # def get(self, request):
     #     # user = self.request.user
     #     # host = self.request.get_host
-    #     user = str(self.request.user.username)
+    #     user = str(self.request.user.userName)
     #     moveToUserRepo(user)
     #
     #     data = {"user": user}

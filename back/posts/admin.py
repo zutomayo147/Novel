@@ -21,7 +21,7 @@
 #     )
 #     # list_filter = ("is_staff",)
 #     # fieldsets = (
-#     #     (None, {"fields": ("username", "email", "password")}),
+#     #     (None, {"fields": ("userName", "email", "password")}),
 #     #     ("Personal info", {"fields": ("role",)}),
 #     #     ("Permissions", {"fields": ("is_staff", "is_active")}),
 #     # )
@@ -31,7 +31,7 @@
 #     #         None,
 #     #         {
 #     #             "classes": ("wide",),
-#     #             "fields": ("email", "username", "password1", "password2"),
+#     #             "fields": ("email", "userName", "password1", "password2"),
 #     #         },
 #     #     ),
 #     # )

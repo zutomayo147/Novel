@@ -17,6 +17,7 @@ front/.next/
 # back
 back/.venv
 back/fixture/*.json
+back/**/migrations/*.py
 
 # production
 /build

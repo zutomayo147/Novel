@@ -26,36 +26,15 @@ import git
 
 # media_root = str(settings.MEDIA_ROOT)
 def moveToUserPost(username: str, postname: str):
-    root = settings.BASE_DIR
+    os.chdir(settings.BASE_DIR)
     os.chdir("../")
-    os.chdir("../")
-    os.chdir("../")
-    os.chdir("media/Novels")
-    # os.mkdir(username)
-    os.chdir(username)
-    # os.mkdir(postname)
-    os.chdir(postname)
-
-
-# def moveToUserRepo(user: str) -> None:
-#     dir = str(settings.BASE_DIR)
-#     media_root = str(settings.MEDIA_ROOT)
-#     repo_path = os.path.join(media_root, user)
-#     os.chdir(repo_path)
-
-
-# def moveToUserPost(user: str, postname: str) -> None:
-#     dir = str(settings.BASE_DIR)
-#     media_root = str(settings.MEDIA_ROOT)
-#     repo_path = os.path.join(media_root, user, postname)
-#     os.chdir(repo_path)
+    os.chdir(f"media/Novels/{username}/{postname}")
 
 
 def gitInit(username: str, postname: str):
-    os.chdir("../")
-    os.chdir("../")
-    os.chdir("../")
-    os.chdir("media/Novels")
+    # os.chdir(settings.BASE_DIR)
+    os.chdir(f"../media/Novels")
+    # os.chdir("media/Novels")
     os.mkdir(username)
     os.chdir(username)
     os.mkdir(postname)
@@ -82,8 +61,6 @@ class NewPost(GenericAPIView):
     #     data = {"user": user}
     #     return JsonResponse(data, status=status.HTTP_200_OK)
     def post(self, request, post_title):
-        # user = self.request.user
-        # host = self.request.get_host
         user = str(self.request.user.username)
         # post_content = get_object_or_404(Post, id=book_id)
         post = get_object_or_404(Post, post_title=post_title)
@@ -96,20 +73,41 @@ class NewPost(GenericAPIView):
 
         # repo.git.add('bar.txt')
 
+        data = {"user": user}
+        return JsonResponse(data, status=status.HTTP_200_OK)
+
+
+class EditPost(GenericAPIView):
+    # class NewPost(CreateAPIView):
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+
+    # def get(self, request):
+    #     # user = self.request.user
+    #     # host = self.request.get_host
+    #     user = str(self.request.user.username)
+    #     moveToUserRepo(user)
+    #
+    #     data = {"user": user}
+    #     return JsonResponse(data, status=status.HTTP_200_OK)
+    def post(self, request, post_title):
+        user = str(self.request.user.username)
+        # post_content = get_object_or_404(Post, id=book_id)
+        post = get_object_or_404(Post, post_title=post_title)
+        gitInit(user, post.post_title)
+
+        # f = open('write_test.txt', 'w')
+        f = open(f"{post.post_title}.txt", "w")
+        f.write(post.post_content)
+        f.close()
+
+        # repo.git.add('bar.txt')
 
         data = {"user": user}
         return JsonResponse(data, status=status.HTTP_200_OK)
 
 
-#         return JsonResponse(data)
-# return Response(data, status=status.HTTP_200_OK)
-
-# liked_posts = Post.objects.filter(likes__author__id=request.user.id)
-# serializer_data = self.serializer_class(
-#     liked_posts, many=True, context={"request": request}
-# ).data
-#
-# return Response(data=serializer_data)
 class UploadImageAPI(GenericAPIView):
     queryset = UploadImage.objects.all()
     parser_classes = [FormParser, MultiPartParser]
@@ -121,20 +119,6 @@ class UploadImageAPI(GenericAPIView):
         except KeyError:
             raise ParseError("Request has no resource file attached")
         return JsonResponse({}, status=status.HTTP_201_CREATED)
-
-
-# from apiv1.serializers.Profile import *
-# class MyView(View):
-#     def get(self, request, *args, **kwargs):
-#         return HttpResponse("Hello, World!")
-#
-#
-# def myview(request, *args, **kwargs):
-#     view_obj = MyView()
-#     view_obj.request = request
-#     view_obj.args = args
-#     view_obj.kwargs = kwargs
-#     return view_obj.dispatch(request, *args, **kwargs)
 
 
 class PostList(generics.ListCreateAPIView):
@@ -161,7 +145,6 @@ class CommentListCreateAPIView(
     lookup_field = "post__id"
     lookup_url_kwarg = "post_id"
     queryset = Comment.objects.all()
-    # permission_classes = (IsAuthenticated,)
     serializer_class = CommentSerializer
 
     def filter_queryset(self, queryset):

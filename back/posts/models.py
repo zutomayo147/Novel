@@ -10,7 +10,7 @@ class Post(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name="作成者", on_delete=models.CASCADE
     )
-    post_caption = models.CharField(max_length=100, blank=True)
+    post_caption = models.CharField(max_length=500, blank=True)
     # post_content = models.TextField(blank=True, null=True)
     post_content = models.TextField(
         verbose_name="内容",

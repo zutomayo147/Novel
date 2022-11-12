@@ -28,22 +28,57 @@ os.environ["GIT_PYTHON_REFRESH"] = "quiet"
 import git
 
 # media_root = str(settings.MEDIA_ROOT)
-def moveToUserPost(userName: str, postname: str):
+def moveToUserPost(userName: str, post_title: str):
     os.chdir(settings.BASE_DIR)
     os.chdir("../")
-    os.chdir(f"media/Novels/{userName}/{postname}")
+    os.chdir(f"media/Novels/{userName}/{post_title}")
 
 
-def gitInit(userName: str, postname: str):
+def gitInit(userName: str, post_title: str):
     # os.chdir(settings.BASE_DIR)
     os.chdir(f"../media/Novels")
     # os.chdir("media/Novels")
     os.mkdir(userName)
     os.chdir(userName)
-    os.mkdir(postname)
-    os.chdir(postname)
+    os.mkdir(post_title)
+    os.chdir(post_title)
     url = os.getcwd()
     git.Repo.init(url)
+
+
+# class CommentListCreateAPIView(
+#     mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+# ):
+#     lookup_field = "book__id"
+#     lookup_url_kwarg = "book_id"
+#     queryset = Comment.objects.all()
+#     # permission_classes = (IsAuthenticated,)
+#     serializer_class = CommentSerializer
+#
+#     def filter_queryset(self, queryset):
+#         filters = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
+#
+#         return queryset.filter(**filters)
+#
+#     def create(self, request, book_id=None):
+#         print("book_id", book_id)
+#         book = get_object_or_404(Book, id=book_id)
+#         serializer = self.serializer_class(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save(owner=request.user, book=book)
+#
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+#
+#     def list(self, request, *args, **kwargs):
+#         queryset = self.filter_queryset(self.get_queryset())
+#
+#         page = self.paginate_queryset(queryset)
+#         if page is not None:
+#             serializer = self.get_serializer(page, many=True)
+#             return self.get_paginated_response(serializer.data)
+#
+#         serializer = self.get_serializer(queryset, many=True)
+#         return Response(serializer.data)
 
 
 #
@@ -53,12 +88,26 @@ def gitInit(userName: str, postname: str):
 class NewPost(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     # gitInit()
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # userName = request.data.userName
+        userName = request.user
+        # post_title = request.data.post_title
+        # gitInit(userName,post_title)
+        print(request.data)
+        serializer.save(owner=request.user)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):

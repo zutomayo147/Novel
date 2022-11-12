@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useCallback } from "react"
 import { useRouter } from "next/router"
 import { drfApiRoot } from "constants/drf"
-// import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 // import { useSetRecoilState } from "recoil"
-// import { GetJwtToken } from "./getJwtToken"
+import { GetJwtToken } from "./getJwtToken"
 
 
 // import { useSetRecoilState } from "recoil"
@@ -17,17 +17,16 @@ type userInfo = {
 
 export const useSignUp = () => {
   const router = useRouter()
+  const getJWT = GetJwtToken()
+  const [accessToken, setAccessToken] = useCookies(['accessToken']);
+  const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
 
   const signUp = useCallback(async (props: userInfo) => {
     const { email, password, userName } = props
-    // alert(email)
-    // alert(password)
-    // alert(userName)
     await axios
       .post(
         `${drfApiRoot}/auth/users/`,
         {
-          // email, password, userName,
           userName, email, password
         },
         {
@@ -38,6 +37,7 @@ export const useSignUp = () => {
         }
       ).then((res) => {
         router.push("/")
+        getJWT({ email, password })
         alert('created account')
         console.log(res.data)
       })

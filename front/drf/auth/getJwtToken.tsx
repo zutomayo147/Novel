@@ -11,11 +11,10 @@ type userInfo = {
 
 // TODO
 export const GetJwtToken = () => {
-  const [cookies, setCookie] = useCookies(['accessToken']);
-  // const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
+  const [accessToken, setAccessToken] = useCookies(['accessToken']);
+  const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
 
   const getJWT = useCallback(async (props: userInfo) => {
-    // const { password, userName } = { ...props }
     const { email, password } = props
     await axios
       .post(
@@ -33,7 +32,8 @@ export const GetJwtToken = () => {
       )
       .then(res => {
         console.log(res.data.access)
-        setCookie('accessToken', res.data.access, { path: '/' });
+        setAccessToken('accessToken', res.data.access, { path: '/' });
+        setRefreshToken('refreshToken', res.data.refresh, { path: '/' });
         // setCookie('accessToken', res.data.access, { path: '/', httpOnly: true });
         // setRefreshToken('refreshToken', res.data.refresh, { path: '/', httpOnly: true });
         // setRefreshToken('refreshToken', res.data.refresh, { path: '/' });

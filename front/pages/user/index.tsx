@@ -30,7 +30,7 @@ const UserHome: NextPage = () => {
   const [dragIndex, setDragIndex] = useState(null);
 
   const [cookie, setCookie] = useCookies(['isLogin'])
-  // const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
+  const [accessToken, setAccessToken] = useCookies(['accessToken']);
   useEffect(() => {
     (async () => {
       await axios
@@ -39,7 +39,7 @@ const UserHome: NextPage = () => {
           {
             headers: {
               'accept': 'application/json',
-              // 'Content-Type': 'application/json',
+              'Authorization': `JWT ${accessToken.accessToken}`
               // 'X-CSRFTOKEN': 'r6E3T8oqTuChTEGjCMakASZ6q430qlWS1GpZ0pr9lgX902WDt15i53NPThYLTBTv'
             }
           }
@@ -49,16 +49,12 @@ const UserHome: NextPage = () => {
         .catch(err => {
           console.log(err)
           alert(err)
-          console.error("failed to post signIn by axios")
+          console.error("failed to getList by axios")
         })
-
-      // const response = await fetch("https://www.googleapis.com/books/v1/volumes?q=AWS");
-      // const data = await response.json();
-      // alert(data.totalItems);
     })()
   }, []);
 
-  if (cookie.isLogin ) {
+  if (cookie.isLogin) {
     return (
       <>
         <Flex flexDirection="column" alignItems="center">

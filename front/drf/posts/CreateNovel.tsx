@@ -14,7 +14,7 @@ type post = {
 // export const CreateSnippeet = () => {
 export const CreateNovel = () => {
   const router = useRouter()
-  const [cookies, setCookie] = useCookies(['accessToken']);
+  const [cookie, setAccessToken] = useCookies(['accessToken']);
 
   const newNovel = useCallback(async (props: post) => {
     const { post_title, post_caption, post_content } = props
@@ -28,7 +28,7 @@ export const CreateNovel = () => {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `JWT ${cookies.accessToken}`
+            'Authorization': `JWT ${cookie.accessToken}`
           }
         }
       ).then((res) => {

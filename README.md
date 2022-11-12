@@ -7,6 +7,7 @@
   ュリティ的に良い?
 
 - 開発・デプロイには/back/.envが必要(SECRET_KEy)
+- please rename envDummy to .env
 
 ### Business Model
 

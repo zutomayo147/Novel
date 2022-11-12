@@ -99,7 +99,6 @@ const PostPage: NextPage = () => {
             size='sm'
             w="50vw"
           />
-          <Input placeholder='Basic usage' />
           <Link href="/snippets/">
           </Link>
           <Button m="50px" disabled={post_title === "" || post_caption === "" || post_content === ""} onClick={onClickPost}>新規作成</Button>

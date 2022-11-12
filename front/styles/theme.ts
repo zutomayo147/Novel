@@ -29,7 +29,7 @@ const theme = extendTheme({
   // },
   colors: {
     transparent: 'transparent',
-    black: '#000',
+    black: '#333',
     white: '#fff',
     brand: '#fd91ab',
     gray: {

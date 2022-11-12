@@ -49,6 +49,7 @@ def gitInit(userName: str, postname: str):
 #
 #     pass
 # class SampleView(APIView):
+# LoginRequiredMixin
 class NewPost(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer

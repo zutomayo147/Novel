@@ -29,9 +29,8 @@ const UserHome: NextPage = () => {
   const [postList, setPostList] = useState([])
   const [dragIndex, setDragIndex] = useState(null);
 
-
   const [cookie, setCookie] = useCookies(['isLogin'])
-  const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
+  // const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
   useEffect(() => {
     (async () => {
       await axios
@@ -45,8 +44,6 @@ const UserHome: NextPage = () => {
             }
           }
         ).then((res) => {
-          setCookie("isLogin", true, { path: '/', maxAge: 10000000000000 })
-          console.log(res.data.results)
           setPostList(res.data.results)
         })
         .catch(err => {
@@ -61,7 +58,7 @@ const UserHome: NextPage = () => {
     })()
   }, []);
 
-  if (cookie.isLogin) {
+  if (cookie.isLogin ) {
     return (
       <>
         <Flex flexDirection="column" alignItems="center">
@@ -69,8 +66,9 @@ const UserHome: NextPage = () => {
           <Link href="/user/post">
             <Button>投稿</Button>
           </Link>
+          <Text m={10}>投稿一覧(タイトル)</Text>
           {postList.map((post, index) => (
-            <Box key={post.id} bg={useColorModeValue('white', 'gray.800')} boxShadow rounded fontSize = {30} m = {30}>
+            <Box key={post.id} bg={useColorModeValue('white', 'gray.800')} boxShadow rounded fontSize={30} m={30}>
               {post.post_title}
             </Box>
           ))}

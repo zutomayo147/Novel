@@ -18,7 +18,8 @@ front/.next/
 back/.venv
 back/fixture/*.json
 back/**/migrations/*.py
-bavk/**/__pycache__/*.pyc
+# bavk/**/__pycache__/*.pyc
+bavk/**/__pycache__/
 
 # production
 /build

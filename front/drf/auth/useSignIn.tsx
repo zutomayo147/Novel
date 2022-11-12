@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useCallback } from "react"
+import { useCallback, useEffect } from "react"
 import { useRouter } from "next/router"
 import { drfApiRoot } from "constants/drf"
 import { useCookies } from 'react-cookie';
@@ -27,6 +27,10 @@ export const useSignIn = () => {
   // const [cookie, setCookie] = useCookies(['isLogin']);
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
+
+  useEffect(() => {
+
+  },[])
 
   const signIn = useCallback(async (props: userInfo) => {
     const { email, password, } = props

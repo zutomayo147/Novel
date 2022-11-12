@@ -23,6 +23,7 @@ from django.views import View
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.exceptions import ParseError
 import os
+
 os.environ["GIT_PYTHON_REFRESH"] = "quiet"
 import git
 
@@ -53,8 +54,19 @@ class NewPost(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+    # gitInit()
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly,
+    )
 
 
 # class NewPost(GenericAPIView):

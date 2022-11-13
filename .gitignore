@@ -13,6 +13,12 @@ front/.next/
 # back
 back/.venv
 back/fixture/*.json
+back/**/migrations/*.py
+# bavk/**/__pycache__/*.pyc
+back/**/__pycache__/
+back/config/media
+
+
 # production
 /build
 # misc
@@ -27,8 +33,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 # local env files
-.env*.local
-.env
+# .env*.local
+.env.product
+
 # vercel
 .vercel
 # typescript

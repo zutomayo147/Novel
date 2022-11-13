@@ -39,20 +39,6 @@ def moveToUserPost(userName: str, post_title: str):
 def gitInit(userName: str, post_title: str):
     print(os.getcwd())
     os.chdir(settings.MEDIA_ROOT)
-    # print(settings.BASE_DIR)
-    # os.chdir(f"../media/Novels")
-    # print(os.getcwd())
-    # os.chdir("../")
-    # print(os.getcwd())
-    # os.chdir("../")
-    # print(os.getcwd())
-    # os.chdir("../")
-    # print(os.getcwd())
-    # os.chdir("../")
-    # os.chdir("media/Novels")
-    # os.chdir("media")
-    # os.chdir("Novels")
-    # os.mkdir(userName)
     if not os.path.exists(userName): # ディレクトリが存在するか確認
         os.makedirs(userName) # ディレクトリ作成
     os.chdir(userName)

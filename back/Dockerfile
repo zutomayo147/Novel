@@ -12,10 +12,11 @@ ENV PYTHONFAULTHANDLER=1 \
   POETRY_VIRTUALENVS_CREATE=false \
   PATH="$PATH:/runtime/bin" \
   PYTHONPATH="$PYTHONPATH:/runtime/lib/python3.10/site-packages" \
-  POETRY_VERSION=1.2.2
+  POETRY_VERSION=1.2.2 \
+  GIT_PYTHON_GIT_EXECUTABLE="/usr/bin/git"
 
 # System deps:
-RUN apt-get update && apt-get install -y build-essential unzip wget python-dev git
+RUN apt-get update && apt-get install -y build-essential unzip wget python-dev
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /src
@@ -30,4 +31,5 @@ COPY . /src
 FROM base AS runtime
 COPY --from=builder /runtime /usr/local
 COPY . /back
+RUN apt-get update && apt-get install -y git
 WORKDIR /back

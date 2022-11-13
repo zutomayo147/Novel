@@ -23,8 +23,10 @@ from django.views import View
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.exceptions import ParseError
 import os
+from pathlib import Path
 
 os.environ["GIT_PYTHON_REFRESH"] = "quiet"
+os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
 import git
 
 # media_root = str(settings.MEDIA_ROOT)
@@ -35,15 +37,31 @@ def moveToUserPost(userName: str, post_title: str):
 
 
 def gitInit(userName: str, post_title: str):
-    # os.chdir(settings.BASE_DIR)
-    os.chdir(f"../media/Novels")
+    print(os.getcwd())
+    os.chdir(settings.MEDIA_ROOT)
+    # print(settings.BASE_DIR)
+    # os.chdir(f"../media/Novels")
+    # print(os.getcwd())
+    # os.chdir("../")
+    # print(os.getcwd())
+    # os.chdir("../")
+    # print(os.getcwd())
+    # os.chdir("../")
+    # print(os.getcwd())
+    # os.chdir("../")
     # os.chdir("media/Novels")
-    os.mkdir(userName)
+    # os.chdir("media")
+    # os.chdir("Novels")
+    # os.mkdir(userName)
+    if not os.path.exists(userName): # ディレクトリが存在するか確認
+        os.makedirs(userName) # ディレクトリ作成
     os.chdir(userName)
-    os.mkdir(post_title)
+    if not os.path.exists(post_title): # ディレクトリが存在するか確認
+        os.makedirs(post_title) # ディレクトリ作成
     os.chdir(post_title)
-    url = os.getcwd()
-    git.Repo.init(url)
+    # url = os.getcwd()
+    repo = git.Repo
+    repo.init()
 
 
 # class CommentListCreateAPIView(
@@ -97,14 +115,13 @@ class NewPost(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
 
         # userName = request.data.userName
-        userName = request.user
-        # post_title = request.data.post_title
-        # gitInit(userName,post_title)
+        userName = str(request.user)
+        post_title = request.data["post_title"]
+        gitInit(userName, post_title)
         print(request.data)
         serializer.save(owner=request.user)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
     # def perform_create(self, serializer):
     #     serializer.save(owner=self.request.user)

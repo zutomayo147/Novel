@@ -34,9 +34,8 @@ export const GetJwtToken = () => {
         console.log(res.data.access)
         setAccessToken('accessToken', res.data.access, { path: '/' });
         setRefreshToken('refreshToken', res.data.refresh, { path: '/' });
-        // setCookie('accessToken', res.data.access, { path: '/', httpOnly: true });
-        // setRefreshToken('refreshToken', res.data.refresh, { path: '/', httpOnly: true });
-        // setRefreshToken('refreshToken', res.data.refresh, { path: '/' });
+        // setAccessToken('accessToken', res.data.access, { path: '/',httpOnly:true });
+        // setRefreshToken('refreshToken', res.data.refresh, { path: '/',httpOnly:true });
       })
       .catch(err => {
         console.log("miss");

@@ -1,4 +1,4 @@
-from accounts.models import CustomUser
+# from accounts.models import CustomUser
 from django.conf import settings
 
 
@@ -24,70 +24,91 @@ from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.exceptions import ParseError
 import os
 from pathlib import Path
+import subprocess
+
+# p = Path('link.md')
+#
+# print(p.resolve())
 
 os.environ["GIT_PYTHON_REFRESH"] = "quiet"
 os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
 import git
 
-# media_root = str(settings.MEDIA_ROOT)
-def moveToUserPost(userName: str, post_title: str):
-    os.chdir(settings.BASE_DIR)
-    os.chdir("../")
-    os.chdir(f"media/Novels/{userName}/{post_title}")
 
+def make_remote_repo(userName: str, post_title: str) -> None:
+    # print(pwd)
+    # back/config/media/
+    if not os.path.exists("remote_repo"):
+        os.makedirs("remote_repo")
+    os.chdir("remote_repo")
 
-def gitInit(userName: str, post_title: str):
-    print(os.getcwd())
-    os.chdir(settings.MEDIA_ROOT)
-    if not os.path.exists(userName): # ディレクトリが存在するか確認
-        os.makedirs(userName) # ディレクトリ作成
+    if not os.path.exists(userName):
+        os.makedirs(userName)
     os.chdir(userName)
-    if not os.path.exists(post_title): # ディレクトリが存在するか確認
-        os.makedirs(post_title) # ディレクトリ作成
+
+    if not os.path.exists(post_title):
+        os.makedirs(post_title)
     os.chdir(post_title)
+    git.Repo.init(bare=True, shared=True)
+
+
+def gitInit(userName: str, post_title: str, post_content: str):
+    # pass
+
+    # back/config/media/
+    os.chdir(settings.MEDIA_ROOT)
+
+    # back/config/media/
+    pwd = os.getcwd()
+    print(pwd)
+    make_remote_repo(userName, post_title)
+    os.chdir(settings.MEDIA_ROOT)
+    # back/config/media/
+
+    pwd = os.getcwd()
+    # print(pwd)
+    remoteUrl = f"{pwd}/remote_repo/{userName}/{post_title}"
+    # print(remoteUrl)
+    # url = f"{pwd}/remote_repo/{userName}/{post_title}"
+
+    if not os.path.exists(userName):  # ディレクトリが存在するか確認
+        os.makedirs(userName)  # ディレクトリ作成
+    os.chdir(userName)
+
+    if not os.path.exists(post_title):  # ディレクトリが存在するか確認
+        os.makedirs(post_title)  # ディレクトリ作成
+    os.chdir(post_title)
+    git.Repo.init()
+
     # url = os.getcwd()
-    repo = git.Repo
-    repo.init()
+    # print(os.getcwd())
+    repo = git.Repo()
+    try:
+        repo.create_remote("origin", url=remoteUrl)
+    except git.exc.GitCommandError as error:
+        print(f"Error creating remote: {error}")
+    # Reference a remote by its name as part of the object
+    print(f"Remote name: {repo.remotes.origin.name}")
+    print(f"Remote URL: {repo.remotes.origin.url}")
+
+    # repo.create_remote("origin", url=remoteUrl)
+
+    with open(f"{post_title}.md", "w") as f:
+        f.write(post_content)
+    # Provide a list of the files to stage
+    repo.index.add(f"{post_title}.md")
+    # Provide a commit message
+    repo.index.commit("Initial commit.")
+    # # Pull from remote repo
+    # print(repo.remotes.origin.pull())
+    # Push changes
+    # repo.remotes.origin.push(refspec="main:origin")
+    subprocess.run(['git', 'fetch'])
+    subprocess.run(['git', 'merge','--allow-unrelated-histories','origin/main'])
+
+    # repo.remotes.origin.push("main")
 
 
-# class CommentListCreateAPIView(
-#     mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
-# ):
-#     lookup_field = "book__id"
-#     lookup_url_kwarg = "book_id"
-#     queryset = Comment.objects.all()
-#     # permission_classes = (IsAuthenticated,)
-#     serializer_class = CommentSerializer
-#
-#     def filter_queryset(self, queryset):
-#         filters = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
-#
-#         return queryset.filter(**filters)
-#
-#     def create(self, request, book_id=None):
-#         print("book_id", book_id)
-#         book = get_object_or_404(Book, id=book_id)
-#         serializer = self.serializer_class(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         serializer.save(owner=request.user, book=book)
-#
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-#
-#     def list(self, request, *args, **kwargs):
-#         queryset = self.filter_queryset(self.get_queryset())
-#
-#         page = self.paginate_queryset(queryset)
-#         if page is not None:
-#             serializer = self.get_serializer(page, many=True)
-#             return self.get_paginated_response(serializer.data)
-#
-#         serializer = self.get_serializer(queryset, many=True)
-#         return Response(serializer.data)
-
-
-#
-#     pass
-# class SampleView(APIView):
 # LoginRequiredMixin
 class NewPost(generics.ListCreateAPIView):
     queryset = Post.objects.all()
@@ -103,7 +124,8 @@ class NewPost(generics.ListCreateAPIView):
         # userName = request.data.userName
         userName = str(request.user)
         post_title = request.data["post_title"]
-        gitInit(userName, post_title)
+        post_content = request.data["post_content"]
+        gitInit(userName, post_title, post_content)
         print(request.data)
         serializer.save(owner=request.user)
 

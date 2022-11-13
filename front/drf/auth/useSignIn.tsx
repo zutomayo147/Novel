@@ -18,7 +18,7 @@ type userInfo = {
 
 export const useSignIn = () => {
   const router = useRouter()
-  // const getJWT = GetJwtToken()
+  const getJWT = GetJwtToken()
 
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accessToken, setAccessToken] = useCookies(['accessToken']);
@@ -35,12 +35,12 @@ export const useSignIn = () => {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `JWT ${accessToken.accessToken}`
+            // 'Authorization': `JWT ${accessToken.accessToken}`
           }
         }
       ).then((res) => {
         setCookie("isLogin", true, { path: '/', maxAge: 10000000000000 })
-        // getJWT({ email, password })
+        getJWT({ email, password })
         // setCookie("isLogin", true,{path:'/',httpOnly:true})
         router.push("/user/")
         // console.log(res.data)

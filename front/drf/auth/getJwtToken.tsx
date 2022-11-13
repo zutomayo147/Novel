@@ -10,21 +10,15 @@ type userInfo = {
 }
 
 // TODO
-// export const GetJwtToken = async (props: userInfo): void => {
-// export const GetJwtToken = async (props: userInfo) => {
-// export const GetJwtToken = async () => {
 export const GetJwtToken = () => {
-  // const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
-  // const [accsesToken, setAccessToken] = useCookies(['accessToken']);
-  const [cookies, setCookie] = useCookies(['accessToken']);
-  // const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
+  const [accessToken, setAccessToken] = useCookies(['accessToken']);
+  const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
 
   const getJWT = useCallback(async (props: userInfo) => {
-    // const { password, userName } = { ...props }
     const { email, password } = props
     await axios
       .post(
-        `${drfApiRoot}/auth/jwt/create`,
+        `${drfApiRoot}/auth/jwt/create/`,
         {
           email, password
         },
@@ -38,8 +32,8 @@ export const GetJwtToken = () => {
       )
       .then(res => {
         console.log(res.data.access)
-        // console.log('get jwt')
-        setCookie('accessToken', res.data.access, { path: '/' });
+        setAccessToken('accessToken', res.data.access, { path: '/' });
+        setRefreshToken('refreshToken', res.data.refresh, { path: '/' });
         // setCookie('accessToken', res.data.access, { path: '/', httpOnly: true });
         // setRefreshToken('refreshToken', res.data.refresh, { path: '/', httpOnly: true });
         // setRefreshToken('refreshToken', res.data.refresh, { path: '/' });

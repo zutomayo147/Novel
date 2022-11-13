@@ -6,6 +6,10 @@
 - httpOnlyのcookieにアクセストークン(jwt)を保持するのがセキ
   ュリティ的に良い?
 
+- 開発・デプロイには/back/.envが必要(SECRET_KEy)
+- please rename envDummy to .env
+- Windowsのdocker-desktopでは動作しない(WSL2との相性?)
+
 ### Business Model
 
 ![businessmodel](https://user-images.githubusercontent.com/42014197/200145886-cb086285-8f38-4657-884e-afcde7960236.png)

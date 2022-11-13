@@ -10,25 +10,25 @@ from django.contrib.auth.models import (
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, email, password, **extra_fields):
-        if not username:
-            raise ValueError("The username must be set.")
+    def create_user(self, userName, email, password, **extra_fields):
+        if not userName:
+            raise ValueError("The userName must be set.")
         if not email:
             raise ValueError("The email must be set.")
         if not password:
             raise ValueError("The password must be set.")
 
         user = self.model(
-            username=username, email=self.normalize_email(email), **extra_fields
+            userName=userName, email=self.normalize_email(email), **extra_fields
         )
         user.set_password(password)
         user.save()
 
         return user
 
-    def create_superuser(self, username, email, password, **extra_fields):
-        if not username:
-            raise ValueError("The username must be set.")
+    def create_superuser(self, userName, email, password, **extra_fields):
+        if not userName:
+            raise ValueError("The userName must be set.")
         if not email:
             raise ValueError("The email must be set.")
         if not password:
@@ -39,7 +39,7 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get("role") != 1:
             raise ValueError("Superuser must have role of Global Admin")
 
-        user = self.create_user(username, email, password, **extra_fields)
+        user = self.create_user(userName, email, password, **extra_fields)
         user.is_superuser = True
         user.is_staff = True
         user.save()
@@ -91,7 +91,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         primary_key=True, unique=True, editable=False, default=uuid.uuid4
     )
     email = models.EmailField(db_index=True, unique=True)
-    username = models.CharField(db_index=True, max_length=20, unique=True)
+    userName = models.CharField(db_index=True, max_length=20, unique=True)
     role = models.PositiveSmallIntegerField(
         choices=ROLE_CHOICES, blank=True, null=True, default=4
     )
@@ -101,7 +101,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username"]
+    REQUIRED_FIELDS = ["userName"]
 
     objects = CustomUserManager()
 

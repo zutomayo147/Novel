@@ -25,10 +25,8 @@ const SignIn: NextPage = () => {
   const signIn = useSignIn()
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
-  // const onChangeUserName = (e: ChangeEvent<HTMLInputElement>) => setuserName(e.target.value)
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
   const handleClick = () => setShowPassword(!showPassword)
-  // const onClickLogin = () => signIn({ userName, password })
   const onClickLogin = () => signIn({ email, password })
   // TODO
   // const onClickLogin = () => signIn({props:userInfo})
@@ -62,7 +60,7 @@ const SignIn: NextPage = () => {
               />
             </InputRightElement>
           </InputGroup>
-          <PrimaryButton disabled={userName === "" || password === ""} onClick={onClickLogin}>
+          <PrimaryButton disabled={email === "" || password === ""} onClick={onClickLogin}>
             ログイン
           </PrimaryButton>
           <Link href="/signUp">ユーザー登録されていない方はこちら</Link>

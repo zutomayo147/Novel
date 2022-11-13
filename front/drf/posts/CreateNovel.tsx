@@ -3,51 +3,43 @@ import { useCallback } from "react"
 import { useRouter } from "next/router"
 import { drfApiRoot } from "constants/drf"
 import { useCookies } from 'react-cookie';
-// import { useCookies } from 'react-cookie';
-
 // import { useSetRecoilState } from "recoil"
 
-type snippet = {
-  title: string
-  caption: string
-  content: boolean
+type post = {
+  post_title: string
+  post_caption: string
+  post_content: string
 }
 
 // export const CreateSnippeet = () => {
 export const CreateNovel = () => {
   const router = useRouter()
-  const [cookies, setCookie] = useCookies(['accessToken']);
-  console.log(cookies.accessToken)
+  const [cookie, setAccessToken] = useCookies(['accessToken']);
 
-  const newNovel = useCallback(async (props: snippet) => {
-    const { title, caption, content } = props
+  const newNovel = useCallback(async (props: post) => {
+    const { post_title, post_caption, post_content } = props
     await axios
       .post(
-        `${drfApiRoot}/posts/`,
+        `${drfApiRoot}/post/`,
         {
-          title, caption, content
+          post_title, post_caption, post_content
         },
         {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `JWT ${cookies.accessToken}`
+            'Authorization': `JWT ${cookie.accessToken}`
           }
         }
       ).then((res) => {
-        // TODO
-        alert("new snippet")
+        alert("new post")
         router.push("/user/")
         console.log(res.data)
       })
       .catch(err => {
         console.log(err)
         alert(err)
-        console.error("failed to create")
-      })
-      .catch((err) => {
-        alert(err)
-        console.error("failed to signIn")
+        console.error("failed to post")
       })
   }, [])
   return newNovel

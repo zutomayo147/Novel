@@ -22,6 +22,9 @@ const onClickSignUp = () => console.log(1)
 // import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 
 const Home = () => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log(event);
+  }
 
   return (
     <>
@@ -38,8 +41,11 @@ const Home = () => {
           </Button>
         </Link>
         <Button onClick={onClickSignUp} m={10}>
+
           API test
         </Button>
+        <button onClick={handleClick}>Click</button>
+        <button onClick={(event) => { }}>Click</button>
       </Flex>
     </>
   )

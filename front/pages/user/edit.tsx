@@ -45,31 +45,6 @@ const PostPage: NextPage = () => {
   const newNovel = CreateNovel()
   const onClickPost = () => newNovel({ post_title, post_caption, post_content })
 
-
-  // <Button disabled={email === "" || password === ""} onClick={onClickLogin} m="50px">新規作成</Button>
-  // const onClickNewPost = () => newPost({ email, password })
-  //   < Textarea
-  // ref = { inputEl }
-  // value = { content }
-  // onChange = { handleInputChange }
-  // placeholder = 'Here is a sample placeholder'
-  // size = 'sm'
-  // w = "50vw"
-  //   />
-  // <Textarea
-  //   ref={inputEl}
-  //   onChange={handleInputChange}
-  //   placeholder='Here is a sample placeholder'
-  //   size='sm'
-  //   w="50vw"
-  // />
-  // < button onClick = {() => alert(inputEl.current.value)}> 値の確認</button >
-
-  // const handleInputChange = (e) => {
-  //   const inputValue = e.target.value
-  //   setValue(inputValue)
-  // }
-
   if (cookie.isLogin) {
     return (
       <>
@@ -99,6 +74,7 @@ const PostPage: NextPage = () => {
             size='sm'
             w="50vw"
           />
+          <Input placeholder='Basic usage' />
           <Link href="/snippets/">
           </Link>
           <Button m="50px" disabled={post_title === "" || post_caption === "" || post_content === ""} onClick={onClickPost}>新規作成</Button>

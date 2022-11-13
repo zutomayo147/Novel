@@ -10,7 +10,7 @@ class Post(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name="作成者", on_delete=models.CASCADE
     )
-    post_caption = models.CharField(max_length=100, blank=True)
+    post_caption = models.CharField(max_length=500, blank=True)
     # post_content = models.TextField(blank=True, null=True)
     post_content = models.TextField(
         verbose_name="内容",
@@ -21,7 +21,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # post_git = models.FileField(upload_to="file/%Y/%m/%d")
-    # filePath = ["userPost", owner.username]
+    # filePath = ["userPost", owner.userName]
     # filePath = os.path.join(*filePath)
     # filePath = str(filePath)
     # post_git = models.FileField(upload_to=filePath)

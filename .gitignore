@@ -20,7 +20,7 @@ back/fixture/*.json
 back/**/migrations/*.py
 # bavk/**/__pycache__/*.pyc
 back/**/__pycache__/
-back/config/media
+back/config/media/
 back/config/media/remote_repo
 back/.direnv
 

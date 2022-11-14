@@ -1,35 +1,11 @@
-FROM python:3.10-slim AS base
-
-FROM base AS builder
-
-ENV PYTHONFAULTHANDLER=1 \
-  PYTHONUNBUFFERED=1 \
-  PYTHONHASHSEED=random \
-  PIP_NO_CACHE_DIR=off \
-  PIP_DISABLE_PIP_VERSION_CHECK=on \
-  PIP_DEFAULT_TIMEOUT=100 \
-  POETRY_NO_INTERACTION=1 \
-  POETRY_VIRTUALENVS_CREATE=false \
-  PATH="$PATH:/runtime/bin" \
-  PYTHONPATH="$PYTHONPATH:/runtime/lib/python3.10/site-packages" \
-  POETRY_VERSION=1.2.2 \
-  GIT_PYTHON_GIT_EXECUTABLE="/usr/bin/git"
-
-# System deps:
-RUN apt-get update && apt-get install -y build-essential unzip wget python-dev
-RUN pip install --no-cache-dir "poetry==$POETRY_VERSION"
-
-WORKDIR /src
-
-COPY pyproject.toml poetry.lock /src/
-RUN poetry export --dev --without-hashes --no-interaction --no-ansi -f requirements.txt -o requirements.txt
-RUN pip install --no-cache-dir --prefix=/runtime --force-reinstall -r requirements.txt
-
-COPY . /src
-
-FROM base AS runtime
-COPY --from=builder /runtime /usr/local
-COPY . /back
-# RUN apt-get update && apt-get install -y git ranger
-RUN apt-get update && apt-get install -y git
-WORKDIR /back
+FROM python:3.10-alpine
+ENV PYTHONUNBUFFERED=1
+RUN apk update && apk upgrade
+RUN apk add --no-cache --virtual .build-deps \
+  ca-certificates gcc postgresql-dev linux-headers musl-dev \
+  libffi-dev jpeg-dev zlib-dev
+WORKDIR /usr/src/app
+COPY poetry.lock pyproject.toml /usr/src/app/
+RUN pip3 install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install -n --no-ansi

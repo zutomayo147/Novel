@@ -1,13 +1,13 @@
 from pathlib import Path
 from datetime import timedelta
 
-import environ
 import os
 
 #
-env = environ.Env()
-env.read_env(".env")
-SECRET_KEY = env("SECRET_KEY")
+# import environ
+# env = environ.Env()
+# env.read_env(".env")
+# SECRET_KEY = env("SECRET_KEY")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-d62*89_^dag(j)0%)v4ztuz&*$hxivmni@-@5a#so3-miw1_oz"
+SECRET_KEY = "django-insecure-d62*89_^dag(j)0%)v4ztuz&*$hxivmni@-@5a#so3-miw1_oz"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True

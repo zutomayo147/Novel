@@ -8,7 +8,8 @@
 
 - 開発・デプロイには/back/.envが必要(SECRET_KEy)
 - please rename envDummy to .env
-- Windowsのdocker-desktopでは動作しない(WSL2との相性?)
+- Windowsのdocker-desktopでは動作しない(WSL2との相性? おそら
+  くコンテナ間通信がWSL2ではできない)
 
 ### Business Model
 

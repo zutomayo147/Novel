@@ -8,8 +8,8 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("", include("djoser.urls")),
-    path("", include("djoser.urls.authtoken")),  # login logot
-    path("", include("djoser.urls.jwt")),  # create,refresh,verif jwt
+    path("", include("djoser.urls.authtoken")),
+    path("", include("djoser.urls.jwt")),
 ]
 
 if settings.DEBUG:

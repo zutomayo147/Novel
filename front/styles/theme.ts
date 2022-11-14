@@ -13,20 +13,21 @@ const theme = extendTheme({
   //     },
   //   },
   // },
-  // textStyles: {
-  //   h1: {
-  //     fontSize: ["25px", "40px"], // responsive
-  //     color: "blue",
-  //   },
-  //   h2: {
-  //     fontSize: "24px",
-  //     color: "red",
-  //   },
-  //   h3: {
-  //     fontSize: "16px",
-  //     color: "orange",
-  //   }
-  // },
+  textStyles: {
+    h1: {
+      // you can also use responsive styles
+      fontSize: ['48px', '72px'],
+      fontWeight: 'bold',
+      lineHeight: '110%',
+      letterSpacing: '-2%',
+    },
+    h2: {
+      fontSize: ['36px', '48px'],
+      fontWeight: 'semibold',
+      lineHeight: '110%',
+      letterSpacing: '-1%',
+    },
+  },
   colors: {
     transparent: 'transparent',
     black: '#000',
@@ -95,11 +96,16 @@ const theme = extendTheme({
     widest: "0.1em",
   },
   breakpoints: {
+    // sm: "30em", // 480px
+    // md: "48em", // 768px
+    // lg: "62em", // 992px
+    // xl: "80em", // 1280px
+    // '2xl': '96em', // 1536px
     sm: "30em", // 480px
     md: "48em", // 768px
     lg: "62em", // 992px
     xl: "80em", // 1280px
-    '2xl': '96em',
+    '2xl': '96em', // 1536px
   },
   sizes: {
     max: 'max-content',

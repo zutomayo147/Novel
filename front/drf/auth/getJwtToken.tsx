@@ -2,14 +2,10 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { drfApiRoot } from "constants/drf"
 import { useCallback } from "react"
+import { userInfo } from "types/userInfo"
 
-type userInfo = {
-  email: string
-  // userName: string
-  password: string
-}
+// type GetJWT = (props: userInfoJWT) => number;
 
-// TODO
 export const GetJwtToken = () => {
   const [accessToken, setAccessToken] = useCookies(['accessToken']);
   const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
@@ -26,7 +22,6 @@ export const GetJwtToken = () => {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            // 'X-CSRFTOKEN': 'PSLIyJxgYhXWQhTBKL3PRbrOAZUEEcYGuVIJ2hQKOwp6gqY0kCUb7ybJvGIZ581L'
           }
         }
       )
@@ -38,7 +33,8 @@ export const GetJwtToken = () => {
         // setRefreshToken('refreshToken', res.data.refresh, { path: '/',httpOnly:true });
       })
       .catch(err => {
-        console.log("miss");
+        console.log("coudn't get JWT");
+        alert("認証に失敗しました");
       })
   }, [])
   return getJWT

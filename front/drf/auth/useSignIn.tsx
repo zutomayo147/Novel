@@ -7,14 +7,7 @@ import { useRecoilValue } from "recoil"
 import { todoListState } from "store/todo"
 // import { GetJwtToken } from "./getJwtToken"
 import GetJwtToken from "./getJwtToken"
-
-
-type userInfo = {
-  email: string
-  // userName: string
-  password: string
-}
-
+import { userInfo } from "types/userInfo"
 
 export const useSignIn = () => {
   const router = useRouter()
@@ -35,7 +28,6 @@ export const useSignIn = () => {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            // 'Authorization': `JWT ${accessToken.accessToken}`
           }
         }
       ).then((res) => {
@@ -43,12 +35,9 @@ export const useSignIn = () => {
         getJWT({ email, password })
         // setCookie("isLogin", true,{path:'/',httpOnly:true})
         router.push("/user/")
-        // console.log(res.data)
       })
       .catch(err => {
-        console.log(err)
-        alert(err)
-        console.error("failed to signIn by axios")
+        alert("failed to signIn")
       })
   }, [])
   return signIn

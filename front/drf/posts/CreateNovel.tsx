@@ -3,15 +3,9 @@ import { useCallback } from "react"
 import { useRouter } from "next/router"
 import { drfApiRoot } from "constants/drf"
 import { useCookies } from 'react-cookie';
+import {post} from "types/post"
 // import { useSetRecoilState } from "recoil"
 
-type post = {
-  post_title: string
-  post_caption: string
-  post_content: string
-}
-
-// export const CreateSnippeet = () => {
 export const CreateNovel = () => {
   const router = useRouter()
   const [cookie, setAccessToken] = useCookies(['accessToken']);
@@ -37,9 +31,7 @@ export const CreateNovel = () => {
         console.log(res.data)
       })
       .catch(err => {
-        console.log(err)
-        alert(err)
-        console.error("failed to post")
+        alert("failed to post")
       })
   }, [])
   return newNovel

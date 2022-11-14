@@ -4,10 +4,8 @@ import { useRouter } from "next/router"
 import { drfApiRoot } from "constants/drf"
 import { useCookies } from 'react-cookie';
 // import { useSetRecoilState } from "recoil"
-import { GetJwtToken } from "./getJwtToken"
-
-
 // import { useSetRecoilState } from "recoil"
+import { GetJwtToken } from "./getJwtToken"
 
 type userInfo = {
   email: string
@@ -39,11 +37,9 @@ export const useSignUp = () => {
         router.push("/")
         getJWT({ email, password })
         alert('created account')
-        console.log(res.data)
       })
       .catch((err) => {
-        alert(err)
-        console.error("failed to create New Account by axios")
+        alert("failed to create New Account by axios")
       })
   }, [])
   return signUp

@@ -11,10 +11,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path("", include(router.urls)),
     path("post/", post.NewPost.as_view(), name="test"),
-    path("post-detail/", post.PostDetail.as_view(), name="test"),
-    # path("post/", post.PostList.as_view(), name="post-list"),
-    # path("myview/", post.MyView.as_view(), name="post-list"),
-    # path("post/comment", views.CommentList.as_view(), name="comment-list"),
+    path("post/detail", post.PostDetail.as_view(), name="test"),
+    path("post/edit/<post_title>", post.PostEdit.as_view(), name="edit"),
     path(
         "post/<post_id>/comments/",
         post.CommentListCreateAPIView.as_view({"post": "create", "get": "list"}),

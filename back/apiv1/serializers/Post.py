@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 # from posts.models import Post, Tag, Comment, Like, Saved_post, UploadImage
 from posts.models import Post, Tag, Comment, Like, Saved_post
 from .CustomUser import CustomUserSerializer
@@ -37,6 +38,29 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "post_title",
+            "owner",
+            "post_caption",
+            "post_content",
+        ]
+
+    # def create(self, validated_data):
+    #     tags = validated_data.pop("tags", [])
+    #     book = Post.objects.create(**validated_data)
+    #
+    #     for tag in tags:
+    #         book.tags.add(tag)
+    #
+    #     return book
+
+
+class EditSerializer(serializers.ModelSerializer):
+
+    owner = CustomUserSerializer(read_only=True)
+    # tagList = TagRelatedField(many=True, source="tags")
+
+    class Meta:
+        model = Post
+        fields = [
             "owner",
             "post_caption",
             "post_content",

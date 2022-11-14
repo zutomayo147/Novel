@@ -127,13 +127,17 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        # "ATOMIC_REQUESTS": True,
-    }
-}
+# for vercel
+
+DATABASES = {}
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#         # "ATOMIC_REQUESTS": True,
+#     }
+# }
 
 
 # Password validation

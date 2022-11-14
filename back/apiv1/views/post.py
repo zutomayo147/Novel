@@ -137,6 +137,10 @@ class NewPost(generics.ListCreateAPIView):
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
+    # product = Post.objects.get(id=product_id)
+    # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
+
+
     serializer_class = PostSerializer
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,

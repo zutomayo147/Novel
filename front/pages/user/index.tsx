@@ -40,7 +40,6 @@ const UserHome: NextPage = () => {
             headers: {
               'accept': 'application/json',
               'Authorization': `JWT ${accessToken.accessToken}`
-              // 'X-CSRFTOKEN': 'r6E3T8oqTuChTEGjCMakASZ6q430qlWS1GpZ0pr9lgX902WDt15i53NPThYLTBTv'
             }
           }
         ).then((res) => {

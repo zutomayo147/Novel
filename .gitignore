@@ -26,6 +26,7 @@ back/config/media/remote_repo
 .env.product
 .env
 .envrc
+# back/.envrc
 
 # vercel
 .vercel

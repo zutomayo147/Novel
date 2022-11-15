@@ -1,4 +1,14 @@
 import { extendTheme } from '@chakra-ui/react'
+// import { createBreakpoints } from "@chakra-ui/theme-tools";
+
+
+// const breakpoints = ['576px', '768px', '992px', '1200px']
+
+// add an alias for object responsive prop
+// breakpoints.sm = breakpoints[0]
+// breakpoints.md = breakpoints[1]
+// breakpoints.md = breakpoints[2]
+// breakpoints.md = breakpoints[3]
 
 const theme = extendTheme({
   // styles: {
@@ -13,6 +23,13 @@ const theme = extendTheme({
   //     },
   //   },
   // },
+  // breakpoints: createbreakpoints({
+  //   sm: "48em",
+  //   md: "48em",
+  //   lg: "62em",
+  //   xl: "62em",
+  //   // mycustomone: "50em"
+  // }),
   textStyles: {
     h1: {
       // you can also use responsive styles
@@ -37,7 +54,6 @@ const theme = extendTheme({
       50: '#f7fafc',
       900: '#171923',
     },
-    // ...
   },
   fonts: {
     // body: "system-ui, sans-serif",
@@ -95,18 +111,6 @@ const theme = extendTheme({
     wide: "0.025em",
     wider: "0.05em",
     widest: "0.1em",
-  },
-  breakpoints: {
-    // sm: "30em", // 480px
-    // md: "48em", // 768px
-    // lg: "62em", // 992px
-    // xl: "80em", // 1280px
-    // '2xl': '96em', // 1536px
-    sm: "30em", // 480px
-    md: "48em", // 768px
-    lg: "62em", // 992px
-    xl: "80em", // 1280px
-    '2xl': '96em', // 1536px
   },
   sizes: {
     max: 'max-content',

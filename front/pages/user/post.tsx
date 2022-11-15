@@ -70,21 +70,33 @@ const PostPage: NextPage = () => {
   //   setValue(inputValue)
   // }
 
+  
+
+
   if (cookie.isLogin) {
     return (
       <>
         <AppHeader />
         <Flex flexDirection="column" alignItems="center">
-          <Text>新規小説作成</Text>
-          <Text>タイトル</Text>
-          <InputGroup>
-            <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
-          </InputGroup>
-
-          <Text>概略</Text>
-          <InputGroup>
-            <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
-          </InputGroup>
+          <Text fontSize='40px'>
+            新規小説作成
+          </Text>
+          <Flex flexDirection='column'>
+            <Text fontSize='28px'>
+              タイトル
+            </Text>
+            <InputGroup>
+              <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
+            </InputGroup>
+          </Flex>
+          <Flex flexDirection='column'>
+            <Text fontSize='28px'>
+              概略
+            </Text>
+            <InputGroup>
+              <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
+            </InputGroup>
+          </Flex>
         </Flex>
         <Flex flexDirection="column" alignItems="flex-end">
           <Box mr="300px">

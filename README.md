@@ -1,15 +1,24 @@
 # Novel
 
-## memo
+## feature
 
-- ログインしているかどうかの判定をアクセストークンの所持の有無だけでいいのか
-- httpOnlyのcookieにアクセストークン(jwt)を保持するのがセキ
-  ュリティ的に良い?
+- ひらたく言えば、GItHubのクローンアプリ
+- フロントをreactで書き、バックエンドをdjangoで書き、Gitサーバーをdjangoのコンテナ内に建て、ローカルのgitサーバに対してgit add, git push, git pullなどを直感的にgitを知らなくても操作できる
 
-- 開発・デプロイには/back/.envが必要(SECRET_KEy)
-- please rename envDummy to .env
-- Windowsのdocker-desktopでは動作しない(WSL2との相性? おそら
-  くコンテナ間通信がWSL2ではできない)
+### 実装済み機能と、あと少しで実装出来る機能
+
+- [x] JWTを用いたログイン、ログアウト
+- [x] 投稿、編集
+- [x] 投稿作品ごとに個別のgitリモートリポジトリとgitローカルリポジトリの作成
+- [ ] git log を用いた履歴ツリーの表示
+- [ ] git fork からの投稿
+- [ ] ユーザープロフィール
+- [ ] 作品のタグ機能
+- [ ] 通知機能
+
+### 実装に時間のかかりそうな機能
+
+- [ ] アルゴリズムを用いたコンテンツ評価の自動化
 
 ### Business Model
 
@@ -18,7 +27,6 @@
 ### Service Outline
 
 [GitNovel.pdf](https://github.com/zutomayo147/Novel/files/9944859/GitNovel.pdf)
-
 
 ### Built With
 
@@ -100,6 +108,16 @@ sequenceDiagram
 - front  http://localhost:3000/
 - back  http://localhost:8000/
 - swagger http://localhost:8000/api/schema/swagger-ui/
+
+## memo
+
+- ログインしているかどうかの判定をアクセストークンの所持の有無だけでいいのか
+- httpOnlyのcookieにアクセストークン(jwt)を保持するのがセキ
+  ュリティ的に良い?
+
+- 開発・デプロイには/back/.envが必要(SECRET_KEy)
+- please rename envDummy to .env
+- Windowsのdocker-desktopでは動作しない(WSL2との相性? おそらくコンテナ間通信がWSL2ではできない)
 
 ## URL for storyboook
 

@@ -3,7 +3,6 @@ from datetime import timedelta
 
 import os
 
-#
 # import environ
 # env = environ.Env()
 # env.read_env(".env")
@@ -17,11 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-d62*89_^dag(j)0%)v4ztuz&*$hxivmni@-@5a#so3-miw1_oz"
 
-# SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-
-# ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -172,12 +167,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_URL = "/static/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -1,29 +1,17 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-# /node_modules
+# front
 front/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# next.js
-# /.next/
 front/.next/
-/out/
 
 # back
-back/.venv
+.venv
+.direnv
 back/fixture/*.json
 back/**/migrations/*.py
 # bavk/**/__pycache__/*.pyc
-back/**/__pycache__/
-back/config/media/
+__pycache__
+media/
 back/config/media/remote_repo
-back/.direnv
-
+!__init__.py
 
 # production
 /build
@@ -32,23 +20,15 @@ back/.direnv
 .DS_Store
 # db.sqlite3
 *.sqlite3
-*.pem
-
-*.pyc
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
 
 # local env files
 # .env*.local
 .env.product
+.env
+.envrc
 
 # vercel
 .vercel
 
 # typescript
-*.tsbuildinfo
 next-env.d.ts

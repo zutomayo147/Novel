@@ -78,12 +78,17 @@ const UserHome: NextPage = () => {
   if (cookie.isLogin) {
     return (
       <>
+        <Flex flexDirection="row-reverse">
+          <Link href = "user/profile">
+            userName
+          </Link>
+        </Flex>
         <Flex flexDirection="column" alignItems="center">
           <p suppressHydrationWarning>MyPage</p>
           <Link href="/user/post">
             <Button>投稿</Button>
           </Link>
-          <Text m={10} >投稿一覧(タイトル)</Text>
+          <Text m={10} >全ユーザーの投稿一覧</Text>
           {postList.map((post, index) => (
 
             <Center py={6} key={post.id}>

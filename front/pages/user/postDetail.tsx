@@ -17,15 +17,14 @@ import {
 } from '@chakra-ui/react';
 import { useCookies } from 'react-cookie';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
-import AppHeader from "components/Molecules/AppHeader"
 import { Textarea } from '@chakra-ui/react'
 import { ChangeEvent, ReactElement, ReactNode } from "react"
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
 import { useRouter } from "next/router";
+import { IoArrowBackCircle } from "react-icons/io5";
 
-// const UserHome: NextPage = () => {
 const PostPage: NextPage = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(['isLogin']);
@@ -47,46 +46,31 @@ const PostPage: NextPage = () => {
   const newNovel = CreateNovel()
   const onClickPost = () => newNovel({ post_title, post_caption, post_content })
 
+  const historyList = [1, 4, 9, 16];
 
-  // <Button disabled={email === "" || password === ""} onClick={onClickLogin} m="50px">新規作成</Button>
-  // const onClickNewPost = () => newPost({ email, password })
-  //   < Textarea
-  // ref = { inputEl }
-  // value = { content }
-  // onChange = { handleInputChange }
-  // placeholder = 'Here is a sample placeholder'
-  // size = 'sm'
-  // w = "50vw"
-  //   />
-  // <Textarea
-  //   ref={inputEl}
-  //   onChange={handleInputChange}
-  //   placeholder='Here is a sample placeholder'
-  //   size='sm'
-  //   w="50vw"
-  // />
-  // < button onClick = {() => alert(inputEl.current.value)}> 値の確認</button >
-
-  // const handleInputChange = (e) => {
-  //   const inputValue = e.target.value
-  //   setValue(inputValue)
-  // }
 
   if (cookie.isLogin) {
     return (
       <>
-        <AppHeader />
         <ul>
           <li>id:{" " + router.query.id}</li>
           <li>name:{" " + router.query.name}</li>
         </ul>
+        <Flex justifyContent="center">履歴ツリー</Flex>
+        <Flex>
+          {historyList.map((history, index) => (
+            <Box py={6} key={history.id}>
+              history
+            </Box>
+          ))}
+        </Flex>
+        <Flex justifyContent="center">more detail</Flex>
         <Flex flexDirection="column" alignItems="center">
           <Text>編集画面</Text>
           <Text>タイトル</Text>
           <InputGroup>
             <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
           </InputGroup>
-
           <Text>概略</Text>
           <InputGroup>
             <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
@@ -102,8 +86,8 @@ const PostPage: NextPage = () => {
           <Textarea
             onChange={onChangeContent}
             placeholder='Here is a sample placeholder'
-            size='sm'
-            w="50vw"
+            w="50vh"
+            h="50vw"
           />
           <Link href="/snippets/">
           </Link>

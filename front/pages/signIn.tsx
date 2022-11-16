@@ -2,20 +2,27 @@ import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 import Link from "next/link"
 import { IconButton } from "@chakra-ui/button"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
-import { Box, Divider, Flex, Heading, Stack } from "@chakra-ui/layout"
 
 import { PrimaryButton } from "components/atoms/button/PrimaryButton"
 import { useSignIn } from "drf/auth/useSignIn"
 import { NextPage } from "next"
-// import { AppTop } from "components/Layouts/AppTop"
+import { Layout } from "components/Layouts/Layout"
 
-// TODO
-// type userInfo = {
-//   userName: string
-//   password: string
-// }
-
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Checkbox,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  InputGroup,
+  InputRightElement
+} from '@chakra-ui/react';
 
 const SignIn: NextPage = () => {
   const [email, setEmail] = useState("")
@@ -32,42 +39,64 @@ const SignIn: NextPage = () => {
   // const onClickLogin = () => signIn({props:userInfo})
 
   return (
-    <Flex alignItems="center" justifyContent="center">
-      <Box>
-        <Heading as="h1" size="lg" textAlign="center">
-          ログイン
-        </Heading>
-        <Divider my={4} />
-        <Stack spacing={4} py={4} px={10}>
-          <InputGroup>
-            <Input placeholder="メールアドレス" value={email} onChange={onChangeEmail} />
-          </InputGroup>
-          <InputGroup>
-            <Input
-              placeholder="パスワード"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={onChangePassword}
-            />
-            <InputRightElement>
-              <IconButton
-                size="sm"
-                bgColor="white"
-                _focus={{ boxShadow: "none" }}
-                aria-label="ShowPassword Switch"
-                icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-                onClick={handleClick}
-              />
-            </InputRightElement>
-          </InputGroup>
-          <PrimaryButton disabled={email === "" || password === ""} onClick={onClickLogin}>
-            ログイン
-          </PrimaryButton>
-          <Link href="/signUp">ユーザー登録されていない方はこちら</Link>
-          <Link href="/resetPassword">パスワードを忘れた方はこちら</Link>
+    <>
+      <Flex
+        align={'center'}
+        justify={'center'}
+        bg={useColorModeValue('gray.50', 'gray.800')}
+        w="100vw"
+      >
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+            <Text fontSize={'lg'} color={'gray.600'}>
+              to enjoy all of our cool ✌️
+            </Text>
+          </Stack>
+          <Box
+            rounded={'lg'}
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
+            p={8}>
+            <Stack spacing={4}>
+              <FormControl id="email">
+                <FormLabel>Email address</FormLabel>
+                <Input placeholder="メールアドレス" value={email} onChange={onChangeEmail} />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Password</FormLabel>
+                <Input
+                  placeholder="パスワード"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={onChangePassword}
+                />
+              </FormControl>
+              <Stack spacing={10}>
+                <PrimaryButton disabled={email === "" || password === ""} onClick={onClickLogin}>
+                  Sign in
+                </PrimaryButton>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  align={'start'}
+                  justify={'space-between'}>
+                  <Checkbox>Remember me</Checkbox>
+                  Forgot password?
+                </Stack>
+              </Stack>
+            </Stack>
+          </Box>
         </Stack>
-      </Box>
-    </Flex>
+      </Flex>
+    </>
+  )
+}
+
+SignIn.getLayout = (page: ReactElement) => {
+  return (
+    <Layout>
+      {page}
+    </Layout>
   )
 }
 

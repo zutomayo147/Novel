@@ -25,78 +25,66 @@ const AppHeader = () => {
     return ``
   }
 
-  if (width < 1100) {
-    return (
+  
+    return(
       <>
         <Flex justifyContent="center" alignContent="center">
-          <Text fontSize='50px' color='brand' ml='10' width='200px'>
+        <Text fontSize='50px' color='brand' ml='5' mr='5' width='200px'>
             GitNovel
           </Text>
           <Spacer />
-          <Menu>
-            <MenuButton
+          {!isMobile && (
+            <Flex align='center' ml='5'>
+              <Stack direction='row' h='60px' p={2}>
+                <Text fontSize='30px' color='black'>
+                Novels
+                </Text>
+                <Divider orientation='vertical' />
+                <Text fontSize='30px' color='black'>
+                  Movies
+                </Text>
+                <Divider orientation='vertical' />
+                <Text fontSize='30px' color='black'>
+                  Comics
+                </Text>
+                <Divider orientation='vertical' />
+                <Text fontSize='30px' color='black'>
+                  Drama
+                </Text>
+              </Stack>
+            </Flex>
+          )}
+          {isMobile &&(
+            <Menu>
+              <MenuButton 
               fontSize="30px" fontWeight={"light"}
-              display='flex' alignContent='center'
+              display='flex' backgroundColor='white'
               mt='auto' mb='auto'
+              minWidth='' /*これやるとrightIconが潰れない*/
               as={Button} rightIcon={<ChevronDownIcon />}>
-              Select
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Novels</MenuItem>
-              <MenuItem>Movies</MenuItem>
-              <MenuItem>Comics</MenuItem>
-              <MenuItem>Dramas</MenuItem>
-            </MenuList>
-          </Menu>
+                Menu
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Novels</MenuItem>
+                <MenuItem>Movies</MenuItem>
+                <MenuItem>Comics</MenuItem>
+                <MenuItem>Dramas</MenuItem>
+              </MenuList>
+            </Menu>         
+          )}       
           <Spacer />
-          <Text fontSize='30px' color='black' mr='10'
-            display='flex' alignItems='center' width='200px'
-            justifyContent={"right"}>
+          <Text fontSize='20px' color='black' ml='5' mr='10'
+          display='flex' alignItems='center' width='200px' 
+          justifyContent={"right"}>
             Login
           </Text>
         </Flex>
         <Divider borderColor="black" />
-        画面サイズ取得見本
+        画面サイズ取得
         height:{height} width:{width}
       </>
     )
-  }
 
-  return (
-    <>
-      <Flex justifyContent="center">
-        <Text fontSize='50px' color='brand' ml='10' width='200px'>
-          GitNovel
-        </Text>
-
-        <Spacer />
-
-        <Flex align='center' ml='10' mr='10'>
-          <Text fontSize='30px' mr='10' color='black'>
-            Novels
-          </Text>
-          <Text fontSize='30px' mr='10' color='black'>
-            Movies
-          </Text>
-          <Text fontSize='30px' mr='10' color='black'>
-            Comics
-          </Text>
-          <Text fontSize='30px' color='black'>
-            Drama
-          </Text>
-        </Flex>
-        <Spacer />
-        <Text fontSize='30px' color='black' mr='10'
-          display='flex' alignItems='center' width='200px'
-          justifyContent={"right"}>
-          Login
-        </Text>
-      </Flex>
-      <Divider borderColor="black" />
-      画面サイズ取得見本
-      height:{height} width:{width}
-    </>
-  )
 }
 
 export default AppHeader

@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app'
 import type { ReactElement, ReactNode } from "react"
-import { AppBasic } from "components/Layouts/AppBasic"
 import { CookiesProvider } from 'react-cookie';
 import type { NextPage } from "next"
 import customTheme from 'styles/theme'

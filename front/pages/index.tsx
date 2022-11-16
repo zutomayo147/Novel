@@ -28,13 +28,12 @@ const Home = () => {
   // const breakpointValue = useBreakpointValue(["base", "sm", "md", "lg"])
   // const breakpointValue = useBreakpointValue(["base", "sm", "md", "lg", "xl", "2xl"])
   // const breakpointValue = useBreakpointValue([ "md", "lg"])
-  const handleClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(event);
   }
-  // <Box>Current Size:{breakpointValue}</Box>
   return (
     <>
-      <Flex flexDirection='column' alignItems='center' w = "100vw" >
+      <Flex flexDirection='column' alignItems='center' w="100vw">
         <Text>LandingPage</Text>
         <Link href="/signUp">
           <Button colorScheme='teal' variant='solid'>

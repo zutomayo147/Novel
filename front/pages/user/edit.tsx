@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/react';
 import { useCookies } from 'react-cookie';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
-import AppHeader from "components/Molecules/AppHeader"
 import { Textarea } from '@chakra-ui/react'
 import { ChangeEvent, ReactElement, ReactNode } from "react"
 import { Radio, RadioGroup } from '@chakra-ui/react'
@@ -48,7 +47,6 @@ const PostPage: NextPage = () => {
   if (cookie.isLogin) {
     return (
       <>
-        <AppHeader />
         <Flex flexDirection="column" alignItems="center">
           <Text>新規小説作成</Text>
           <Text>タイトル</Text>
@@ -92,12 +90,6 @@ const PostPage: NextPage = () => {
       </div>
     )
   }
-}
-
-PostPage.getLayout = (page) => {
-  return (
-    page
-  )
 }
 
 

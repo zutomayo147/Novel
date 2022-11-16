@@ -39,15 +39,15 @@ const UserHome: NextPage = () => {
   const inputEl = useRef("")
   const router = useRouter();
   // const handleOnClick = () => console.log(inputEl.current.textContent)
-  const handleOnClick2 = () => console.log(inputEl.current.textContent)
+  // const handleOnClick2 = () => console.log(inputEl.current.textContent)
   // const handleOnClick2 = () => console.log(inputEl.current.getAttribute('Heading'))
-  const handleOnClick = () => {
-    router.push({ pathname: "/user/postDetail", query: query }, "postDetail");
-  }
-  const query = {
-    id: 1,
-    name: inputEl.current.textContent,
-  };
+  // const handleOnClick = () => {
+  //   router.push({ pathname: "/user/postDetail", query: query }, "postDetail");
+  // }
+  // const query = {
+  //   id: 1,
+  //   name: inputEl.current.textContent,
+  // };
 
 
   const [cookie, setCookie] = useCookies(['isLogin'])
@@ -73,6 +73,7 @@ const UserHome: NextPage = () => {
         })
     })()
   }, []);
+  // <Button onClick={handleOnClick}>pp</Button>
 
   if (cookie.isLogin) {
     return (
@@ -82,8 +83,7 @@ const UserHome: NextPage = () => {
           <Link href="/user/post">
             <Button>投稿</Button>
           </Link>
-          <Text m={10} onClick={handleOnClick2}>投稿一覧(タイトル)</Text>
-          <Button onClick={handleOnClick}>pp</Button>
+          <Text m={10} >投稿一覧(タイトル)</Text>
           {postList.map((post, index) => (
 
             <Center py={6} key={post.id}>
@@ -95,7 +95,7 @@ const UserHome: NextPage = () => {
                   rounded={'lg'}
                   p={6}
                   textAlign={'center'}>
-                  <Heading ref={inputEl} fontSize={'2xl'} fontFamily={'body'} onClick={handleOnClick}>
+                  <Heading ref={inputEl} fontSize={'2xl'} fontFamily={'body'}>
                     {post.post_title}
                   </Heading>
                   <Text fontWeight={600} color={'gray.500'} mb={4}>
@@ -174,12 +174,5 @@ const UserHome: NextPage = () => {
     )
   }
 }
-
-UserHome.getLayout = (page) => {
-  return (
-    page
-  )
-}
-
 
 export default UserHome

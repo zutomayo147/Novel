@@ -21,16 +21,16 @@ const useVerifyJwtToken = async () => {
             'accept': 'application/json',
             'Content-Type': 'application/json',
           }
-        }.then(res => {
-          alert("Valid accessToken")
-          // setCookie('accessToken', res.data.access, { path: '/' });
-          // setCookie('refreshtoken', res.data.refresh, { path: '/', httpOnly: true });
-        }).catch(err => {
-          alert("Invalid accessToken")
-          router.push("/signIn")
-          // router.push("/signIn/")
-        })
-      )
+        }
+      ).then(res => {
+        alert("Valid accessToken")
+        // setCookie('accessToken', res.data.access, { path: '/' });
+        // setCookie('refreshtoken', res.data.refresh, { path: '/', httpOnly: true });
+      }).catch(err => {
+        alert("Invalid accessToken")
+        router.push("/signIn")
+        // router.push("/signIn/")
+      })
   }, [])
 }
 export default useVerifyJwtToken

@@ -16,21 +16,21 @@ const UseRefreshJwtToken = () => {
         },
         {
           headers: {
-            'accept': 'application/json',
-            'Content-Type': 'application/json',
-            // 'accept': 'string',
-            // 'Content-Type': 'string',
+            // 'accept': 'application/json',
+            // 'Content-Type': 'application/json',
+            'accept': 'string',
+            'Content-Type': 'string',
             // 'X-CSRFTOKEN': 'PSLIyJxgYhXWQhTBKL3PRbrOAZUEEcYGuVIJ2hQKOwp6gqY0kCUb7ybJvGIZ581L'
           }
-        }.then(res: Promise => {
-          // setAccessToken('accesstoken', res.data.access, { path: '/', httpOnly: true });
-          // setRefreshToken('refreshtoken', res.data.refresh, { path: '/', httpOnly: true });
-          setAccessToken('accessToken', res.data.access, { path: '/' });
-          setRefreshToken('refreshToken', res.data.refresh, { path: '/' });
-        }).catch(err => {
-          alert("アカウントが登録されていません");
-        })
-      )
+        }
+      ).then((res) => {
+        // setAccessToken('accesstoken', res.data.access, { path: '/', httpOnly: true });
+        // setRefreshToken('refreshtoken', res.data.refresh, { path: '/', httpOnly: true });
+        setAccessToken('accessToken', res.data.access, { path: '/' });
+        setRefreshToken('refreshToken', res.data.refresh, { path: '/' });
+      }).catch(err => {
+        alert("アカウントが登録されていません");
+      })
   }, [])
 }
 export default UseRefreshJwtToken

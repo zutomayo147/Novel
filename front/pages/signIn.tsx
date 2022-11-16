@@ -71,8 +71,4 @@ const SignIn: NextPage = () => {
   )
 }
 
-SignIn.getLayout = (page: ReactElement) => {
-  return page
-}
-
 export default SignIn

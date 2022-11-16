@@ -1,24 +1,27 @@
-// import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
-// import { IconButton } from "@chakra-ui/button"
-// import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
-// import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
-// import { Box, Divider, Flex, Heading, Stack } from "@chakra-ui/layout"
-// import { PrimaryButton } from "components/atoms/button/PrimaryButton"
-// import { useSignIn } from "hooks/useSignIn"
-// import { AppTop } from "components/Layouts/AppTop"
-// import { AppName } from "components/atoms/appName"
-import AppHeader from "components/Molecules/AppHeader"
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  HStack,
+  InputRightElement,
+  Stack,
+  Button,
+  Heading,
+  useColorModeValue,
+  IconButton,
+  ButtonGroup,
+  Spacer,
+  Text
+} from '@chakra-ui/react';
+import { Layout } from "components/Layouts/Layout"
 import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
-import { Box, Divider, Heading, Stack } from "@chakra-ui/layout"
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
-import { IconButton } from "@chakra-ui/button"
-import { PrimaryButton } from "components/atoms/button/PrimaryButton"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
-import { Button, ButtonGroup } from '@chakra-ui/react'
-import { Flex, Spacer } from '@chakra-ui/react'
-import { Text } from '@chakra-ui/react'
 import Link from "next/link"
 import useSignUp from "drf/auth/useSignUp"
+import { PrimaryButton } from "components/atoms/button/PrimaryButton"
 // import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 
 const Home = () => {
@@ -37,55 +40,76 @@ const Home = () => {
   const onClickSignUp = () => signUp({ email, password, userName })
   return (
     <>
-      <AppHeader />
-      <Flex flexDirection='column' alignItems='center' >
-        <Box height="1em" m="5em">
-          <Text>アカウントをお持ちの方はこちら</Text>
-        </Box>
-        <Box height="1em" m="5em">
-          <Text>会員登録</Text>
-        </Box>
-        <Stack spacing={4} py={4} px={10}>
-          <InputGroup>
-            <Input placeholder="ユーザ名" value={userName} onChange={onChangeUserName} />
-          </InputGroup>
-          <InputGroup>
-            <Input placeholder="メールアドレス" value={email} onChange={onChangeEmail} />
-          </InputGroup>
-          <InputGroup>
-            <Input
-              placeholder="パスワード 英数字8文字以上"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={onChangePassword}
-            />
-            <InputRightElement>
-              <IconButton
-                size="sm"
-                bgColor="white"
-                _focus={{ boxShadow: "none" }}
-                aria-label="ShowPassword Switch"
-                icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
-                onClick={handleClick}
-              />
-            </InputRightElement>
-          </InputGroup>
-          <PrimaryButton disabled={userName === "" || email === "" || password === ""} onClick={onClickSignUp}>
-            新規作成
-          </PrimaryButton>
+      <Flex
+        w="100vw"
+        bg={useColorModeValue('gray.50', 'gray.800')}
+      >
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+          <Stack align={'center'}>
+            <Heading fontSize={'4xl'} textAlign={'center'}>
+              Sign up
+            </Heading>
+            <Text fontSize={'lg'} color={'gray.600'}>
+              to enjoy all of our cool features ✌️
+            </Text>
+          </Stack>
+          <Box
+            rounded={'lg'}
+            bg={useColorModeValue('white', 'gray.700')}
+            boxShadow={'lg'}
+            p={8}>
+            <Stack spacing={4}>
+              <Box>
+                <FormControl isRequired>
+                  <FormLabel>ユーザーネーム</FormLabel>
+                  <Input placeholder="ユーザ名" value={userName} onChange={onChangeUserName} />
+                </FormControl>
+              </Box>
+              <FormControl isRequired>
+                <FormLabel>Email address</FormLabel>
+                <Input placeholder="メールアドレス" value={email} onChange={onChangeEmail} />
+              </FormControl>
+              <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    placeholder="パスワード 英数字8文字以上"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={onChangePassword}
+                  />
+                  <InputRightElement h={'full'}>
+                    <Button
+                      variant={'ghost'}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }>
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Stack spacing={10} pt={2}>
+                <PrimaryButton disabled={userName === "" || email === "" || password === ""} onClick={onClickSignUp}>
+                  Sign up
+                </PrimaryButton>
+              </Stack>
+              <Stack pt={6}>
+                <Text align={'center'}>
+                </Text>
+              </Stack>
+            </Stack>
+          </Box>
         </Stack>
-        <Link href="/signIn">
-          <Button colorScheme='teal' variant='outline'>
-            signIn
-          </Button>
-        </Link>
       </Flex>
     </>
   )
 }
 Home.getLayout = (page: ReactElement) => {
   return (
-    page
+    <Layout>
+      {page}
+    </Layout>
   )
 }
 

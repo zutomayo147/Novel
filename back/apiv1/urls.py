@@ -13,6 +13,7 @@ urlpatterns = [
     path("post/", post.NewPost.as_view(), name="test"),
     path("post/detail", post.PostDetail.as_view(), name="test"),
     path("post/edit/<post_title>", post.PostEdit.as_view(), name="edit"),
+    path("image/", post.ImageFileView.as_view(), name="images"),
     path(
         "post/<post_id>/comments/",
         post.CommentListCreateAPIView.as_view({"post": "create", "get": "list"}),

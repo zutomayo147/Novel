@@ -44,6 +44,21 @@ class Post(models.Model):
 #     image = models.ImageField(upload_to="img/")
 
 
+def upload_image(instance, filename):
+    return "images/{0}/".format(filename)
+
+
+class UploadFile(models.Model):
+    file = models.ImageField("画像ファイル", upload_to="file/")
+
+    def __str__(self):
+        return self.file.url
+
+    @property
+    def filename(self):
+        return os.path.basename(self.file.name)
+
+
 class Tag(models.Model):
     """Tag Model"""
 
@@ -55,7 +70,7 @@ class Tag(models.Model):
         verbose_name = verbose_name_plural = "タグ"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    content = models.CharField(max_length=10,unique=True)
+    content = models.CharField(max_length=10, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

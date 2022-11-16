@@ -206,6 +206,12 @@ class ForkPost(generics.RetrieveUpdateDestroyAPIView):
     #     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class ImageFileView(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny,)
+    queryset = UploadFile.objects.all()
+    serializer_class = UploadFileSerializer
+
+
 # class NewPost(GenericAPIView):
 #     # class NewPost(CreateAPIView):
 #     # authentication_classes = [TokenAuthentication]

@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 # from posts.models import Post, Tag, Comment, Like, Saved_post, UploadImage
-from posts.models import Post, Tag, Comment, Like, Saved_post
+from posts.models import Post, Tag, Comment, Like, Saved_post, UploadFile
+# from posts.models import Post, Tag, Comment, Like, Saved_post
 from .CustomUser import CustomUserSerializer
 
 
@@ -26,6 +27,16 @@ class TagRelatedField(serializers.RelatedField):
 #     class Meta:
 #         model = UploadImage
 #         fields = "__all__"
+class UploadFileSerializer(serializers.ModelSerializer):
+    file = serializers.ImageField()
+    file_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = UploadFile
+        fields = "__all__"
+
+    def get_file_name(self, obj):
+        return obj.filename
 
 
 class PostSerializer(serializers.ModelSerializer):

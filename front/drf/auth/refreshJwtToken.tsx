@@ -18,9 +18,11 @@ const UseRefreshJwtToken = () => {
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
+            // 'accept': 'string',
+            // 'Content-Type': 'string',
             // 'X-CSRFTOKEN': 'PSLIyJxgYhXWQhTBKL3PRbrOAZUEEcYGuVIJ2hQKOwp6gqY0kCUb7ybJvGIZ581L'
           }
-        }.then(res: AxiosResponse => {
+        }.then(res: Promise => {
           // setAccessToken('accesstoken', res.data.access, { path: '/', httpOnly: true });
           // setRefreshToken('refreshtoken', res.data.refresh, { path: '/', httpOnly: true });
           setAccessToken('accessToken', res.data.access, { path: '/' });

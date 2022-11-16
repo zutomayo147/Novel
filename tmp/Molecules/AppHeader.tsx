@@ -2,7 +2,7 @@ import { useIsMobile } from "hooks/useIsMobile"
 import { useWindowSize } from "@/hooks/useWindowSize"
 import { Button, Text } from '@chakra-ui/react'
 import { AppName } from "components/atoms/appName"
-import { Flex, Spacer } from '@chakra-ui/react'
+import { Flex, Stack,Spacer } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/react'
 import {
   Menu,
@@ -17,7 +17,7 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons"
 
 const AppHeader = () => {
-  // const isMobile = useIsMobile()
+  const isMobile = useIsMobile()
   const { height, width } = useWindowSize();
 
   // 初期表示時に画面幅に合わないコンポーネントが一瞬表示されてしまうのを防ぐ
@@ -25,7 +25,7 @@ const AppHeader = () => {
     return ``
   }
 
-  
+
     return(
       <>
         <Flex justifyContent="center" alignContent="center">
@@ -56,7 +56,7 @@ const AppHeader = () => {
           )}
           {isMobile &&(
             <Menu>
-              <MenuButton 
+              <MenuButton
               fontSize="30px" fontWeight={"light"}
               display='flex' backgroundColor='white'
               mt='auto' mb='auto'
@@ -70,11 +70,11 @@ const AppHeader = () => {
                 <MenuItem>Comics</MenuItem>
                 <MenuItem>Dramas</MenuItem>
               </MenuList>
-            </Menu>         
-          )}       
+            </Menu>
+          )}
           <Spacer />
           <Text fontSize='20px' color='black' ml='5' mr='10'
-          display='flex' alignItems='center' width='200px' 
+          display='flex' alignItems='center' width='200px'
           justifyContent={"right"}>
             Login
           </Text>

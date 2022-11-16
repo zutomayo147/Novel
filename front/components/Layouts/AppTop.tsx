@@ -12,9 +12,11 @@ type Props = {
 const AppTop: React.FC<Props> = ({ children }) => {
   return (
     <>
+      Header
       <Container maxW={"container.2xl"} p={0}>
         <Box>{children}</Box>
       </Container>
+      Footer
     </>
   )
 }

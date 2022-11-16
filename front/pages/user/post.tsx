@@ -17,12 +17,12 @@ import {
 } from '@chakra-ui/react';
 import { useCookies } from 'react-cookie';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
-import AppHeader from "components/Molecules/AppHeader"
 import { Textarea } from '@chakra-ui/react'
 import { ChangeEvent, ReactElement, ReactNode } from "react"
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
+import { Layout } from "components/Layouts/Layout"
 
 // const UserHome: NextPage = () => {
 const PostPage: NextPage = () => {
@@ -46,38 +46,10 @@ const PostPage: NextPage = () => {
   const onClickPost = () => newNovel({ post_title, post_caption, post_content })
 
 
-  // <Button disabled={email === "" || password === ""} onClick={onClickLogin} m="50px">新規作成</Button>
-  // const onClickNewPost = () => newPost({ email, password })
-  //   < Textarea
-  // ref = { inputEl }
-  // value = { content }
-  // onChange = { handleInputChange }
-  // placeholder = 'Here is a sample placeholder'
-  // size = 'sm'
-  // w = "50vw"
-  //   />
-  // <Textarea
-  //   ref={inputEl}
-  //   onChange={handleInputChange}
-  //   placeholder='Here is a sample placeholder'
-  //   size='sm'
-  //   w="50vw"
-  // />
-  // < button onClick = {() => alert(inputEl.current.value)}> 値の確認</button >
-
-  // const handleInputChange = (e) => {
-  //   const inputValue = e.target.value
-  //   setValue(inputValue)
-  // }
-
-  
-
-
   if (cookie.isLogin) {
     return (
       <>
-        <AppHeader />
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center" w = "100vw">
           <Text fontSize='40px'>
             新規小説作成
           </Text>
@@ -98,19 +70,19 @@ const PostPage: NextPage = () => {
             </InputGroup>
           </Flex>
         </Flex>
-        <Flex flexDirection="column" alignItems="flex-end">
-          <Box mr="300px">
-            <Text  >作者</Text>
-            <Text>ジャンル</Text>
-          </Box>
-        </Flex>
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center" m = {10}>
+          <Text fontSize='28px'>
+            本文
+          </Text>
           <Textarea
             onChange={onChangeContent}
             placeholder='Here is a sample placeholder'
-            size='sm'
             w="50vw"
+            h="50vh"
+            p={10}
+            overflow="auto"
           />
+
           <Link href="/snippets/">
           </Link>
           <Button m="50px" disabled={post_title === "" || post_caption === "" || post_content === ""} onClick={onClickPost}>新規作成</Button>
@@ -132,7 +104,9 @@ const PostPage: NextPage = () => {
 
 PostPage.getLayout = (page) => {
   return (
-    page
+    <Layout>
+      {page}
+    </Layout>
   )
 }
 

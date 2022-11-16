@@ -17,11 +17,13 @@ type AppPropsWithLayout = AppProps & {
 }
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   // const getLayout = Component.getLayout || ((page) => <AppBasic>{page}</AppBasic>)
-  const getLayout = Component.getLayout || ((page) => page)
-  return getLayout(
+  // const getLayout = Component.getLayout || ((page) => page)
+  const getLayout = Component.getLayout ?? ((page) => page)
+
+  return (
     <CookiesProvider>
       <ChakraProvider theme={customTheme}>
-        <Component {...pageProps} />
+        {getLayout(<Component {...pageProps} />)}
       </ChakraProvider>
     </CookiesProvider>
   )

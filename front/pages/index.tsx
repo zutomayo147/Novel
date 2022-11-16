@@ -1,5 +1,6 @@
 // import AppHeader from "components/Molecules/AppHeader"
-import AppTop from "components/Layouts/AppTop"
+// import AppTop from "components/Layouts/AppTop"
+import { Layout } from "components/Layouts/Layout"
 import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 import { Box, Divider, Heading, Stack } from "@chakra-ui/layout"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
@@ -33,7 +34,7 @@ const Home = () => {
   // <Box>Current Size:{breakpointValue}</Box>
   return (
     <>
-      <Flex flexDirection='column' alignItems='center' >
+      <Flex flexDirection='column' alignItems='center' w = "100vw" >
         <Text>LandingPage</Text>
         <Link href="/signUp">
           <Button colorScheme='teal' variant='solid'>
@@ -56,9 +57,9 @@ const Home = () => {
 }
 Home.getLayout = (page: ReactElement) => {
   return (
-    <AppTop>
+    <Layout>
       {page}
-    </AppTop>
+    </Layout>
   )
 }
 

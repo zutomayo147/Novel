@@ -23,9 +23,11 @@ import { ChangeEvent, ReactElement, ReactNode } from "react"
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
+import { useRouter } from "next/router";
 
 // const UserHome: NextPage = () => {
 const PostPage: NextPage = () => {
+  const router = useRouter();
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
   const [value, setValue] = useState('i')
@@ -74,6 +76,10 @@ const PostPage: NextPage = () => {
     return (
       <>
         <AppHeader />
+        <ul>
+          <li>id:{" " + router.query.id}</li>
+          <li>name:{" " + router.query.name}</li>
+        </ul>
         <Flex flexDirection="column" alignItems="center">
           <Text>編集画面</Text>
           <Text>タイトル</Text>

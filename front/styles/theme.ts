@@ -10,7 +10,7 @@ import { extendTheme } from '@chakra-ui/react'
 // breakpoints.md = breakpoints[2]
 // breakpoints.md = breakpoints[3]
 
-const theme = extendTheme({
+const customTheme = extendTheme({
   // styles: {
   //   global: {
   //     body: {
@@ -139,4 +139,4 @@ const theme = extendTheme({
   },
 });
 
-export default theme
+export default customTheme

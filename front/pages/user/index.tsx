@@ -28,6 +28,7 @@ import {
 import { drfApiRoot } from "constants/drf"
 import axios from 'axios';
 import { AiOutlineHeart } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 
 
@@ -36,8 +37,17 @@ const UserHome: NextPage = () => {
   const [postList, setPostList] = useState([])
   const [dragIndex, setDragIndex] = useState(null);
   const inputEl = useRef("")
+  const router = useRouter();
   // const handleOnClick = () => console.log(inputEl.current.textContent)
-  const handleOnClick = () => console.log(inputEl.current)
+  const handleOnClick2 = () => console.log(inputEl.current.textContent)
+  // const handleOnClick2 = () => console.log(inputEl.current.getAttribute('Heading'))
+  const handleOnClick = () => {
+    router.push({ pathname: "/user/postDetail", query: query }, "postDetail");
+  }
+  const query = {
+    id: 1,
+    name: inputEl.current.textContent,
+  };
 
 
   const [cookie, setCookie] = useCookies(['isLogin'])
@@ -72,11 +82,11 @@ const UserHome: NextPage = () => {
           <Link href="/user/post">
             <Button>投稿</Button>
           </Link>
-          <Text m={10} onClick={handleOnClick}>投稿一覧(タイトル)</Text>
+          <Text m={10} onClick={handleOnClick2}>投稿一覧(タイトル)</Text>
           <Button onClick={handleOnClick}>pp</Button>
           {postList.map((post, index) => (
 
-            <Center ref={inputEl} py={6} key={post.id}>
+            <Center py={6} key={post.id}>
               <Link href="/user/postDetail">
                 <Box
                   maxW={'320px'}
@@ -85,7 +95,7 @@ const UserHome: NextPage = () => {
                   rounded={'lg'}
                   p={6}
                   textAlign={'center'}>
-                  <Heading fontSize={'2xl'} fontFamily={'body'} onClick={handleOnClick}>
+                  <Heading ref={inputEl} fontSize={'2xl'} fontFamily={'body'} onClick={handleOnClick}>
                     {post.post_title}
                   </Heading>
                   <Text fontWeight={600} color={'gray.500'} mb={4}>

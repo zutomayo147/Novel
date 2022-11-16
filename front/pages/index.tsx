@@ -1,4 +1,5 @@
-import { AppHeader } from "components/Molecules/AppHeader"
+// import AppHeader from "components/Molecules/AppHeader"
+import AppTop from "components/Layouts/AppTop"
 import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 import { Box, Divider, Heading, Stack } from "@chakra-ui/layout"
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
@@ -29,7 +30,7 @@ const Home = () => {
   const handleClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(event);
   }
-      // <Box>Current Size:{breakpointValue}</Box>
+  // <Box>Current Size:{breakpointValue}</Box>
   return (
     <>
       <Flex flexDirection='column' alignItems='center' >
@@ -50,27 +51,14 @@ const Home = () => {
         <button onClick={handleClick}>Click</button>
         <button onClick={(event) => { }}>Click</button>
       </Flex>
-      <Stack>
-        <Box p={2} bg={{ base: "red.200", sm: "yellow.200", md: "green.200", lg: "blue.200" }} >
-          {`["red.200", "yellow.200", "green.200", "blue.200"]`}
-        </Box>
-        <Box p={2} bg={{ base: "red.200", sm: "yellow.200", md: "green.200", lg: "blue.200" }} >
-          {`{base: "red.200", sm: "yellow.200", md: "green.200", lg: "blue.200" }`}
-        </Box>
-        <Box p={2} bg={{ sm: "yellow.200", md: "green.200", lg: "blue.200" }} >
-          {`{ sm: "yellow.200", md: "green.200", lg: "blue.200" }`}
-        </Box>
-        <Box p={2} bg={{ base: "red.200", md: "green.200", lg: "blue.200" }} >
-          {`{ base: "red.200", md: "green.200", lg: "blue.200" }`}
-        </Box>
-      </Stack>
-
     </>
   )
 }
 Home.getLayout = (page: ReactElement) => {
   return (
-    page
+    <AppTop>
+      {page}
+    </AppTop>
   )
 }
 

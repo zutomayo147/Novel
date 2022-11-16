@@ -180,6 +180,32 @@ class PostEdit(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class ForkPost(generics.RetrieveUpdateDestroyAPIView):
+    pass
+    # post_content = get_object_or_404(Post, id=book_id)
+    # queryset = Post.objects.all()
+    # serializer_class = PostSerializer
+    # permission_classes = (
+    #     permissions.IsAuthenticatedOrReadOnly,
+    #     IsOwnerOrReadOnly,
+    # )
+    # # product = Post.objects.get(id=product_id)
+    # # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
+    # def update(self, request, post_title):
+    #     instance = get_object_or_404(Post, post_title=post_title)
+    #     serializer = self.serializer_class(instance, data=request.data, partial=True)
+    #     userName = str(request.user)
+    #
+    #     post_title = request.data["post_title"]
+    #     post_content = request.data["post_content"]
+    #     gitInit(userName, post_title, post_content)
+    #
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 # class NewPost(GenericAPIView):
 #     # class NewPost(CreateAPIView):
 #     # authentication_classes = [TokenAuthentication]

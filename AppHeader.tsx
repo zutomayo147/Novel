@@ -16,8 +16,8 @@ import {
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from "@chakra-ui/icons"
 
-const AppHeader: React.FC = () => {
-  const isMobile = useIsMobile()
+const AppHeader = () => {
+  // const isMobile = useIsMobile()
   const { height, width } = useWindowSize();
 
   // 初期表示時に画面幅に合わないコンポーネントが一瞬表示されてしまうのを防ぐ
@@ -25,20 +25,20 @@ const AppHeader: React.FC = () => {
     return ``
   }
 
-  if (width < 1100){
-    return(
+  if (width < 1100) {
+    return (
       <>
         <Flex justifyContent="center" alignContent="center">
-        <Text fontSize='50px' color='brand' ml='10' width='200px'>
+          <Text fontSize='50px' color='brand' ml='10' width='200px'>
             GitNovel
           </Text>
           <Spacer />
           <Menu>
-            <MenuButton 
-            fontSize="30px" fontWeight={"light"}
-            display='flex' alignContent='center'
-            mt='auto' mb='auto'
-            as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              fontSize="30px" fontWeight={"light"}
+              display='flex' alignContent='center'
+              mt='auto' mb='auto'
+              as={Button} rightIcon={<ChevronDownIcon />}>
               Select
             </MenuButton>
             <MenuList>
@@ -47,11 +47,11 @@ const AppHeader: React.FC = () => {
               <MenuItem>Comics</MenuItem>
               <MenuItem>Dramas</MenuItem>
             </MenuList>
-          </Menu>         
+          </Menu>
           <Spacer />
           <Text fontSize='30px' color='black' mr='10'
-          display='flex' alignItems='center' width='200px' 
-          justifyContent={"right"}>
+            display='flex' alignItems='center' width='200px'
+            justifyContent={"right"}>
             Login
           </Text>
         </Flex>
@@ -68,7 +68,7 @@ const AppHeader: React.FC = () => {
         <Text fontSize='50px' color='brand' ml='10' width='200px'>
           GitNovel
         </Text>
-        
+
         <Spacer />
 
         <Flex align='center' ml='10' mr='10'>
@@ -87,9 +87,9 @@ const AppHeader: React.FC = () => {
         </Flex>
         <Spacer />
         <Text fontSize='30px' color='black' mr='10'
-        display='flex' alignItems='center' width='200px' 
-        justifyContent={"right"}>
-            Login
+          display='flex' alignItems='center' width='200px'
+          justifyContent={"right"}>
+          Login
         </Text>
       </Flex>
       <Divider borderColor="black" />

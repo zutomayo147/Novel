@@ -33,9 +33,9 @@ import { useRouter } from "next/router";
 
 type Post = {
   id: number;
-  title: string;
-  caption: string | null;
-  content: string
+  post_title: string;
+  post_caption: string | null;
+  post_content: string
 };
 
 
@@ -97,7 +97,7 @@ const UserHome = () => {
                   p={6}
                   textAlign={'center'}>
                   <Heading ref={inputEl} fontSize={'2xl'} fontFamily={'body'}>
-                    {post.title}
+                    {post.post_title}
                   </Heading>
                   <Text fontWeight={600} color={'gray.500'} mb={4}>
                     @lindsey_jam3s
@@ -105,7 +105,7 @@ const UserHome = () => {
                   <Text
                     textAlign={'center'}
                     px={3}>
-                    {post.caption}
+                    {post.post_caption}
                   </Text>
                   <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
                     <Badge
@@ -127,7 +127,7 @@ const UserHome = () => {
                       #music
                     </Badge>
                   </Stack>
-                  {post.content}
+                  {post.post_content}
                   <Stack mt={8} direction={'row'} spacing={4}>
                     <Button
                       flex={1}

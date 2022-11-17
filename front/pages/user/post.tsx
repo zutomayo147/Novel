@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+// import type { NextPage } from 'next'
 import Link from "next/link"
 import {
   Box,
@@ -25,7 +25,7 @@ import { CreateNovel } from "drf/posts/CreateNovel"
 import { Layout } from "components/Layouts/Layout"
 
 // const UserHome: NextPage = () => {
-const PostPage: NextPage = () => {
+const PostPage = () => {
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
   const [value, setValue] = useState('i')
@@ -49,7 +49,7 @@ const PostPage: NextPage = () => {
   if (cookie.isLogin) {
     return (
       <>
-        <Flex flexDirection="column" alignItems="center" w = "100vw">
+        <Flex flexDirection="column" alignItems="center" w="100vw">
           <Text fontSize='40px'>
             新規小説作成
           </Text>
@@ -70,7 +70,7 @@ const PostPage: NextPage = () => {
             </InputGroup>
           </Flex>
         </Flex>
-        <Flex flexDirection="column" alignItems="center" m = {10}>
+        <Flex flexDirection="column" alignItems="center" m={10}>
           <Text fontSize='28px'>
             本文
           </Text>
@@ -102,7 +102,7 @@ const PostPage: NextPage = () => {
   }
 }
 
-PostPage.getLayout = (page) => {
+PostPage.getLayout = (page: ReactElement) => {
   return (
     <Layout>
       {page}

@@ -20,6 +20,9 @@ class Post(models.Model):
     post_created = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    retweet_count = models.IntegerField(default=0)
+    favorite_count = models.IntegerField(default=0)
+    # remote_address　(投稿元のIPアドレス)
     # post_git = models.FileField(upload_to="file/%Y/%m/%d")
     # filePath = ["userPost", owner.userName]
     # filePath = os.path.join(*filePath)

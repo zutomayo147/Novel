@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+// import type { NextPage } from 'next'
 import Link from "next/link"
 import {
   Box,
@@ -25,7 +25,7 @@ import { CreateNovel } from "drf/posts/CreateNovel"
 import { useRouter } from "next/router";
 import { IoArrowBackCircle } from "react-icons/io5";
 
-const PostPage: NextPage = () => {
+const PostPage = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
@@ -49,6 +49,13 @@ const PostPage: NextPage = () => {
   const historyList = [1, 4, 9, 16];
 
 
+  // <Flex>
+  //   {historyList.map((history, index) => (
+  //     <Box py={6} key={history.id}>
+  //       history
+  //     </Box>
+  //   ))}
+  // </Flex>
   if (cookie.isLogin) {
     return (
       <>
@@ -57,13 +64,6 @@ const PostPage: NextPage = () => {
           <li>name:{" " + router.query.name}</li>
         </ul>
         <Flex justifyContent="center">履歴ツリー</Flex>
-        <Flex>
-          {historyList.map((history, index) => (
-            <Box py={6} key={history.id}>
-              history
-            </Box>
-          ))}
-        </Flex>
         <Flex justifyContent="center">more detail</Flex>
         <Flex flexDirection="column" alignItems="center">
           <Text>編集画面</Text>
@@ -112,7 +112,7 @@ const PostPage: NextPage = () => {
   }
 }
 
-PostPage.getLayout = (page) => {
+PostPage.getLayout = (page: ReactElement) => {
   return (
     page
   )

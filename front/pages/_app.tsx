@@ -15,9 +15,8 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-  // const getLayout = Component.getLayout || ((page) => <AppBasic>{page}</AppBasic>)
-  // const getLayout = Component.getLayout || ((page) => page)
-  const getLayout = Component.getLayout ?? ((page) => page)
+  // const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout || ((page) => page)
 
   return (
     <CookiesProvider>

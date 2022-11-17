@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+// import type { NextPage } from 'next'
 import Link from "next/link"
 import {
   Box,
@@ -24,7 +24,7 @@ import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
 
 // const UserHome: NextPage = () => {
-const PostPage: NextPage = () => {
+const EditPage = () => {
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
   const [value, setValue] = useState('i')
@@ -93,4 +93,4 @@ const PostPage: NextPage = () => {
 }
 
 
-export default PostPage
+export default EditPage

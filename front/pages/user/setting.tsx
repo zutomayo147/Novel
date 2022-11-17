@@ -1,4 +1,3 @@
-import type { NextPage } from 'next'
 import {
   Box,
   Flex,
@@ -16,10 +15,10 @@ import {
   Icon,
 } from '@chakra-ui/react';
 
-const UserSetting: NextPage = () => {
+const UserSetting = () => {
   return (
     <Text>user設定</Text>
   )
 }
 
-export default userSetting
+export default UserSetting

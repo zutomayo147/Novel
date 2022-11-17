@@ -1,4 +1,6 @@
 import type { NextPage } from 'next'
+import Image from 'next/image'
+
 import Link from "next/link"
 import {
   Box,
@@ -120,10 +122,10 @@ const UserHome: NextPage = () => {
                 <div {...getRootProps({ className: 'dropzone' })}>
                   {isShow ? (
                     files.map(file => (
-                      <img key={file.name} src={file.preview} alt={file.name} width='200' />
+                      <Image key={file.name} src={file.preview} alt={file.name} width='200' />
                     ))
                   ) : (
-                    <img src={bg} alt='bg' className={'upload_img ' + (isDragActive ? 'is-on' : '')} width='200' />
+                    <Image src={bg} alt='bg' className={'upload_img ' + (isDragActive ? 'is-on' : '')} width='200' />
                   )}
                   <input {...getInputProps()} />
                 </div>

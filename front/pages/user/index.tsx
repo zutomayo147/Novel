@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+// import type { NextPage } from 'next'
 import Link from "next/link"
 import {
   Box,
@@ -26,30 +26,27 @@ import {
   useRef
 } from 'react';
 import { drfApiRoot } from "constants/drf"
-import axios from 'axios';
+import axios from 'axios'
 import { AiOutlineHeart } from "react-icons/ai";
 import { useRouter } from "next/router";
 
 
+type Post = {
+  id: number;
+  title: string;
+  caption: string | null;
+  content: string
+};
+
 
 // const UserHome: NextPage = () => {
-const UserHome: NextPage = () => {
-  const [postList, setPostList] = useState([])
+const UserHome = () => {
+  const [postList, setPostList] = useState<Post[]>([])
   const [dragIndex, setDragIndex] = useState(null);
-  const inputEl = useRef("")
+  // const inputEl = useRef<string | null>("")
+  // const inputEl = useRef<string>(null!)
+  const inputEl = useRef<HTMLHeadingElement>(null)
   const router = useRouter();
-  // const handleOnClick = () => console.log(inputEl.current.textContent)
-  // const handleOnClick2 = () => console.log(inputEl.current.textContent)
-  // const handleOnClick2 = () => console.log(inputEl.current.getAttribute('Heading'))
-  // const handleOnClick = () => {
-  //   router.push({ pathname: "/user/postDetail", query: query }, "postDetail");
-  // }
-  // const query = {
-  //   id: 1,
-  //   name: inputEl.current.textContent,
-  // };
-
-
   const [cookie, setCookie] = useCookies(['isLogin'])
   const [accessToken, setAccessToken] = useCookies(['accessToken']);
   useEffect(() => {
@@ -79,7 +76,7 @@ const UserHome: NextPage = () => {
     return (
       <>
         <Flex flexDirection="row-reverse">
-          <Link href = "user/profile">
+          <Link href="user/profile">
             userName
           </Link>
         </Flex>
@@ -90,7 +87,6 @@ const UserHome: NextPage = () => {
           </Link>
           <Text m={10} >全ユーザーの投稿一覧</Text>
           {postList.map((post, index) => (
-
             <Center py={6} key={post.id}>
               <Link href="/user/postDetail">
                 <Box
@@ -101,7 +97,7 @@ const UserHome: NextPage = () => {
                   p={6}
                   textAlign={'center'}>
                   <Heading ref={inputEl} fontSize={'2xl'} fontFamily={'body'}>
-                    {post.post_title}
+                    {post.title}
                   </Heading>
                   <Text fontWeight={600} color={'gray.500'} mb={4}>
                     @lindsey_jam3s
@@ -109,7 +105,7 @@ const UserHome: NextPage = () => {
                   <Text
                     textAlign={'center'}
                     px={3}>
-                    {post.post_caption}
+                    {post.caption}
                   </Text>
                   <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
                     <Badge
@@ -131,7 +127,7 @@ const UserHome: NextPage = () => {
                       #music
                     </Badge>
                   </Stack>
-                  {post.post_content}
+                  {post.content}
                   <Stack mt={8} direction={'row'} spacing={4}>
                     <Button
                       flex={1}

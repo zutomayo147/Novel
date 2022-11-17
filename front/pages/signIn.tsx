@@ -5,7 +5,6 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 
 import { PrimaryButton } from "components/atoms/button/PrimaryButton"
 import { useSignIn } from "drf/auth/useSignIn"
-import { NextPage } from "next"
 import { Layout } from "components/Layouts/Layout"
 
 import {
@@ -24,7 +23,7 @@ import {
   InputRightElement
 } from '@chakra-ui/react';
 
-const SignIn: NextPage = () => {
+const SignIn = () => {
   const [email, setEmail] = useState("")
   // const [userName, setuserName] = useState("")
   const [password, setPassword] = useState("")

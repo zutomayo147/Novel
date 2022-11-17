@@ -62,9 +62,7 @@ docker-compose up -d
 
 <!-- docker-compose exec back /bin/sh -->
 ```
-docker-compose exec back python /back/manage.py makemigrations
-docker-compose exec back python /back/manage.py migrate
-docker-compose exec back python /back/manage.py createsuperuser
+sh initial_script.sh
 ```
 ### Adopt model change
 

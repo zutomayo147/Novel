@@ -89,7 +89,8 @@ class Comment(models.Model):
         ]
         verbose_name = verbose_name_plural = "コメント"
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     data = models.TextField(null=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     parent_post = models.ForeignKey(Post, on_delete=models.CASCADE)

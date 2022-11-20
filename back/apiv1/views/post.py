@@ -1,10 +1,13 @@
 from django.conf import settings
-from django.contrib.auth.mixins import LoginRequiredMixin
+
+# from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from django.views import View
+
+# from django.views import View
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
-from rest_framework import generics, permissions, renderers
+
+# from rest_framework.reverse import reverse
+from rest_framework import generics, permissions, mixins
 from rest_framework import status, views, viewsets, mixins
 from rest_framework.generics import GenericAPIView, CreateAPIView
 from rest_framework.views import APIView
@@ -31,7 +34,14 @@ os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
 
 
 # LoginRequiredMixin
-class NewPost(generics.ListCreateAPIView):
+class PostViewSet(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    # mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -50,11 +60,46 @@ class NewPost(generics.ListCreateAPIView):
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    # def list(self, request, userName):
+    #     # instance = get_object_or_404(Profile, user__username=username)
+    #     queryset = self.queryset.get(userName=userName)
+    #     # filterset = PostFilter(request.query_params, queryset=self.queryset)
+    #     if not queryset.is_valid():
+    #         raise ValidationError(queryset.errors)
+    #
+    #     page = self.paginate_queryset(queryset.qs)
+    #     if page is not None:
+    #         serializer = self.get_serializer(page, many=True)
+    #         return self.get_paginated_response(serializer.data)
+    #
+    #     serializer = self.get_serializer(queryset.qs, many=True)
+    #     return Response(serializer.data)
+
+    def retrieve(self, request, pk):
+
+        post = get_object_or_404(Post, pk=pk)
+        serializer = self.serializer_class(instance=post)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # def update(self, request, pk):
+    #     instance = get_object_or_404(Post, pk=pk)
+    #     serializer = self.serializer_class(instance, data=request.data, partial=True)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def destroy(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        post.delete()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
-class PostEdit(generics.RetrieveUpdateDestroyAPIView):
+class PostEdit(
+    generics.RetrieveUpdateDestroyAPIView,
+    # viewsets.GenericViewSet,
+):
     # post_content = get_object_or_404(Post, id=book_id)
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -111,68 +156,6 @@ class ImageFileView(generics.ListCreateAPIView):
     serializer_class = UploadFileSerializer
 
 
-# class NewPost(GenericAPIView):
-#     # class NewPost(CreateAPIView):
-#     # authentication_classes = [TokenAuthentication]
-#     # permission_classes = [IsAuthenticated]
-#     serializer_class = PostSerializer
-#
-#     # def get(self, request):
-#     #     # user = self.request.user
-#     #     # host = self.request.get_host
-#     #     user = str(self.request.user.userName)
-#     #     moveToUserRepo(user)
-#     #
-#     #     data = {"user": user}
-#     #     return JsonResponse(data, status=status.HTTP_200_OK)
-#     def post(self, request, post_title):
-#         user = str(self.request.user.userName)
-#         # post_content = get_object_or_404(Post, id=book_id)
-#         post = get_object_or_404(Post, post_title=post_title)
-#         gitInit(user, post.post_title)
-#
-#         # f = open('write_test.txt', 'w')
-#         f = open(f"{post.post_title}.txt", "w")
-#         f.write(post.post_content)
-#         f.close()
-#
-#         # repo.git.add('bar.txt')
-#
-#         data = {"user": user}
-#         return Response(data, status=status.HTTP_200_OK)
-
-
-# class EditPost(GenericAPIView):
-#     # class NewPost(CreateAPIView):
-#     # authentication_classes = [TokenAuthentication]
-#     # permission_classes = [IsAuthenticated]
-#     serializer_class = PostSerializer
-#
-#     # def get(self, request):
-#     #     # user = self.request.user
-#     #     # host = self.request.get_host
-#     #     user = str(self.request.user.userName)
-#     #     moveToUserRepo(user)
-#     #
-#     #     data = {"user": user}
-#     #     return JsonResponse(data, status=status.HTTP_200_OK)
-#     def post(self, request, post_title):
-#         user = str(self.request.user.userName)
-#         # post_content = get_object_or_404(Post, id=book_id)
-#         post = get_object_or_404(Post, post_title=post_title)
-#         gitInit(user, post.post_title)
-#
-#         # f = open('write_test.txt', 'w')
-#         f = open(f"{post.post_title}.txt", "w")
-#         f.write(post.post_content)
-#         f.close()
-#
-#         # repo.git.add('bar.txt')
-#
-#         data = {"user": user}
-#         return JsonResponse(data, status=status.HTTP_200_OK)
-
-
 # class UploadImageAPI(GenericAPIView):
 #     queryset = UploadImage.objects.all()
 #     parser_classes = [FormParser, MultiPartParser]
@@ -195,20 +178,14 @@ class PostList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        IsOwnerOrReadOnly,
-    )
-
-
 class CommentListCreateAPIView(
-    mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
 ):
     lookup_field = "post__id"
-    lookup_url_kwarg = "post_id"
+    # lookup_url_kwarg = "post_id"
+    lookup_url_kwarg = "id"
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -217,18 +194,18 @@ class CommentListCreateAPIView(
 
         return queryset.filter(**filters)
 
-    def create(self, request, book_id=None):
-        print("post_id", post_id)
-        book = get_object_or_404(Post, id=book_id)
+    def create(self, request, post_id=None):
+        # print("post_id", post_id)
+        post = get_object_or_404(Post, id=post_id)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(owner=request.user, book=book)
+        # serializer.save(owner=request.user, book=book)
+        serializer.save(owner=request.user, post=post)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)

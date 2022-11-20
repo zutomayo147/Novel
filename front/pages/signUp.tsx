@@ -49,9 +49,6 @@ const Home = () => {
             <Heading fontSize={'4xl'} textAlign={'center'}>
               Sign up
             </Heading>
-            <Text fontSize={'lg'} color={'gray.600'}>
-              to enjoy all of our cool features ✌️
-            </Text>
           </Stack>
           <Box
             rounded={'lg'}
@@ -89,15 +86,11 @@ const Home = () => {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Stack spacing={10} pt={2}>
+              <Flex justifyContent = "center">
                 <PrimaryButton disabled={userName === "" || email === "" || password === ""} onClick={onClickSignUp}>
                   Sign up
                 </PrimaryButton>
-              </Stack>
-              <Stack pt={6}>
-                <Text align={'center'}>
-                </Text>
-              </Stack>
+              </Flex>
             </Stack>
           </Box>
         </Stack>

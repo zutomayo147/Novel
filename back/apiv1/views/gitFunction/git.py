@@ -1,6 +1,8 @@
 import os
 import git
 import subprocess
+from typing import List
+
 from django.conf import settings
 
 
@@ -58,6 +60,7 @@ def gitInit(userName: str, post_title: str, post_content: str) -> None:
     subprocess.run(["git", "fetch"])
     subprocess.run(["git", "merge", "--allow-unrelated-histories", "origin/main"])
 
+
 def gitPush(userName: str, post_title: str, post_content: str) -> None:
     # back/config/media/
     os.chdir(settings.MEDIA_ROOT)
@@ -94,3 +97,38 @@ def gitPush(userName: str, post_title: str, post_content: str) -> None:
     repo.remotes.origin.push("main")
     # subprocess.run(["git", "fetch"])
     # subprocess.run(["git", "merge", "--allow-unrelated-histories", "origin/main"])
+
+
+def getPostLog(userName: str, post_title: str) -> List[str]:
+    os.chdir(settings.MEDIA_ROOT)
+
+    # back/config/media/
+    # pwd = os.getcwd()
+    # remoteUrl = f"{pwd}/remote_repo/{userName}/{post_title}"
+    os.chdir(userName)
+    os.chdir(post_title)
+    r = git.Repo()
+    # print(r.git.log(p=True,pretty=format:"%H"))
+    # print(r.git.log('--pretty=format:%h -- master'))
+    # gitLogList = splitLines(r.git.log('--pretty=format:%h'))
+    log = r.git.log("--pretty=format:%h")
+    gitLogList = log.splitlines()
+    os.chdir(settings.MEDIA_ROOT)
+    return gitLogList
+
+
+def cloneOriginalPost(originUser: str, post_title: str, forkUser: str) -> None:
+    os.chdir(settings.MEDIA_ROOT)
+    # back/config/media/
+    pwd = os.getcwd()
+
+    os.chdir(forkUser)
+    to_path = "post_title"
+
+    remoteOriginUrl = f"{pwd}/remote_repo/{originUser}/{post_title}"
+    r = git.Repo()
+    # repo.clone(url,to_path)
+    # repo = git.Repo()
+    # repo.clone(url)
+    git.Repo.clone_from(remoteOriginUrl, to_path)
+    # TODO

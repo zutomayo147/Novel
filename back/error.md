@@ -1,0 +1,8 @@
+Warning #0: ImageFileView: UploadFileSerializer: unable to resolve type hint for function "get_file_name". Consider using a type hint or @extend_schema_field.│
+ Defaulting to string.                                                                                                                                        ││                                                                    │Warning #1: CommentListCreateAPIView: could not derive type of path parameter "post_id" because model "posts.models.Comment" contained no such field. Consider│
+annotating parameter with @extend_schema. Defaulting to "string".                                                                                            │
+││Warning #2: ProfileViewSet: could not derive type of path parameter "userName" because model "profiles.models.Profile" contained no such field. Considerannot│
+ ││ating parameter with @extend_schema. Defaulting to "string".                                                                                                  │
+Warning #3: ProfileImageViewSet: could not derive type of path parameter "userName" because model "profiles.models.Profile" contained no such field. Consider │
+││annotating parameter with @extend_schema. Defaulting to "string".                                                                                             │
+││172.18.0.1 - - [19/Nov/2022 17:22:27] "GET /api/schema/ HTTP/1.1" 200 -                                                                                       │

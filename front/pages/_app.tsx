@@ -7,6 +7,8 @@ import customTheme from 'styles/theme'
 import React from 'react';
 // import { ChakraProvider } from '@chakra-ui/react' for toast
 import { ChakraProvider } from "@chakra-ui/provider";
+// import Head from 'next/head'
+
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -19,11 +21,13 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <CookiesProvider>
-      <ChakraProvider theme={customTheme}>
-        {getLayout(<Component {...pageProps} />)}
-      </ChakraProvider>
-    </CookiesProvider>
+    <>
+      <CookiesProvider>
+        <ChakraProvider theme={customTheme}>
+          {getLayout(<Component {...pageProps} />)}
+        </ChakraProvider>
+      </CookiesProvider>
+    </>
   )
 }
 export default MyApp

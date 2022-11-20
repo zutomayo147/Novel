@@ -1,5 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
+import { Layout } from "components/Layouts/Layout"
+import { ChangeEvent, ReactElement, ReactNode } from "react"
 
 import Link from "next/link"
 import {
@@ -37,24 +39,6 @@ import { useDropzone } from 'react-dropzone'
 import bg from './assets/image/upload_bg.jpg'
 import axios from 'axios'
 
-// const useStyles = makeStyles({
-//   root: {
-//     minWidth: 300,
-//     position: 'absolute',
-//     top: '50%',
-//     left: '50%',
-//     transform: 'translate(-50%, -50%)'
-//   }
-//   title: {
-//     textAlign: 'center',
-//   },
-//   subtitle: {
-//     textAlign: 'center',
-//   },
-//   actions: {
-//     justifyContent: 'center',
-//   }
-// })
 
 import { useCookies } from 'react-cookie';
 
@@ -66,12 +50,9 @@ type MyFile = File & {
 
 
 // const UserHome: NextPage = () => {
-const UserHome: NextPage = () => {
+const Profile = () => {
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
-  // console.log(cookie.isLogin)
-  // console.log(accsesToken)
-  // const classes = useStyles()
 
   const [isShow, setIsShow] = useState(false)
   const [files, setFiles] = useState<MyFile[]>([])
@@ -109,74 +90,55 @@ const UserHome: NextPage = () => {
   if (cookie.isLogin) {
     return (
       <>
-        <Flex h="30vh" alignItems="center">
-          <Container maxWidth="sm">
-            <Card >
-              <CardContent>
-                <Typography variant='h6' component='h2' >
-                  Image uploader
-                </Typography>
-                <Typography component='p' color='textSecondary' >
-                  drag & drop
-                </Typography>
-                <div {...getRootProps({ className: 'dropzone' })}>
-                  {isShow ? (
-                    files.map(file => (
-                      <Image key={file.name} src={file.preview} alt={file.name} width='200' />
-                    ))
-                  ) : (
-                    <Image src={bg} alt='bg' className={'upload_img ' + (isDragActive ? 'is-on' : '')} width='200' />
-                  )}
-                  <input {...getInputProps()} />
-                </div>
+        <Flex h = "70vh">
+          <Flex h="30vh" alignItems="center">
+            <Container maxWidth="sm">
+              <Card >
+                <CardContent>
+                  <Typography variant='h6' component='h2' >
+                    Image uploader
+                  </Typography>
+                  <Typography component='p' color='textSecondary' >
+                    drag & drop
+                  </Typography>
+                  <div {...getRootProps({ className: 'dropzone' })}>
+                    {isShow ? (
+                      files.map(file => (
+                        <Image key={file.name} src={file.preview} alt={file.name} width='200' />
+                      ))
+                    ) : (
+                      <Image src={bg} alt='bg' className={'upload_img ' + (isDragActive ? 'is-on' : '')} width='200' />
+                    )}
+                    <input {...getInputProps()} />
+                  </div>
 
-              </CardContent>
+                </CardContent>
 
-              <CardActions >
-                <Button
-                  size='small'
-                  color='primary'
-                  variant='contained'
-                  onClick={open}
-                >Select</Button>
-                {isShow && (
+                <CardActions >
                   <Button
                     size='small'
                     color='primary'
                     variant='contained'
-                    onClick={upload}
-                  >Upload</Button>
-                )}
-              </CardActions>
-            </Card>
-          </Container>
-          <Text>Username</Text>
+                    onClick={open}
+                  >Select</Button>
+                  {isShow && (
+                    <Button
+                      size='small'
+                      color='primary'
+                      variant='contained'
+                      onClick={upload}
+                    >Upload</Button>
+                  )}
+                </CardActions>
+              </Card>
+            </Container>
+            <Text>Username</Text>
+          </Flex>
+          <Flex w = "70vw">
+            pp
+
+          </Flex>
         </Flex>
-        <Tabs>
-          <TabList>
-            <Tab>Posts</Tab>
-            <Tab>Saved</Tab>
-          </TabList>
-
-          <TabPanels>
-            <TabPanel>
-              <p>one!</p>
-              <p>one!</p>
-              <p>one!</p>
-              <p>one!</p>
-            </TabPanel>
-            <TabPanel>
-              <p>two!</p>
-              <p>two!</p>
-              <p>two!</p>
-              <p>two!</p>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-        <Link href="/snippets/">
-          <Button>投稿</Button>
-        </Link>
-
       </>
     )
   } else {
@@ -191,5 +153,12 @@ const UserHome: NextPage = () => {
     )
   }
 }
+Profile.getLayout = (page: ReactElement) => {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  )
+}
 
-export default UserHome
+export default Profile

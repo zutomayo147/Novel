@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link"
 import {
   Box,
   Stack,
@@ -40,13 +41,13 @@ export const Header = () => {
       </Flex>
       <FormControl w="50vw">
         <InputGroup>
-          <Input borderRadius="15" bg="white" placeholder = "検索機能を生やす" />
+          <Input borderRadius="15" bg="white" placeholder="検索機能を生やす" />
           <InputLeftElement color="black" >
             <SearchIcon />
           </InputLeftElement>
         </InputGroup>
       </FormControl>
-      <Flex flexDirection = "column" alignContent = "center">
+      <Flex flexDirection="column" alignContent="center">
         <Box display={{ base: "block", md: "none" }} onClick={handleToggle}>
           <HamburgerIcon />
           ドロワーにする
@@ -58,9 +59,17 @@ export const Header = () => {
           mt={1}
           fontSize="xl"
         >
-          <Text>Home</Text>
-          <Text>Create</Text>
-          <Text>Account</Text>
+          <Link href = "/user/">
+            <Text _hover={{ opacity: 0.8 }}>Home</Text>
+          </Link>
+          <Text>|</Text>
+          <Link href = "/user/post">
+            <Text _hover={{ opacity: 0.8 }}>Create</Text>
+          </Link>
+          <Text>|</Text>
+          <Link href="/user/profile">
+            <Text _hover={{ opacity: 0.8 }}>Account</Text>
+          </Link>
         </Stack>
 
       </Flex>

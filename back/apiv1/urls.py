@@ -15,7 +15,7 @@ urlpatterns = [
     # path("post/", post.PostViewSet.as_view(), name="test"),
     # path("post/", post.PostViewSet, name="test"),
     # path("post/detail", post.PostDetail.as_view(), name="test"),
-    path("post/edit/<post_title>", post.PostEdit.as_view(), name="edit"),
+    path("post/edit/<title>", post.PostEdit.as_view(), name="edit"),
     path("image/", post.ImageFileView.as_view(), name="images"),
     path(
         "post/<post_id>/comments/",

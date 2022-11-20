@@ -50,22 +50,20 @@ const PostPage = () => {
     return (
       <>
         <Flex flexDirection="column" alignItems="center" w="100vw">
-          <Text fontSize='40px'>
+          <Text m={10} fontSize='30px'>
             新規小説作成
           </Text>
-          <Flex flexDirection='column'>
+          <Flex flexDirection='column' w="70vw">
             <Text fontSize='28px'>
               タイトル
             </Text>
-            <InputGroup>
+            <InputGroup mb={10}>
               <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
             </InputGroup>
-          </Flex>
-          <Flex flexDirection='column'>
             <Text fontSize='28px'>
               概略
             </Text>
-            <InputGroup>
+            <InputGroup mb={10}>
               <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
             </InputGroup>
           </Flex>
@@ -82,10 +80,18 @@ const PostPage = () => {
             p={10}
             overflow="auto"
           />
+          <Text fontSize='28px'>
+            タグ選択
+          </Text>
+          <InputGroup mb={10}>
+            <Input placeholder="たぐ、後で" />
+          </InputGroup>
 
           <Link href="/snippets/">
           </Link>
-          <Button m="50px" disabled={post_title === "" || post_caption === "" || post_content === ""} onClick={onClickPost}>新規作成</Button>
+          <Button m="50px" disabled={post_title === "" || post_caption === "" || post_content === ""} onClick={onClickPost}
+          >新規作成
+          </Button>
         </Flex>
       </>
     )

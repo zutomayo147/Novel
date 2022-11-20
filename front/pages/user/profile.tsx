@@ -90,8 +90,11 @@ const Profile = () => {
   if (cookie.isLogin) {
     return (
       <>
-        <Flex h = "70vh">
-          <Flex h="30vh" alignItems="center">
+        <Flex h="5vh" m={5} justifyContent="center" fontSize="2xl" alignItems="center" fontStyle="italic">
+          Account
+        </Flex>
+        <Flex h="70vh">
+          <Flex w="30vw" alignItems="center" flexDirection="column">
             <Container maxWidth="sm">
               <Card >
                 <CardContent>
@@ -133,10 +136,26 @@ const Profile = () => {
               </Card>
             </Container>
             <Text>Username</Text>
+            <Text>bio</Text>
+            <Text>bio sample</Text>
+            <Text>こんにちわ。usernameと申します。よろしくおねがいします!</Text>
           </Flex>
-          <Flex w = "70vw">
-            pp
+          <Flex >
+            <Tabs w = "70vw">
+              <TabList justifyContent = "center">
+                <Tab w = "35vw">公開作品</Tab>
+                <Tab w = "35vw">非公開作品</Tab>
+              </TabList>
 
+              <TabPanels>
+                <TabPanel>
+                  <p>公開作品</p>
+                </TabPanel>
+                <TabPanel>
+                  <p>非公開作品</p>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </Flex>
         </Flex>
       </>

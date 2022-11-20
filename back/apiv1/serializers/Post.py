@@ -48,10 +48,10 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = [
             "id",
-            "post_title",
+            "title",
             "owner",
-            "post_caption",
-            "post_content",
+            "caption",
+            "content",
         ]
 
     # def create(self, validated_data):
@@ -73,8 +73,8 @@ class EditSerializer(serializers.ModelSerializer):
         model = Post
         fields = [
             "owner",
-            "post_caption",
-            "post_content",
+            "caption",
+            "content",
         ]
 
     # def create(self, validated_data):

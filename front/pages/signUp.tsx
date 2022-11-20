@@ -19,7 +19,7 @@ import {
 import { Layout } from "components/Layouts/Layout"
 import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
-import Link from "next/link"
+// import Link from "next/link"
 import useSignUp from "drf/auth/useSignUp"
 import { PrimaryButton } from "components/atoms/button/PrimaryButton"
 // import { ChangeEvent, ReactElement, ReactNode, useState } from "react"

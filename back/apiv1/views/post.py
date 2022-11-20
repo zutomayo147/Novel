@@ -52,10 +52,10 @@ class PostViewSet(
         serializer.is_valid(raise_exception=True)
 
         userName = str(request.user)
-        post_title = request.data["post_title"]
-        post_content = request.data["post_content"]
+        title = request.data["title"]
+        content = request.data["content"]
 
-        gitInit(userName, post_title, post_content)
+        gitInit(userName, title, content)
         serializer.save(owner=request.user)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -109,14 +109,14 @@ class PostEdit(
     )
     # product = Post.objects.get(id=product_id)
     # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
-    def update(self, request, post_title):
-        instance = get_object_or_404(Post, post_title=post_title)
+    def update(self, request, title):
+        instance = get_object_or_404(Post, title=title)
         serializer = self.serializer_class(instance, data=request.data, partial=True)
         userName = str(request.user)
 
-        post_title = request.data["post_title"]
-        post_content = request.data["post_content"]
-        gitInit(userName, post_title, post_content)
+        title = request.data["title"]
+        content = request.data["content"]
+        gitInit(userName, title, content)
 
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -154,6 +154,43 @@ class ImageFileView(generics.ListCreateAPIView):
     permission_classes = (permissions.AllowAny,)
     queryset = UploadFile.objects.all()
     serializer_class = UploadFileSerializer
+
+
+# def ArticlesView(request):
+#     articles = Article.objects.all()
+#     liked_list = []
+#     for article in articles:
+#         liked = article.like_set.filter(user=request.user)
+#         if liked.exists():
+#             liked_list.append(article.id)
+#
+#     context = {
+#         "articles": articles,
+#         "liked_list": liked_list,
+#     }
+#
+#     return render(request, "{自分のapp名}/articles.html", context)
+
+# def LikeView(request):
+#     if request.method == "POST":
+#         article = get_object_or_404(Article, pk=request.POST.get("article_id"))
+#         user = request.user
+#         liked = False
+#         like = Like.objects.filter(article=article, user=user)
+#         if like.exists():
+#             like.delete()
+#         else:
+#             like.create(article=article, user=user)
+#             liked = True
+#
+#         context = {
+#             "article_id": article.id,
+#             "liked": liked,
+#             "count": article.like_set.count(),
+#         }
+#
+#     if request.is_ajax():
+#         return JsonResponse(context)
 
 
 # class UploadImageAPI(GenericAPIView):

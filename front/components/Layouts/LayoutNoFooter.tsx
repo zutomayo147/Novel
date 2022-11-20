@@ -8,14 +8,13 @@ type Props = {
   children: ReactNode
 }
 
-export const Layout: FC<Props> = ({ children }) => {
+export const LayoutNoFooter: FC<Props> = ({ children }) => {
   return (
     <Flex direction="column" w="100vw" h="100vh">
       <Header />
       <Flex flex="1">
         <main>{children}</main>
       </Flex>
-      <Footer />
     </Flex>
   )
 }

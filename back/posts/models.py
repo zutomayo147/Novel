@@ -3,21 +3,22 @@ from django.conf import settings
 import uuid
 import os
 
+from datetime import timezone
+
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    post_title = models.CharField(verbose_name="タイトル", max_length=50, unique=True)
+    title = models.CharField(verbose_name="タイトル", max_length=50, unique=True)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name="作成者", on_delete=models.CASCADE
     )
-    post_caption = models.CharField(max_length=500, blank=True)
+    caption = models.CharField(max_length=500, blank=True)
     # post_content = models.TextField(blank=True, null=True)
-    post_content = models.TextField(
+    content = models.TextField(
         verbose_name="内容",
         max_length=10000,
     )
 
-    post_created = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     retweet_count = models.IntegerField(default=0)
@@ -41,6 +42,12 @@ class Post(models.Model):
     # def no_of_comments(self):
     #     return Comments.objects.filter(parent_post=self).count()
     #
+
+
+# class Like(models.Model):
+#     article = models.ForeignKey(Post, on_delete=models.CASCADE)
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     timestamp = models.DateTimeField(default=timezone.now)
 
 
 # class UploadImage(models.Model):

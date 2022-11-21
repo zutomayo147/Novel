@@ -50,15 +50,23 @@ type Post = {
 // const UserHome: NextPage = () => {
 const UserHome = () => {
   const [postList, setPostList] = useState<Post[]>([])
-  const [dragIndex, setDragIndex] = useState(null);
-  // const inputEl = useRef<string | null>("")
-  // const inputEl = useRef<string>(null!)
-  // const inputEl = useRef<HTMLHeadingElement>(null)
+  const [title, setTitle] = useState("ii")
+
   const router = useRouter();
   const [cookie, setCookie] = useCookies(['isLogin'])
   const [accessToken, setAccessToken] = useCookies(['accessToken']);
+
+  // const query = {
+  //   title: title,
+  // };
   const handleClick = (clickedPost: Post) => {
     console.log(clickedPost.title);
+    const query = {
+      title: clickedPost.title,
+    };
+    // setTitle(clickedPost.title)
+    // console.log(clickedPost.title)
+    router.push({ pathname: "/user/postDetail", query: query }, "postDetail");
   }
   useEffect(() => {
     (async () => {

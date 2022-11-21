@@ -32,17 +32,17 @@ const EditPage = () => {
 
   // const inputEl = useRef("")
 
-  const [post_title, setTitle] = useState("")
+  const [title, setTitle] = useState("")
   // const [userName, setuserName] = useState("")
-  const [post_caption, setCaption] = useState("")
-  const [post_content, setContent] = useState("")
+  const [caption, setCaption] = useState("")
+  const [content, setContent] = useState("")
   // const signIn = useSignIn()
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
   const onChangeCaption = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value)
   const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
   // const onClickPost = () => CreateNovel({ post_title, post_caption, post_content })
   const newNovel = CreateNovel()
-  const onClickPost = () => newNovel({ post_title, post_caption, post_content })
+  const onClickPost = () => newNovel({ title, caption, content })
 
   if (cookie.isLogin) {
     return (
@@ -51,12 +51,12 @@ const EditPage = () => {
           <Text>新規小説作成</Text>
           <Text>タイトル</Text>
           <InputGroup>
-            <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
+            <Input placeholder="タイトル" value={title} onChange={onChangeTitle} />
           </InputGroup>
 
           <Text>概略</Text>
           <InputGroup>
-            <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
+            <Input placeholder="概略" value={caption} onChange={onChangeCaption} />
           </InputGroup>
         </Flex>
         <Flex flexDirection="column" alignItems="flex-end">
@@ -75,7 +75,7 @@ const EditPage = () => {
           <Input placeholder='Basic usage' />
           <Link href="/snippets/">
           </Link>
-          <Button m="50px" disabled={post_title === "" || post_caption === "" || post_content === ""} onClick={onClickPost}>新規作成</Button>
+          <Button m="50px" disabled={title === "" || caption === "" || content === ""} onClick={onClickPost}>新規作成</Button>
         </Flex>
       </>
     )

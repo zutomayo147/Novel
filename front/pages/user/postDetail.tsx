@@ -1,4 +1,5 @@
 // import type { NextPage } from 'next'
+import { LayoutNoFooter } from "components/Layouts/LayoutNoFooter"
 import Link from "next/link"
 import {
   Box,
@@ -15,6 +16,19 @@ import {
   IconProps,
   Icon,
 } from '@chakra-ui/react';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
+import { FaPenNib } from "react-icons/fa";
+
 import { useCookies } from 'react-cookie';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
 import { Textarea } from '@chakra-ui/react'
@@ -24,6 +38,9 @@ import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
 import { useRouter } from "next/router";
 import { IoArrowBackCircle } from "react-icons/io5";
+import { AiOutlineHeart } from "react-icons/ai";
+import { FaRegCommentDots } from "react-icons/fa";
+
 
 const PostPage = () => {
   const router = useRouter();
@@ -34,53 +51,46 @@ const PostPage = () => {
 
   // const inputEl = useRef("")
 
-  const [post_title, setTitle] = useState("")
+  // const [title, setTitle] = useState("")
   // const [userName, setuserName] = useState("")
-  const [post_caption, setCaption] = useState("")
-  const [post_content, setContent] = useState("")
+  const [caption, setCaption] = useState("")
+  const [content, setContent] = useState("")
   // const signIn = useSignIn()
-  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
+  // const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
   const onChangeCaption = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value)
   const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
   // const onClickPost = () => CreateNovel({ post_title, post_caption, post_content })
   const newNovel = CreateNovel()
-  const onClickPost = () => newNovel({ post_title, post_caption, post_content })
+  // const onClickPost = () => newNovel({ title, caption, content })
+  // const onClickPost = () => newNovel({ caption, content })
 
-  const historyList = [1, 4, 9, 16];
+  // const historyList = [1, 4, 9, 16];
 
 
-  // <Flex>
-  //   {historyList.map((history, index) => (
-  //     <Box py={6} key={history.id}>
-  //       history
-  //     </Box>
-  //   ))}
-  // </Flex>
   if (cookie.isLogin) {
     return (
       <>
         <ul>
-          <li>id:{" " + router.query.id}</li>
-          <li>name:{" " + router.query.name}</li>
+          <li>name:{" " + router.query.title}</li>
         </ul>
-        <Flex justifyContent="center">履歴ツリー</Flex>
-        <Flex justifyContent="center">more detail</Flex>
+        <Flex flexDirection="column" w="100vw">
+          <Box ml={20}>userName/タイトル </Box>
+          <Flex justifyContent="center" >タイトル</Flex>
+          <Flex justifyContent="center">履歴ツリー</Flex>
+          <Flex justifyContent="end" mr={20}>作者</Flex>
+          <Flex justifyContent="end" mr={20}>タグ</Flex>
+        </Flex>
         <Flex flexDirection="column" alignItems="center">
-          <Text>編集画面</Text>
-          <Text>タイトル</Text>
-          <InputGroup>
-            <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
-          </InputGroup>
           <Text>概略</Text>
           <InputGroup>
-            <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
+            <Input placeholder="概略" value={caption} onChange={onChangeCaption} w="50vw" />
           </InputGroup>
-        </Flex>
-        <Flex flexDirection="column" alignItems="flex-end">
-          <Box mr="300px">
-            <Text  >作者</Text>
-            <Text>ジャンル</Text>
-          </Box>
+          <Text>なかみ</Text>
+          <Flex justifyContent="end" w = "100vw">
+            <FaPenNib size = {10} />
+            <AiOutlineHeart />
+            <FaRegCommentDots />
+          </Flex>
         </Flex>
         <Flex flexDirection="column" alignItems="center">
           <Textarea
@@ -89,13 +99,65 @@ const PostPage = () => {
             w="50vh"
             h="50vw"
           />
-          <Link href="/snippets/">
-          </Link>
-          <Button m="50px"
-            disabled={post_title === "" || post_caption === "" || post_content === ""}
-            onClick={onClickPost}>
-            編集完了
-          </Button>
+          <TableContainer w="80vw" borderWidth="medium" borderRadius={20}>
+            <Table variant='striped' colorScheme='gray' >
+              <TableCaption placement="top">連載中</TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>話</Th>
+                  <Th>タイトル</Th>
+                  <Th isNumeric>投稿日</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>1</Td>
+                  <Td>一話</Td>
+                  <Td isNumeric>25.4</Td>
+                </Tr>
+                <Tr>
+                  <Td>feet</Td>
+                  <Td>centimetres (cm)</Td>
+                  <Td isNumeric>30.48</Td>
+                </Tr>
+                <Tr>
+                  <Td>yards</Td>
+                  <Td>metres (m)</Td>
+                  <Td isNumeric>0.91444</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
+          タブ機能
+          <TableContainer w="80vw" borderWidth="medium" borderRadius={20} mt={20}>
+            <Table variant='striped' colorScheme='gray' >
+              <TableCaption placement="top">届いた感想・提案</TableCaption>
+              <Thead>
+                <Tr>
+                  <Th>話</Th>
+                  <Th>タイトル</Th>
+                  <Th isNumeric>投稿日</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>1</Td>
+                  <Td>一話</Td>
+                  <Td isNumeric>25.4</Td>
+                </Tr>
+                <Tr>
+                  <Td>feet</Td>
+                  <Td>centimetres (cm)</Td>
+                  <Td isNumeric>30.48</Td>
+                </Tr>
+                <Tr>
+                  <Td>yards</Td>
+                  <Td>metres (m)</Td>
+                  <Td isNumeric>0.91444</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
         </Flex>
       </>
     )
@@ -114,7 +176,9 @@ const PostPage = () => {
 
 PostPage.getLayout = (page: ReactElement) => {
   return (
-    page
+    <LayoutNoFooter>
+      {page}
+    </LayoutNoFooter>
   )
 }
 

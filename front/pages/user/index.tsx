@@ -44,6 +44,7 @@ type Post = {
   title: string;
   caption: string | null;
   content: string
+  owner: Array<string>
 };
 
 
@@ -63,10 +64,12 @@ const UserHome = () => {
     console.log(clickedPost.title);
     const query = {
       title: clickedPost.title,
+      userName: clickedPost.owner.userName,
+      id: clickedPost.id
     };
     // setTitle(clickedPost.title)
     // console.log(clickedPost.title)
-    router.push({ pathname: "/user/postDetail", query: query }, "postDetail");
+    router.push({ pathname: "/user/postDetail", query: query }, "/user/postDetail");
   }
   useEffect(() => {
     (async () => {
@@ -113,7 +116,7 @@ const UserHome = () => {
             </Flex>
           </Flex>
 
-          <Flex alignItems="center" flexWrap="wrap" w="80vw">
+          <Flex flexWrap="wrap" w="80vw" flexDirection="reverse">
             <Text w="80vw" m={1} fontSize="2xl" >New Post List</Text>
             {postList.map((post, index) => (
               <Center py={6} key={post.id} onClick={() => handleClick(post)}>
@@ -127,6 +130,9 @@ const UserHome = () => {
                     textAlign={'center'}>
                     <Heading fontSize={'2xl'} fontFamily={'body'}>
                       {post.title}
+                    </Heading>
+                    <Heading fontSize={'2xl'} fontFamily={'body'}>
+                      {post.owner.userName}
                     </Heading>
                     <Text fontWeight={600} color={'gray.500'} mb={4}>
                       @lindsey_jam3s

@@ -22,7 +22,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     retweet_count = models.IntegerField(default=0)
-    favorite_count = models.IntegerField(default=0)
+    originUser = models.CharField(verbose_name="オリジナル作者", max_length=50, default="")
+    forkUser = models.CharField(verbose_name="二次作者", max_length=50, default="")
+    # favorite_count = models.IntegerField(default=0)
     # remote_address　(投稿元のIPアドレス)
     # post_git = models.FileField(upload_to="file/%Y/%m/%d")
     # filePath = ["userPost", owner.userName]
@@ -30,8 +32,8 @@ class Post(models.Model):
     # filePath = str(filePath)
     # post_git = models.FileField(upload_to=filePath)
     # post_history = models.FileField(upload_to="")
-    # is_fork = models.BooleanField()
-    # is_original = models.BooleanField()
+    # is_fork = models.BooleanField(default=False)
+    is_original = models.BooleanField(default=False)
     # is_original = models.BooleanField()
 
     # @property

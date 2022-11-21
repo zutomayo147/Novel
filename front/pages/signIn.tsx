@@ -76,13 +76,6 @@ const SignIn = () => {
                 <PrimaryButton disabled={email === "" || password === ""} onClick={onClickLogin}>
                   Sign in
                 </PrimaryButton>
-                <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}>
-                  <Checkbox>Remember me</Checkbox>
-                  Forgot password?
-                </Stack>
               </Stack>
             </Stack>
           </Box>

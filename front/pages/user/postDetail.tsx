@@ -40,19 +40,24 @@ import { useRouter } from "next/router";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
+import axios from 'axios'
+import { drfApiRoot } from "constants/drf"
+import {
+  useEffect,
+} from 'react';
 
 
 const PostPage = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(['isLogin']);
-  const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
+  const [accessToken, setAccessToken] = useCookies(['accessToken']);
   const [value, setValue] = useState('i')
   const [resize, setResize] = useState('horizontal')
 
   // const inputEl = useRef("")
 
-  // const [title, setTitle] = useState("")
-  // const [userName, setuserName] = useState("")
+  const [title, setTitle] = useState("")
+  const [userName, setuserName] = useState("")
   const [caption, setCaption] = useState("")
   const [content, setContent] = useState("")
   // const signIn = useSignIn()
@@ -60,11 +65,60 @@ const PostPage = () => {
   const onChangeCaption = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value)
   const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
   // const onClickPost = () => CreateNovel({ post_title, post_caption, post_content })
-  const newNovel = CreateNovel()
-  // const onClickPost = () => newNovel({ title, caption, content })
+  const onClickFork = () => {
+    (async () => {
+      await axios
+        .post(
+          `${drfApiRoot}/post/fork/`,
+          {
+            title, caption, content
+          },
+          {
+            headers: {
+              'accept': 'application/json',
+              'Content-Type': 'application/json',
+            }
+          }
+        ).then((res) => {
+          // setCookie("isLogin", true, { path: '/', maxAge: 10000000000000 })
+          alert("fork post")
+          // setCookie("isLogin", true,{path:'/',httpOnly:true})
+          router.push("/user/")
+        })
+        .catch(err => {
+          alert("failed to signIn")
+        })
+    })()
+  }
   // const onClickPost = () => newNovel({ caption, content })
 
   // const historyList = [1, 4, 9, 16];
+  useEffect(() => {
+    (async () => {
+      await axios
+        .get(
+          `${drfApiRoot}/post/${router.query.id}/`,
+          {
+            headers: {
+              'accept': 'application/json',
+              'Authorization': `JWT ${accessToken.accessToken}`
+            }
+          }
+        ).then((res) => {
+          // setPostList(res.data.results)
+          console.log(res.data)
+          setCaption(res.data.caption)
+          setTitle(res.data.title)
+          setContent(res.data.content)
+          setuserName(res.data.userName)
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err)
+          console.error("failed to getList by axios")
+        })
+    })()
+  }, []);
 
 
   if (cookie.isLogin) {
@@ -72,6 +126,8 @@ const PostPage = () => {
       <>
         <ul>
           <li>name:{" " + router.query.title}</li>
+          <li>name:{" " + router.query.userName}</li>
+          <li>name:{" " + router.query.id}</li>
         </ul>
         <Flex flexDirection="column" w="100vw">
           <Box ml={20}>userName/タイトル </Box>
@@ -82,14 +138,16 @@ const PostPage = () => {
         </Flex>
         <Flex flexDirection="column" alignItems="center">
           <Text>概略</Text>
+          {caption}
           <InputGroup>
             <Input placeholder="概略" value={caption} onChange={onChangeCaption} w="50vw" />
           </InputGroup>
           <Text>なかみ</Text>
-          <Flex justifyContent="end" w = "100vw">
-            <FaPenNib size = {10} />
-            <AiOutlineHeart />
-            <FaRegCommentDots />
+          <Text>{content}</Text>
+          <Flex justifyContent="end" w="100vw">
+            <FaPenNib onClick={onClickFork} size={30} />
+            <AiOutlineHeart size={30} />
+            <FaRegCommentDots size={30} />
           </Flex>
         </Flex>
         <Flex flexDirection="column" alignItems="center">

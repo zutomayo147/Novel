@@ -44,12 +44,14 @@ class PostViewSet(
 ):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    # ordering = ('id', 'username',)
+
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    def create(self, request):
+    def create(self, request, *args):
         serializer = self.serializer_class(data=request.data)
-        print(serializer)
         serializer.is_valid(raise_exception=True)
+        # print(args[0])
 
         userName = str(request.user)
         title = request.data["title"]
@@ -59,6 +61,8 @@ class PostViewSet(
         serializer.save(owner=request.user)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        # TODO reverse
 
     # def list(self, request, userName):
     #     # instance = get_object_or_404(Profile, user__username=username)
@@ -76,7 +80,9 @@ class PostViewSet(
     #     return Response(serializer.data)
 
     def retrieve(self, request, pk):
+        # def retrieve(self, request, title, userName):
 
+        # post = get_object_or_404(Post, title=title userName = userName)
         post = get_object_or_404(Post, pk=pk)
         serializer = self.serializer_class(instance=post)
 
@@ -111,8 +117,10 @@ class PostEdit(
     # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
     def update(self, request, title):
         instance = get_object_or_404(Post, title=title)
-        serializer = self.serializer_class(instance, data=request.data, partial=True)
+        # serializer = self.serializer_class(instance, data=request.data, partial=True)
+        serializer = self.serializer_class(instance, data=request.data)
         userName = str(request.user)
+        print(title)
 
         title = request.data["title"]
         content = request.data["content"]
@@ -124,8 +132,71 @@ class PostEdit(
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class ForkPost(generics.RetrieveUpdateDestroyAPIView):
-    pass
+# class AuthenticatedUser(APIView):
+# class ForkPost(APIView):
+#     # authentication_classes = [JWTAuthentication]
+#     # permission_classes = [IsAuthenticated]
+#
+#     def post(self, request, originUser, originTitle):
+#         data = UserSerializer(request.user).data
+#         data["permissions"] = [p["name"] for p in data["role"]["permissions"]]
+#         return Response({"data": data})
+
+
+class ForkPost(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    # mixins.ListModelMixin,
+    # mixins.RetrieveModelMixin,
+    # mixins.UpdateModelMixin,
+    # mixins.DestroyModelMixin,
+):
+    queryset = Post.objects.all()
+    serializer_class = PostForkSerializer
+    # permission_classes = (
+    #     permissions.IsAuthenticatedOrReadOnly,
+    #     # IsOwnerOrReadOnly,
+    # )
+
+    # @api_view(['POST'])
+    # def create(self, request, originUser, originTitle):
+    # def create(self, request):
+    # def create(self, request, originUser, originTitle):
+    # def create(self, request, originUser):
+    # def create(self, request):
+    def create(self, request, title):
+        #  queryset = self.queryset.get(userName=userName)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        # print(1)
+        # print(originUser)
+        # print(originTitle)
+
+        doForkUser = str(request.user)
+        # title = request.data["title"]
+        originTitle = title
+        content = request.data["content"]
+        originUser = request.data["originUser"]
+        # gitInit(userName, title, content)
+        originContent = cloneOriginalPost(originUser, originTitle, doForkUser)
+        # serializer.save(owner=request.user, content=originContent)
+        serializer.save(owner=request.user)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    # def create(self, request):
+    #     serializer = self.serializer_class(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #
+    #     userName = str(request.user)
+    #     title = request.data["title"]
+    #     content = request.data["content"]
+    #
+    #     gitInit(userName, title, content)
+    #     serializer.save(owner=request.user)
+    #
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+
     # post_content = get_object_or_404(Post, id=book_id)
     # queryset = Post.objects.all()
     # serializer_class = PostSerializer
@@ -232,7 +303,6 @@ class CommentListCreateAPIView(
         return queryset.filter(**filters)
 
     def create(self, request, post_id=None):
-        # print("post_id", post_id)
         post = get_object_or_404(Post, id=post_id)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)

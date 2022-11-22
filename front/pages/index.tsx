@@ -1,28 +1,16 @@
-// import AppHeader from "components/Molecules/AppHeader"
-// import AppTop from "components/Layouts/AppTop"
 import { Layout } from "components/Layouts/Layout"
 import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 import { Button, ButtonGroup } from '@chakra-ui/react'
 import { useBreakpointValue } from "@chakra-ui/react"
-// import { Stack, HStack, VStack } from '@chakra-ui/react'
 import { Flex, Spacer } from '@chakra-ui/react'
 import { Text } from '@chakra-ui/react'
 import Link from "next/link"
-// import { NextPage } from "next"
 import useSignUp from "drf/auth/useSignUp"
-// import { css } from '@emotion/react'
-// import styled from '@emotion/styled'
-//
-
 
 const onClickSignUp = () => console.log(1)
 
-// import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 
 const Home = () => {
-  // const breakpointValue = useBreakpointValue(["base", "sm", "md", "lg"])
-  // const breakpointValue = useBreakpointValue(["base", "sm", "md", "lg", "xl", "2xl"])
-  // const breakpointValue = useBreakpointValue([ "md", "lg"])
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(event);
   }

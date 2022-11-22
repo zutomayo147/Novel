@@ -11,12 +11,12 @@ export const CreateNovel = () => {
   const [cookie, setAccessToken] = useCookies(['accessToken']);
 
   const newNovel = useCallback(async (props: post) => {
-    const { post_title, post_caption, post_content } = props
+    const { title, caption, content } = props
     await axios
       .post(
         `${drfApiRoot}/post/`,
         {
-          post_title, post_caption, post_content
+          title, caption, content
         },
         {
           headers: {

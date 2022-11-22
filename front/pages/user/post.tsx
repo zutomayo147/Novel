@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+// import type { NextPage } from 'next'
 import Link from "next/link"
 import {
   Box,
@@ -23,103 +23,78 @@ import { ChangeEvent, ReactElement, ReactNode } from "react"
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
-import { HeaderBeforeLogIn } from '@/components/Layouts/HeaderBeforeLogIn';
+import { Layout } from "components/Layouts/Layout"
 
 // const UserHome: NextPage = () => {
-function PostPage() {
+const PostPage = () => {
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accsesToken, setAccessToken] = useCookies(['accsesToken']);
   const [value, setValue] = useState('i');
   const [resize, setResize] = useState('horizontal');
 
   // const inputEl = useRef("")
-  const [post_title, setTitle] = useState("");
+
+  const [title, setTitle] = useState("")
   // const [userName, setuserName] = useState("")
-  const [post_caption, setCaption] = useState("");
-  const [post_content, setContent] = useState("");
+  const [caption, setCaption] = useState("")
+  const [content, setContent] = useState("")
   // const signIn = useSignIn()
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const onChangeCaption = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value);
   const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
   // const onClickPost = () => CreateNovel({ post_title, post_caption, post_content })
-  const newNovel = CreateNovel();
-  const onClickPost = () => newNovel({ post_title, post_caption, post_content });
-  // <Button disabled={email === "" || password === ""} onClick={onClickLogin} m="50px">新規作成</Button>
-  // const onClickNewPost = () => newPost({ email, password })
-  //   < Textarea
-  // ref = { inputEl }
-  // value = { content }
-  // onChange = { handleInputChange }
-  // placeholder = 'Here is a sample placeholder'
-  // size = 'sm'
-  // w = "50vw"
-  //   />
-  // <Textarea
-  //   ref={inputEl}
-  //   onChange={handleInputChange}
-  //   placeholder='Here is a sample placeholder'
-  //   size='sm'
-  //   w="50vw"
-  // />
-  // < button onClick = {() => alert(inputEl.current.value)}> 値の確認</button >
-  // const handleInputChange = (e) => {
-  //   const inputValue = e.target.value
-  //   setValue(inputValue)
-  // }
+  const newNovel = CreateNovel()
+  const onClickPost = () => newNovel({ title, caption, content })
+
+
   if (cookie.isLogin) {
     return (
       <>
-        <HeaderBeforeLogIn />
-        <Flex flexDirection="column" alignItems="left"
-         mx={{ base: "10vw", md: "20vw"}}
-        >
-          <Text mt="60px" 
-            fontSize={{ base: "36px", md: "48px" }}>
+        <Flex flexDirection="column" alignItems="center" w="100vw">
+          <Text m={10} fontSize='30px'>
             新規小説作成
 
           </Text>
-          <Divider />
-          <Flex flexDirection='column'>
-            <Text fontSize={{ base: "32px", md: "36px" }}
-              mt="30px"
-            >
+          <Flex flexDirection='column' w="70vw">
+            <Text fontSize='28px'>
               タイトル
             </Text>
-            <InputGroup>
-              <Input placeholder="タイトル" value={post_title} onChange={onChangeTitle} />
+            <InputGroup mb={10}>
+              <Input placeholder="タイトル" value={title} onChange={onChangeTitle} />
+            </InputGroup>
+            <Text fontSize='28px'>
+              概略
+            </Text>
+            <InputGroup mb={10}>
+              <Input placeholder="概略" value={caption} onChange={onChangeCaption} />
             </InputGroup>
           </Flex>
-          <Flex flexDirection='column'
-            mt="30px"
-          >
-            <Text fontSize={{ base: "32px", md: "36px" }}>
-             arasuzi 
-            </Text>
-            <InputGroup>
-              <Input placeholder="概略" value={post_caption} onChange={onChangeCaption} />
-            </InputGroup>
-          </Flex>
-          <Flex mt="30px" 
-            flexDirection="column">
-            <Text fontSize={{ base: "32px", md: "36px" }}>
-              honbun
-            </Text>
-            <Textarea
+        </Flex>
+        <Flex flexDirection="column" alignItems="center" m={10}>
+          <Text fontSize='28px'>
+            本文
+          </Text>
+          <Textarea
             onChange={onChangeContent}
-            placeholder=''
+            placeholder='Here is a sample placeholder'
+            w="50vw"
             h="50vh"
-            />
-            <Link href="/snippets/">
-            </Link>
-            <Button 
-              disabled={post_title === "" || post_caption === "" || post_content === ""} 
-              onClick={onClickPost}
-              my="60px" mx="auto">
-                新規作成
-            </Button>
-          </Flex>
-          
-        </Flex>        
+            p={10}
+            overflow="auto"
+          />
+          <Text fontSize='28px'>
+            タグ選択
+          </Text>
+          <InputGroup mb={10}>
+            <Input placeholder="たぐ、後で" />
+          </InputGroup>
+
+          <Link href="/snippets/">
+          </Link>
+          <Button m="50px" disabled={title === "" || caption === "" || content === ""} onClick={onClickPost}
+          >新規作成
+          </Button>
+        </Flex>
       </>
     );
   } else {
@@ -135,9 +110,11 @@ function PostPage() {
   }
 }
 
-PostPage.getLayout = (page) => {
+PostPage.getLayout = (page: ReactElement) => {
   return (
-    page
+    <Layout>
+      {page}
+    </Layout>
   )
 }
 

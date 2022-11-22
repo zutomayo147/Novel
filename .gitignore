@@ -8,6 +8,11 @@ front/.next/
 back/fixture/*.json
 back/**/migrations/*.py
 # bavk/**/__pycache__/*.pyc
+
+!/back/config/media/
+/back/config/media/*
+!/back/config/media/.gitkeep
+
 __pycache__
 media/
 back/config/media/remote_repo

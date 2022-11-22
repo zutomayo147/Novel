@@ -1,271 +1,246 @@
-# from accounts.models import CustomUser
 from django.conf import settings
 
+# from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 
-# from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-# from django.http import JsonResponse
-from rest_framework.reverse import reverse
-from rest_framework import generics, permissions, renderers
-
+from rest_framework import generics, permissions, mixins
 from rest_framework import status, views, viewsets, mixins
 from rest_framework.generics import GenericAPIView, CreateAPIView
-from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
+from rest_framework.exceptions import ParseError
+
 from posts.models import Post, Tag, Comment, Like, Saved_post
+
 from apiv1.permissions import IsOwnerOrReadOnly
 from apiv1.serializers.Post import *
 from apiv1.serializers.CustomUser import *
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.views import View
-from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
-from rest_framework.exceptions import ParseError
-from django.contrib.auth.mixins import LoginRequiredMixin
 import os
-from pathlib import Path
-import subprocess
+import json
 
-# p = Path('link.md')
-#
-# print(p.resolve())
+
+# from pathlib import Path
+
+# import subprocess
+# import git
+
+from .gitFunction import *
 
 os.environ["GIT_PYTHON_REFRESH"] = "quiet"
 os.environ["GIT_PYTHON_GIT_EXECUTABLE"] = "/usr/bin/git"
-import git
-
-
-def make_remote_repo(userName: str, post_title: str) -> None:
-    # back/config/media/
-    if not os.path.exists("remote_repo"):
-        os.makedirs("remote_repo")
-    os.chdir("remote_repo")
-
-    if not os.path.exists(userName):
-        os.makedirs(userName)
-    os.chdir(userName)
-
-    if not os.path.exists(post_title):
-        os.makedirs(post_title)
-    os.chdir(post_title)
-    git.Repo.init(bare=True, shared=True)
-
-
-def gitInit(userName: str, post_title: str, post_content: str) -> None:
-    # back/config/media/
-    os.chdir(settings.MEDIA_ROOT)
-
-    # back/config/media/
-    make_remote_repo(userName, post_title)
-    os.chdir(settings.MEDIA_ROOT)
-    pwd = os.getcwd()
-    remoteUrl = f"{pwd}/remote_repo/{userName}/{post_title}"
-
-    if not os.path.exists(userName):  # ディレクトリが存在するか確認
-        os.makedirs(userName)  # ディレクトリ作成
-    os.chdir(userName)
-
-    if not os.path.exists(post_title):  # ディレクトリが存在するか確認
-        os.makedirs(post_title)  # ディレクトリ作成
-    os.chdir(post_title)
-
-    git.Repo.init()
-    repo = git.Repo()
-
-    try:
-        repo.create_remote("origin", url=remoteUrl)
-    except git.exc.GitCommandError as error:
-        print(f"Error creating remote: {error}")
-
-    with open(f"{post_title}.md", "w") as f:
-        f.write(post_content)
-
-    repo.index.add(f"{post_title}.md")
-    repo.index.commit("Initial commit.")
-    # # Pull from remote repo
-    # print(repo.remotes.origin.pull())
-    # Push changes
-    # repo.remotes.origin.push(refspec="main:origin")
-    subprocess.run(["git", "fetch"])
-    subprocess.run(["git", "merge", "--allow-unrelated-histories", "origin/main"])
-
-    # repo.remotes.origin.push("main")
 
 
 # LoginRequiredMixin
-class NewPost(generics.ListCreateAPIView, LoginRequiredMixin):
+class PostViewSet(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    # mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    # ordering = ('id', 'username',)
+
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    def create(self, request):
+    def create(self, request, *args):
         serializer = self.serializer_class(data=request.data)
-        print(serializer)
         serializer.is_valid(raise_exception=True)
+        # print(args[0])
 
-        userName = str(request.user)
-        post_title = request.data["post_title"]
-        post_content = request.data["post_content"]
+        userName = str(request.user.userName)
+        title = request.data["title"]
+        content = request.data["content"]
 
-        gitInit(userName, post_title, post_content)
+        gitInit(userName, title, content)
         serializer.save(owner=request.user)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+        # TODO reverse
 
+    # def list(self, request, userName):
+    #     # instance = get_object_or_404(Profile, user__username=username)
+    #     queryset = self.queryset.get(userName=userName)
+    #     # filterset = PostFilter(request.query_params, queryset=self.queryset)
+    #     if not queryset.is_valid():
+    #         raise ValidationError(queryset.errors)
+    #
+    #     page = self.paginate_queryset(queryset.qs)
+    #     if page is not None:
+    #         serializer = self.get_serializer(page, many=True)
+    #         return self.get_paginated_response(serializer.data)
+    #
+    #     serializer = self.get_serializer(queryset.qs, many=True)
+    #     return Response(serializer.data)
 
-def gitPush(userName: str, post_title: str, post_content: str) -> None:
-    # back/config/media/
-    os.chdir(settings.MEDIA_ROOT)
+    def retrieve(self, request, pk):
+        # def retrieve(self, request, title, userName):
 
-    # back/config/media/
-    pwd = os.getcwd()
-    remoteUrl = f"{pwd}/remote_repo/{userName}/{post_title}"
-
-    # if not os.path.exists(userName):  # ディレクトリが存在するか確認
-    #     os.makedirs(userName)  # ディレクトリ作成
-    os.chdir(userName)
-
-    # if not os.path.exists(post_title):  # ディレクトリが存在するか確認
-    #     os.makedirs(post_title)  # ディレクトリ作成
-    os.chdir(post_title)
-
-    git.Repo.init()
-    repo = git.Repo()
-
-    try:
-        repo.create_remote("origin", url=remoteUrl)
-    except git.exc.GitCommandError as error:
-        print(f"Error creating remote: {error}")
-
-    with open(f"{post_title}.md", "w") as f:
-        f.write(post_content)
-
-    repo.index.add(f"{post_title}.md")
-    repo.index.commit("commit")
-    # # Pull from remote repo
-    # print(repo.remotes.origin.pull())
-    # Push changes
-    # repo.remotes.origin.push(refspec="main:origin")
-    repo.remotes.origin.push("main")
-    # subprocess.run(["git", "fetch"])
-    # subprocess.run(["git", "merge", "--allow-unrelated-histories", "origin/main"])
-
-
-class PostEdit(generics.RetrieveUpdateDestroyAPIView):
-    # post_content = get_object_or_404(Post, id=book_id)
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        IsOwnerOrReadOnly,
-    )
-    # product = Post.objects.get(id=product_id)
-    # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
-    def update(self, request, post_title):
-        instance = get_object_or_404(Post, post_title=post_title)
-        serializer = self.serializer_class(instance, data=request.data, partial=True)
-        userName = str(request.user)
-
-        post_title = request.data["post_title"]
-        post_content = request.data["post_content"]
-        gitInit(userName, post_title, post_content)
-
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        # post = get_object_or_404(Post, title=title userName = userName)
+        post = get_object_or_404(Post, pk=pk)
+        serializer = self.serializer_class(instance=post)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-class ForkPost(generics.RetrieveUpdateDestroyAPIView):
-    pass
-    # post_content = get_object_or_404(Post, id=book_id)
-    # queryset = Post.objects.all()
-    # serializer_class = PostSerializer
-    # permission_classes = (
-    #     permissions.IsAuthenticatedOrReadOnly,
-    #     IsOwnerOrReadOnly,
-    # )
-    # # product = Post.objects.get(id=product_id)
-    # # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
-    # def update(self, request, post_title):
-    #     instance = get_object_or_404(Post, post_title=post_title)
+    # def update(self, request, pk):
+    #     instance = get_object_or_404(Post, pk=pk)
     #     serializer = self.serializer_class(instance, data=request.data, partial=True)
-    #     userName = str(request.user)
-    #
-    #     post_title = request.data["post_title"]
-    #     post_content = request.data["post_content"]
-    #     gitInit(userName, post_title, post_content)
-    #
     #     serializer.is_valid(raise_exception=True)
     #     serializer.save()
-    #
     #     return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def destroy(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        post.delete()
 
-# class NewPost(GenericAPIView):
-#     # class NewPost(CreateAPIView):
-#     # authentication_classes = [TokenAuthentication]
-#     # permission_classes = [IsAuthenticated]
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+# class PostEdit(
+#     generics.RetrieveUpdateDestroyAPIView,
+#     # viewsets.GenericViewSet,
+# ):
+#     # post_content = get_object_or_404(Post, id=book_id)
+#     queryset = Post.objects.all()
 #     serializer_class = PostSerializer
+#     permission_classes = (
+#         permissions.IsAuthenticatedOrReadOnly,
+#         IsOwnerOrReadOnly,
+#     )
+#     # product = Post.objects.get(id=product_id)
+#     # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
+#     def update(self, request, title):
+#         instance = get_object_or_404(Post, title=title)
+#         # serializer = self.serializer_class(instance, data=request.data, partial=True)
+#         serializer = self.serializer_class(instance, data=request.data)
+#         userName = str(request.user)
+#         print(title)
 #
-#     # def get(self, request):
-#     #     # user = self.request.user
-#     #     # host = self.request.get_host
-#     #     user = str(self.request.user.userName)
-#     #     moveToUserRepo(user)
-#     #
-#     #     data = {"user": user}
-#     #     return JsonResponse(data, status=status.HTTP_200_OK)
-#     def post(self, request, post_title):
-#         user = str(self.request.user.userName)
-#         # post_content = get_object_or_404(Post, id=book_id)
-#         post = get_object_or_404(Post, post_title=post_title)
-#         gitInit(user, post.post_title)
+#         title = request.data["title"]
+#         content = request.data["content"]
+#         gitInit(userName, title, content)
 #
-#         # f = open('write_test.txt', 'w')
-#         f = open(f"{post.post_title}.txt", "w")
-#         f.write(post.post_content)
-#         f.close()
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
 #
-#         # repo.git.add('bar.txt')
-#
-#         data = {"user": user}
-#         return Response(data, status=status.HTTP_200_OK)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-# class EditPost(GenericAPIView):
-#     # class NewPost(CreateAPIView):
-#     # authentication_classes = [TokenAuthentication]
-#     # permission_classes = [IsAuthenticated]
-#     serializer_class = PostSerializer
+class ForkPost(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+):
+    queryset = Post.objects.all()
+    serializer_class = PostForkSerializer
+    # permission_classes = (
+    #     permissions.IsAuthenticatedOrReadOnly,
+    #     # IsOwnerOrReadOnly,
+    # )
+
+    def create(self, request, title):
+    # def create(self, request):
+        #  queryset = self.queryset.get(userName=userName)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        print(request.data)
+        doForkUser = str(request.user.userName)
+        print(f"doForkUser:{doForkUser}")
+        originTitle = title
+        print(f"originTitle:{originTitle}")
+        content = request.data["content"]
+        print(f"content:{content}")
+        originUser = request.data["originUser"]
+        print(f"originUser:{originUser}")
+
+        originContent = cloneOriginalPost(originUser, originTitle, doForkUser)
+        serializer.save(owner=request.user, content=originContent)
+        # serializer.save(owner=request.user)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class Test(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+):
+    # queryset = Post.objects.all()
+    # serializer_class = PostForkSerializer
+    # permission_classes = (
+    #     permissions.IsAuthenticatedOrReadOnly,
+    #     # IsOwnerOrReadOnly,
+    # )
+
+    # def create(self, request, title):
+    def create(self, request):
+        #  queryset = self.queryset.get(userName=userName)
+        print(request)
+        print(type(request))
+        # serializer = self.serializer_class(data=request.data)
+        # request = json.dumps(request.user)
+        print(request.user.userName)
+        # serializer.is_valid(raise_exception=True)
+
+        # doForkUser = str(request.user)
+        # originTitle = title
+        # content = request.data["content"]
+        # originUser = request.data["originUser"]
+        #
+        # originContent = cloneOriginalPost(originUser, originTitle, doForkUser)
+        # serializer.save(owner=request.user, content=originContent)
+        # serializer.save(owner=request.user)
+
+        return Response("1", status=status.HTTP_201_CREATED)
+
+
+class ImageFileView(generics.ListCreateAPIView):
+    permission_classes = (permissions.AllowAny,)
+    queryset = UploadFile.objects.all()
+    serializer_class = UploadFileSerializer
+
+
+# def ArticlesView(request):
+#     articles = Article.objects.all()
+#     liked_list = []
+#     for article in articles:
+#         liked = article.like_set.filter(user=request.user)
+#         if liked.exists():
+#             liked_list.append(article.id)
 #
-#     # def get(self, request):
-#     #     # user = self.request.user
-#     #     # host = self.request.get_host
-#     #     user = str(self.request.user.userName)
-#     #     moveToUserRepo(user)
-#     #
-#     #     data = {"user": user}
-#     #     return JsonResponse(data, status=status.HTTP_200_OK)
-#     def post(self, request, post_title):
-#         user = str(self.request.user.userName)
-#         # post_content = get_object_or_404(Post, id=book_id)
-#         post = get_object_or_404(Post, post_title=post_title)
-#         gitInit(user, post.post_title)
+#     context = {
+#         "articles": articles,
+#         "liked_list": liked_list,
+#     }
 #
-#         # f = open('write_test.txt', 'w')
-#         f = open(f"{post.post_title}.txt", "w")
-#         f.write(post.post_content)
-#         f.close()
+#     return render(request, "{自分のapp名}/articles.html", context)
+
+# def LikeView(request):
+#     if request.method == "POST":
+#         article = get_object_or_404(Article, pk=request.POST.get("article_id"))
+#         user = request.user
+#         liked = False
+#         like = Like.objects.filter(article=article, user=user)
+#         if like.exists():
+#             like.delete()
+#         else:
+#             like.create(article=article, user=user)
+#             liked = True
 #
-#         # repo.git.add('bar.txt')
+#         context = {
+#             "article_id": article.id,
+#             "liked": liked,
+#             "count": article.like_set.count(),
+#         }
 #
-#         data = {"user": user}
-#         return JsonResponse(data, status=status.HTTP_200_OK)
+#     if request.is_ajax():
+#         return JsonResponse(context)
 
 
 # class UploadImageAPI(GenericAPIView):
@@ -281,29 +256,14 @@ class ForkPost(generics.RetrieveUpdateDestroyAPIView):
 #         return JsonResponse({}, status=status.HTTP_201_CREATED)
 
 
-class PostList(generics.ListCreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-
-class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        IsOwnerOrReadOnly,
-    )
-
-
 class CommentListCreateAPIView(
-    mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
 ):
     lookup_field = "post__id"
-    lookup_url_kwarg = "post_id"
+    # lookup_url_kwarg = "post_id"
+    lookup_url_kwarg = "id"
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
@@ -312,18 +272,17 @@ class CommentListCreateAPIView(
 
         return queryset.filter(**filters)
 
-    def create(self, request, book_id=None):
-        print("post_id", post_id)
-        book = get_object_or_404(Post, id=book_id)
+    def create(self, request, post_id=None):
+        post = get_object_or_404(Post, id=post_id)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(owner=request.user, book=book)
+        # serializer.save(owner=request.user, book=book)
+        serializer.save(owner=request.user, post=post)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
-
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)

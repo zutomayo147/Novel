@@ -99,6 +99,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    num_following = models.IntegerField(default=0)
+    num_followed = models.IntegerField(default=0)
+    # num_post = models.IntegerField(default=0)
+    # num_favorite
+    # num_list
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["userName"]

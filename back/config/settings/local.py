@@ -76,6 +76,7 @@ CORS_ALLOW_HEADERS = (
     "access-control-allow-origin",
 )
 
+
 CORS_ALLOW_CREDENTIALS = True
 
 

@@ -13,7 +13,8 @@ class Profile(models.Model):
         ]
         verbose_name = verbose_name_plural = "プロファイル"
 
-    user = models.OneToOneField("accounts.CustomUser", on_delete=models.CASCADE)
+    # user = models.OneToOneField("accounts.CustomUser", on_delete=models.CASCADE)
+    userName = models.OneToOneField("accounts.CustomUser", on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
     image = models.FileField(upload_to="images/", blank=True, null=True)
 
@@ -21,4 +22,5 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.userName
+        # return self.user.userName
+        return self.userName.userName

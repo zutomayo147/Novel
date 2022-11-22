@@ -8,7 +8,8 @@ from datetime import timezone
 
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(verbose_name="タイトル", max_length=50, unique=True)
+    # title = models.CharField(verbose_name="タイトル", max_length=50, unique=True)
+    title = models.CharField(verbose_name="タイトル", max_length=50)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name="作成者", on_delete=models.CASCADE
     )

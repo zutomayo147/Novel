@@ -26,7 +26,6 @@ def gitInit(userName: str, title: str, post_content: str) -> None:
     # back/config/media/
     os.chdir(settings.MEDIA_ROOT)
 
-    # back/config/media/
     make_remote_repo(userName, title)
     os.chdir(settings.MEDIA_ROOT)
     pwd = os.getcwd()
@@ -65,14 +64,12 @@ def gitPush(userName: str, title: str, post_content: str) -> None:
     # back/config/media/
     os.chdir(settings.MEDIA_ROOT)
 
-    # back/config/media/
     pwd = os.getcwd()
     remoteUrl = f"{pwd}/remote_repo/{userName}/{title}"
 
     # if not os.path.exists(userName):  # ディレクトリが存在するか確認
     #     os.makedirs(userName)  # ディレクトリ作成
     os.chdir(userName)
-
     # if not os.path.exists(title):  # ディレクトリが存在するか確認
     #     os.makedirs(title)  # ディレクトリ作成
     os.chdir(title)
@@ -90,13 +87,7 @@ def gitPush(userName: str, title: str, post_content: str) -> None:
 
     repo.index.add(f"{title}.md")
     repo.index.commit("commit")
-    # # Pull from remote repo
-    # print(repo.remotes.origin.pull())
-    # Push changes
-    # repo.remotes.origin.push(refspec="main:origin")
     repo.remotes.origin.push("main")
-    # subprocess.run(["git", "fetch"])
-    # subprocess.run(["git", "merge", "--allow-unrelated-histories", "origin/main"])
 
 
 def getPostLog(userName: str, title: str) -> List[str]:

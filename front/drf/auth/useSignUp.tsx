@@ -8,9 +8,9 @@ import { useCookies } from 'react-cookie';
 import { GetJwtToken } from "./getJwtToken"
 
 type userInfo = {
+  userName: string
   email: string
   password: string
-  userName: string
 }
 
 export const useSignUp = () => {
@@ -20,7 +20,7 @@ export const useSignUp = () => {
   const [refreshToken, setRefreshToken] = useCookies(['refreshToken']);
 
   const signUp = useCallback(async (props: userInfo) => {
-    const { email, password, userName } = props
+    const { userName, email, password, } = props
     await axios
       .post(
         `${drfApiRoot}/auth/users/`,

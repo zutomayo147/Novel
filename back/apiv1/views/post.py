@@ -3,10 +3,8 @@ from django.conf import settings
 # from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 
-# from django.views import View
 from rest_framework.response import Response
 
-# from rest_framework.reverse import reverse
 from rest_framework import generics, permissions, mixins
 from rest_framework import status, views, viewsets, mixins
 from rest_framework.generics import GenericAPIView, CreateAPIView
@@ -22,7 +20,10 @@ from apiv1.serializers.Post import *
 from apiv1.serializers.CustomUser import *
 
 import os
-from pathlib import Path
+import json
+
+
+# from pathlib import Path
 
 # import subprocess
 # import git
@@ -53,7 +54,7 @@ class PostViewSet(
         serializer.is_valid(raise_exception=True)
         # print(args[0])
 
-        userName = str(request.user)
+        userName = str(request.user.userName)
         title = request.data["title"]
         content = request.data["content"]
 
@@ -102,54 +103,39 @@ class PostViewSet(
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
-class PostEdit(
-    generics.RetrieveUpdateDestroyAPIView,
-    # viewsets.GenericViewSet,
-):
-    # post_content = get_object_or_404(Post, id=book_id)
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    permission_classes = (
-        permissions.IsAuthenticatedOrReadOnly,
-        IsOwnerOrReadOnly,
-    )
-    # product = Post.objects.get(id=product_id)
-    # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
-    def update(self, request, title):
-        instance = get_object_or_404(Post, title=title)
-        # serializer = self.serializer_class(instance, data=request.data, partial=True)
-        serializer = self.serializer_class(instance, data=request.data)
-        userName = str(request.user)
-        print(title)
-
-        title = request.data["title"]
-        content = request.data["content"]
-        gitInit(userName, title, content)
-
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-# class AuthenticatedUser(APIView):
-# class ForkPost(APIView):
-#     # authentication_classes = [JWTAuthentication]
-#     # permission_classes = [IsAuthenticated]
+# class PostEdit(
+#     generics.RetrieveUpdateDestroyAPIView,
+#     # viewsets.GenericViewSet,
+# ):
+#     # post_content = get_object_or_404(Post, id=book_id)
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
+#     permission_classes = (
+#         permissions.IsAuthenticatedOrReadOnly,
+#         IsOwnerOrReadOnly,
+#     )
+#     # product = Post.objects.get(id=product_id)
+#     # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
+#     def update(self, request, title):
+#         instance = get_object_or_404(Post, title=title)
+#         # serializer = self.serializer_class(instance, data=request.data, partial=True)
+#         serializer = self.serializer_class(instance, data=request.data)
+#         userName = str(request.user)
+#         print(title)
 #
-#     def post(self, request, originUser, originTitle):
-#         data = UserSerializer(request.user).data
-#         data["permissions"] = [p["name"] for p in data["role"]["permissions"]]
-#         return Response({"data": data})
+#         title = request.data["title"]
+#         content = request.data["content"]
+#         gitInit(userName, title, content)
+#
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#
+#         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ForkPost(
     viewsets.GenericViewSet,
     mixins.CreateModelMixin,
-    # mixins.ListModelMixin,
-    # mixins.RetrieveModelMixin,
-    # mixins.UpdateModelMixin,
-    # mixins.DestroyModelMixin,
 ):
     queryset = Post.objects.all()
     serializer_class = PostForkSerializer
@@ -158,67 +144,60 @@ class ForkPost(
     #     # IsOwnerOrReadOnly,
     # )
 
-    # @api_view(['POST'])
-    # def create(self, request, originUser, originTitle):
-    # def create(self, request):
-    # def create(self, request, originUser, originTitle):
-    # def create(self, request, originUser):
-    # def create(self, request):
     def create(self, request, title):
+    # def create(self, request):
         #  queryset = self.queryset.get(userName=userName)
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        # print(1)
-        # print(originUser)
-        # print(originTitle)
 
-        doForkUser = str(request.user)
-        # title = request.data["title"]
+        print(request.data)
+        doForkUser = str(request.user.userName)
+        print(f"doForkUser:{doForkUser}")
         originTitle = title
+        print(f"originTitle:{originTitle}")
         content = request.data["content"]
+        print(f"content:{content}")
         originUser = request.data["originUser"]
-        # gitInit(userName, title, content)
+        print(f"originUser:{originUser}")
+
         originContent = cloneOriginalPost(originUser, originTitle, doForkUser)
-        # serializer.save(owner=request.user, content=originContent)
-        serializer.save(owner=request.user)
+        serializer.save(owner=request.user, content=originContent)
+        # serializer.save(owner=request.user)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # def create(self, request):
-    #     serializer = self.serializer_class(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #
-    #     userName = str(request.user)
-    #     title = request.data["title"]
-    #     content = request.data["content"]
-    #
-    #     gitInit(userName, title, content)
-    #     serializer.save(owner=request.user)
-    #
-    #     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # post_content = get_object_or_404(Post, id=book_id)
+class Test(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+):
     # queryset = Post.objects.all()
-    # serializer_class = PostSerializer
+    # serializer_class = PostForkSerializer
     # permission_classes = (
     #     permissions.IsAuthenticatedOrReadOnly,
-    #     IsOwnerOrReadOnly,
+    #     # IsOwnerOrReadOnly,
     # )
-    # # product = Post.objects.get(id=product_id)
-    # # blockusers = BlockUser.objects.filter(from_user=request.user.id, to_user=pk)
-    # def update(self, request, post_title):
-    #     instance = get_object_or_404(Post, post_title=post_title)
-    #     serializer = self.serializer_class(instance, data=request.data, partial=True)
-    #     userName = str(request.user)
-    #
-    #     post_title = request.data["post_title"]
-    #     post_content = request.data["post_content"]
-    #     gitInit(userName, post_title, post_content)
-    #
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # def create(self, request, title):
+    def create(self, request):
+        #  queryset = self.queryset.get(userName=userName)
+        print(request)
+        print(type(request))
+        # serializer = self.serializer_class(data=request.data)
+        # request = json.dumps(request.user)
+        print(request.user.userName)
+        # serializer.is_valid(raise_exception=True)
+
+        # doForkUser = str(request.user)
+        # originTitle = title
+        # content = request.data["content"]
+        # originUser = request.data["originUser"]
+        #
+        # originContent = cloneOriginalPost(originUser, originTitle, doForkUser)
+        # serializer.save(owner=request.user, content=originContent)
+        # serializer.save(owner=request.user)
+
+        return Response("1", status=status.HTTP_201_CREATED)
 
 
 class ImageFileView(generics.ListCreateAPIView):
@@ -275,15 +254,6 @@ class ImageFileView(generics.ListCreateAPIView):
 #         except KeyError:
 #             raise ParseError("Request has no resource file attached")
 #         return JsonResponse({}, status=status.HTTP_201_CREATED)
-
-
-class PostList(generics.ListCreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
 
 class CommentListCreateAPIView(

@@ -51,48 +51,43 @@ const PostPage = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(['isLogin']);
   const [accessToken, setAccessToken] = useCookies(['accessToken']);
-  const [value, setValue] = useState('i')
-  const [resize, setResize] = useState('horizontal')
 
   // const inputEl = useRef("")
 
   const [title, setTitle] = useState("")
-  const [userName, setuserName] = useState("")
+  const [originUser, setOriginUser] = useState("")
+  const [forkUser, setForkUser] = useState("")
   const [caption, setCaption] = useState("")
   const [content, setContent] = useState("")
-  // const signIn = useSignIn()
-  // const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)
-  const onChangeCaption = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value)
-  const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)
-  // const onClickPost = () => CreateNovel({ post_title, post_caption, post_content })
+
   const onClickFork = () => {
     (async () => {
+      console.log(originUser)
       await axios
         .post(
+          // `${drfApiRoot}/post/fork/${title}`,
           `${drfApiRoot}/post/fork/`,
           {
-            title, caption, content
+            content, originUser, forkUser
+            // title, content, originUser, forkUser
           },
           {
             headers: {
               'accept': 'application/json',
               'Content-Type': 'application/json',
+              'Authorization': `JWT ${accessToken.accessToken}`
             }
           }
         ).then((res) => {
-          // setCookie("isLogin", true, { path: '/', maxAge: 10000000000000 })
           alert("fork post")
-          // setCookie("isLogin", true,{path:'/',httpOnly:true})
           router.push("/user/")
         })
         .catch(err => {
-          alert("failed to signIn")
+          alert("failed to fork")
         })
     })()
   }
-  // const onClickPost = () => newNovel({ caption, content })
 
-  // const historyList = [1, 4, 9, 16];
   useEffect(() => {
     (async () => {
       await axios
@@ -110,7 +105,31 @@ const PostPage = () => {
           setCaption(res.data.caption)
           setTitle(res.data.title)
           setContent(res.data.content)
-          setuserName(res.data.userName)
+          setOriginUser(res.data.owner.userName)
+        })
+        .catch(err => {
+          console.log(err)
+          alert(err)
+          console.error("failed to getList by axios")
+        })
+    })()
+  }, []);
+  useEffect(() => {
+    (async () => {
+      await axios
+        .get(
+          `${drfApiRoot}/auth/users/`,
+          {
+            headers: {
+              'accept': 'application/json',
+              'Authorization': `JWT ${accessToken.accessToken}`
+            }
+          }
+        ).then((res) => {
+          // setPostList(res.data.results)
+          // console.log(res.data)
+          setForkUser(res.data.results[0].userName)
+          // setForkUser(res.data.results[0].email)
         })
         .catch(err => {
           console.log(err)
@@ -124,39 +143,36 @@ const PostPage = () => {
   if (cookie.isLogin) {
     return (
       <>
-        <ul>
-          <li>name:{" " + router.query.title}</li>
-          <li>name:{" " + router.query.userName}</li>
-          <li>name:{" " + router.query.id}</li>
+        <ul >
+          <li>title:{" " + router.query.title}</li>
+          <li>titleRes:{" " + title}</li>
+          <li>originname:{" " + router.query.userName}</li>
+          <li>originnamefromRes:{" " + originUser}</li>
+          <li>id:{" " + router.query.id}</li>
+          <li>forkUser:{" " + forkUser}</li>
+          <li>content:{" " + content}</li>
         </ul>
-        <Flex flexDirection="column" w="100vw">
-          <Box ml={20}>userName/タイトル </Box>
-          <Flex justifyContent="center" >タイトル</Flex>
-          <Flex justifyContent="center">履歴ツリー</Flex>
-          <Flex justifyContent="end" mr={20}>作者</Flex>
+        <Box ml={20}> {router.query.userName} / {router.query.title}</Box>
+        <Flex mt={10} flexDirection="column" alignItems="center" w="100vw">
+          <Flex>タイトル</Flex>
+          <Flex>履歴ツリー</Flex>
+        </Flex>
+        <Flex flexDirection="column">
+          <Flex justifyContent="end" mr={20}>作者 : {router.query.userName}</Flex>
           <Flex justifyContent="end" mr={20}>タグ</Flex>
         </Flex>
-        <Flex flexDirection="column" alignItems="center">
-          <Text>概略</Text>
+        <Flex justifyContent="end" w="100vw">
+          <FaPenNib onClick={onClickFork} size={30} />
+          <AiOutlineHeart size={30} />
+          <FaRegCommentDots size={30} />
+        </Flex>
+        <Flex flexDirection="column" alignItems="center" >
+          <Text >概略</Text>
           {caption}
-          <InputGroup>
-            <Input placeholder="概略" value={caption} onChange={onChangeCaption} w="50vw" />
-          </InputGroup>
-          <Text>なかみ</Text>
+          <Text mt={10}>本文</Text>
           <Text>{content}</Text>
-          <Flex justifyContent="end" w="100vw">
-            <FaPenNib onClick={onClickFork} size={30} />
-            <AiOutlineHeart size={30} />
-            <FaRegCommentDots size={30} />
-          </Flex>
         </Flex>
         <Flex flexDirection="column" alignItems="center">
-          <Textarea
-            onChange={onChangeContent}
-            placeholder='Here is a sample placeholder'
-            w="50vh"
-            h="50vw"
-          />
           <TableContainer w="80vw" borderWidth="medium" borderRadius={20}>
             <Table variant='striped' colorScheme='gray' >
               <TableCaption placement="top">連載中</TableCaption>

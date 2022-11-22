@@ -34,7 +34,7 @@ export const Header = () => {
       bg="blackAlpha.900"
       color="white"
     >
-      <Flex mb={2} justifyContent="center">
+      <Flex mb={3} justifyContent="center">
         <Heading size="lg" fontStyle="inherit" fontWeight="light" >
           GitNovel
         </Heading>

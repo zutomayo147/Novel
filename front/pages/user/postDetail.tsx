@@ -15,6 +15,9 @@ import {
   useBreakpointValue,
   IconProps,
   Icon,
+  Grid,
+  GridItem,
+  Spacer,
 } from '@chakra-ui/react';
 import {
   Table,
@@ -142,8 +145,10 @@ const PostPage = () => {
 
   if (cookie.isLogin) {
     return (
-      <>
-        <ul >
+      <Flex marginInline="10vw"
+        flexDirection="column"
+      >
+        <ul>
           <li>title:{" " + router.query.title}</li>
           <li>titleRes:{" " + title}</li>
           <li>originname:{" " + router.query.userName}</li>
@@ -152,30 +157,40 @@ const PostPage = () => {
           <li>forkUser:{" " + forkUser}</li>
           <li>content:{" " + content}</li>
         </ul>
+        
         <Box ml={20}> {router.query.userName} / {router.query.title}</Box>
-        <Flex mt={10} flexDirection="column" alignItems="center" w="100vw">
-          <Flex>タイトル</Flex>
+
+        <Flex my={10}
+        flexDirection="column" 
+        alignItems="center"
+        >
+          <Flex justifyContent="end" w="100%">
+              <FaPenNib onClick={onClickFork} size={30} />
+              <AiOutlineHeart size={30} />
+              <FaRegCommentDots size={30} />
+            </Flex>
+          <Flex fontSize="60px">
+            {" " + router.query.title}
+          </Flex>
           <Flex>履歴ツリー</Flex>
-        </Flex>
-        <Flex flexDirection="column">
-          <Flex justifyContent="end" mr={20}>作者 : {router.query.userName}</Flex>
-          <Flex justifyContent="end" mr={20}>タグ</Flex>
-        </Flex>
-        <Flex justifyContent="end" w="100vw">
-          <FaPenNib onClick={onClickFork} size={30} />
-          <AiOutlineHeart size={30} />
-          <FaRegCommentDots size={30} />
-        </Flex>
-        <Flex flexDirection="column" alignItems="center" >
-          <Text >概略</Text>
-          {caption}
-          <Text mt={10}>本文</Text>
-          <Text>{content}</Text>
+        
+          <Flex w="100%"
+            flexDirection="column" 
+            justifyContent="end"
+            my="2"
+            >
+            <Flex justifyContent="end" mr={20}>作者 : {router.query.userName}</Flex>
+            <Flex justifyContent="end" mr={20}>タグ</Flex>
+          </Flex>
+          
+          <Flex flexDirection="column" alignItems="center" >        
+            {caption}
+          </Flex>
         </Flex>
         <Flex flexDirection="column" alignItems="center">
           <TableContainer w="80vw" borderWidth="medium" borderRadius={20}>
             <Table variant='striped' colorScheme='gray' >
-              <TableCaption placement="top">連載中</TableCaption>
+              <TableCaption placement="top">  ー 連載中 ー</TableCaption>
               <Thead>
                 <Tr>
                   <Th>話</Th>
@@ -205,7 +220,7 @@ const PostPage = () => {
           タブ機能
           <TableContainer w="80vw" borderWidth="medium" borderRadius={20} mt={20}>
             <Table variant='striped' colorScheme='gray' >
-              <TableCaption placement="top">届いた感想・提案</TableCaption>
+              <TableCaption placement="top">ー 届いた感想・提案 ー</TableCaption>
               <Thead>
                 <Tr>
                   <Th>話</Th>
@@ -233,7 +248,7 @@ const PostPage = () => {
             </Table>
           </TableContainer>
         </Flex>
-      </>
+      </Flex>
     )
   } else {
     return (

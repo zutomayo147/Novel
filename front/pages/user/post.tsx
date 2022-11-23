@@ -51,11 +51,11 @@ const PostPage = () => {
     return (
       <>
         <Flex flexDirection="column" alignItems="center" w="100vw">
-          <Text m={10} fontSize='30px'>
-            新規小説作成
-
-          </Text>
+            
           <Flex flexDirection='column' w="70vw">
+            <Text my={10} fontSize='42px'>
+              新規小説作成
+            </Text>
             <Text fontSize='28px'>
               タイトル
             </Text>
@@ -68,33 +68,24 @@ const PostPage = () => {
             <InputGroup mb={10}>
               <Input placeholder="概略" value={caption} onChange={onChangeCaption} />
             </InputGroup>
+            <Text fontSize='28px'>
+              タグ選択
+            </Text>
+            <InputGroup mb={10}>
+              <Input placeholder="たぐ、後で" />
+            </InputGroup>
+
+            <Link href="/snippets/">
+            </Link>
+            <Button my="50px" w="20vw" mr="auto" ml="auto" 
+            disabled={title === "" || caption === "" || content === ""} 
+            onClick={onClickPost}
+            >
+              新規作成
+            </Button>
           </Flex>
         </Flex>
-        <Flex flexDirection="column" alignItems="center" m={10}>
-          <Text fontSize='28px'>
-            本文
-          </Text>
-          <Textarea
-            onChange={onChangeContent}
-            placeholder='Here is a sample placeholder'
-            w="50vw"
-            h="50vh"
-            p={10}
-            overflow="auto"
-          />
-          <Text fontSize='28px'>
-            タグ選択
-          </Text>
-          <InputGroup mb={10}>
-            <Input placeholder="たぐ、後で" />
-          </InputGroup>
 
-          <Link href="/snippets/">
-          </Link>
-          <Button m="50px" disabled={title === "" || caption === "" || content === ""} onClick={onClickPost}
-          >新規作成
-          </Button>
-        </Flex>
       </>
     );
   } else {

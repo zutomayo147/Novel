@@ -41,7 +41,7 @@ import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
 import { useRouter } from "next/router";
 import { IoArrowBackCircle } from "react-icons/io5";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineBranches, AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import axios from 'axios'
 import { drfApiRoot } from "constants/drf"
@@ -160,14 +160,12 @@ const PostPage = () => {
         
         <Box ml={20}> {router.query.userName} / {router.query.title}</Box>
 
-        <Flex my={10}
-        flexDirection="column" 
-        alignItems="center"
-        >
+        <Flex my={10} flexDirection="column" alignItems="center"
+          borderRadius="20" borderWidth="medium" padding="5">
           <Flex justifyContent="end" w="100%">
-              <FaPenNib onClick={onClickFork} size={30} />
+              <AiOutlineBranches onClick={onClickFork} size={30} />
               <AiOutlineHeart size={30} />
-              <FaRegCommentDots size={30} />
+              <AiOutlineMessage size={28} />
             </Flex>
           <Flex fontSize="60px">
             {" " + router.query.title}
@@ -190,7 +188,7 @@ const PostPage = () => {
         <Flex flexDirection="column" alignItems="center">
           <TableContainer w="80vw" borderWidth="medium" borderRadius={20}>
             <Table variant='striped' colorScheme='gray' >
-              <TableCaption placement="top">  ー 連載中 ー</TableCaption>
+              <TableCaption placement="top" color="blackAlpha">  ー 連載中 ー</TableCaption>
               <Thead>
                 <Tr>
                   <Th>話</Th>
@@ -220,7 +218,7 @@ const PostPage = () => {
           タブ機能
           <TableContainer w="80vw" borderWidth="medium" borderRadius={20} mt={20}>
             <Table variant='striped' colorScheme='gray' >
-              <TableCaption placement="top">ー 届いた感想・提案 ー</TableCaption>
+              <TableCaption placement="top" color="blackAlpha">ー 届いた感想・提案 ー</TableCaption>
               <Thead>
                 <Tr>
                   <Th>話</Th>

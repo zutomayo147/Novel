@@ -14,6 +14,8 @@ import {
   useBreakpointValue,
   IconProps,
   Icon,
+  Spacer,
+  Divider,
 } from '@chakra-ui/react';
 import { useCookies } from 'react-cookie';
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input"
@@ -22,6 +24,10 @@ import { ChangeEvent, ReactElement, ReactNode } from "react"
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
+import PostPage from "./postDetail";
+import { LayoutNoFooter } from "@/components/Layouts/LayoutNoFooter";
+import { Layout } from "@/components/Layouts/Layout";
+import { Header } from "@/components/Layouts/Header";
 
 // const UserHome: NextPage = () => {
 const EditPage = () => {
@@ -44,9 +50,16 @@ const EditPage = () => {
   const newNovel = CreateNovel()
   const onClickPost = () => newNovel({ title, caption, content })
 
-  if (cookie.isLogin) {
+  if (cookie.isLogin) {PostPage.getLayout = (page: ReactElement) => {
     return (
-      <>
+      <LayoutNoFooter>
+        {page}
+      </LayoutNoFooter>
+    )
+  }
+    return (
+      <Flex marginInline="10vh" flexDirection="column" bg="beige"
+      >
         <Flex flexDirection="column" alignItems="center">
           <Text>新規小説作成</Text>
           <Text>タイトル</Text>
@@ -77,7 +90,7 @@ const EditPage = () => {
           </Link>
           <Button m="50px" disabled={title === "" || caption === "" || content === ""} onClick={onClickPost}>新規作成</Button>
         </Flex>
-      </>
+      </Flex>
     )
   } else {
     return (
@@ -90,6 +103,16 @@ const EditPage = () => {
       </div>
     )
   }
+}
+
+EditPage.getLayout = (page: ReactElement) => {
+  return (
+    <LayoutNoFooter>
+      {page}
+    </LayoutNoFooter>
+      
+    
+  )
 }
 
 

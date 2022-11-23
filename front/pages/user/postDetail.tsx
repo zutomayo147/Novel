@@ -68,8 +68,8 @@ const PostPage = () => {
       console.log(originUser)
       await axios
         .post(
-          // `${drfApiRoot}/post/fork/${title}`,
-          `${drfApiRoot}/post/fork/`,
+          `${drfApiRoot}/post/fork/${title}`,
+          // `${drfApiRoot}/post/fork/`,
           {
             content, originUser, forkUser
             // title, content, originUser, forkUser

@@ -1,7 +1,8 @@
 // import type { NextPage } from 'next'
 import Link from "next/link"
 import { ChangeEvent, ReactElement, ReactNode } from "react"
-import { LayoutNoFooter } from "components/Layouts/LayoutNoFooter"
+// import { LayoutNoFooter } from "components/Layouts/LayoutNoFooter"
+import { Layout } from "components/Layouts/Layout"
 import {
   Box,
   Flex,
@@ -116,7 +117,7 @@ const UserHome = () => {
             </Flex>
           </Flex>
 
-          <Flex flexWrap="wrap" w="80vw" flexDirection="reverse">
+          <Flex flexWrap="wrap" w="80vw">
             <Text w="80vw" m={1} fontSize="2xl" >New Post List</Text>
             {postList.map((post, index) => (
               <Center py={6} key={post.id} onClick={() => handleClick(post)}>
@@ -132,16 +133,14 @@ const UserHome = () => {
                       {post.title}
                     </Heading>
                     <Heading fontSize={'2xl'} fontFamily={'body'}>
-                      {post.owner.userName}
+                      作者 {post.owner.userName}
                     </Heading>
-                    <Text fontWeight={600} color={'gray.500'} mb={4}>
-                      @lindsey_jam3s
-                    </Text>
                     <Text
                       textAlign={'center'}
                       px={3}>
-                      {post.caption}
+                      概要 {post.caption}
                     </Text>
+                    <Text mt = {10}>ダミータグ</Text>
                     <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
                       <Badge
                         px={2}
@@ -199,9 +198,9 @@ const UserHome = () => {
 }
 UserHome.getLayout = (page: ReactElement) => {
   return (
-    <LayoutNoFooter>
+    <Layout>
       {page}
-    </LayoutNoFooter>
+    </Layout>
   )
 }
 

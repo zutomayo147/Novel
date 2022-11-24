@@ -1,5 +1,6 @@
 // import type { NextPage } from 'next'
-import { LayoutNoFooter } from "components/Layouts/LayoutNoFooter"
+// import { LayoutNoFooter } from "components/Layouts/LayoutNoFooter"
+import { Layout } from "components/Layouts/Layout"
 import Link from "next/link"
 import {
   Box,
@@ -15,6 +16,9 @@ import {
   useBreakpointValue,
   IconProps,
   Icon,
+  Grid,
+  GridItem,
+  Spacer,
 } from '@chakra-ui/react';
 import {
   Table,
@@ -38,7 +42,7 @@ import { useState, useRef } from 'react'
 import { CreateNovel } from "drf/posts/CreateNovel"
 import { useRouter } from "next/router";
 import { IoArrowBackCircle } from "react-icons/io5";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineBranches, AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import axios from 'axios'
 import { drfApiRoot } from "constants/drf"
@@ -142,8 +146,10 @@ const PostPage = () => {
 
   if (cookie.isLogin) {
     return (
-      <>
-        <ul >
+      <Flex marginInline="10vw"
+        flexDirection="column"
+      >
+        <ul>
           <li>title:{" " + router.query.title}</li>
           <li>titleRes:{" " + title}</li>
           <li>originname:{" " + router.query.userName}</li>
@@ -152,30 +158,38 @@ const PostPage = () => {
           <li>forkUser:{" " + forkUser}</li>
           <li>content:{" " + content}</li>
         </ul>
+
         <Box ml={20}> {router.query.userName} / {router.query.title}</Box>
-        <Flex mt={10} flexDirection="column" alignItems="center" w="100vw">
-          <Flex>タイトル</Flex>
+
+        <Flex my={10} flexDirection="column" alignItems="center"
+          borderRadius="20" borderWidth="medium" padding="5">
+          <Flex justifyContent="end" w="100%">
+            <AiOutlineBranches onClick={onClickFork} size={30} />
+            <AiOutlineHeart size={30} />
+            <AiOutlineMessage size={28} />
+          </Flex>
+          <Flex fontSize="60px">
+            {" " + router.query.title}
+          </Flex>
           <Flex>履歴ツリー</Flex>
-        </Flex>
-        <Flex flexDirection="column">
-          <Flex justifyContent="end" mr={20}>作者 : {router.query.userName}</Flex>
-          <Flex justifyContent="end" mr={20}>タグ</Flex>
-        </Flex>
-        <Flex justifyContent="end" w="100vw">
-          <FaPenNib onClick={onClickFork} size={30} />
-          <AiOutlineHeart size={30} />
-          <FaRegCommentDots size={30} />
-        </Flex>
-        <Flex flexDirection="column" alignItems="center" >
-          <Text >概略</Text>
-          {caption}
-          <Text mt={10}>本文</Text>
-          <Text>{content}</Text>
+
+          <Flex w="100%"
+            flexDirection="column"
+            justifyContent="end"
+            my="2"
+          >
+            <Flex justifyContent="end" mr={20}>作者 : {router.query.userName}</Flex>
+            <Flex justifyContent="end" mr={20}>タグ</Flex>
+          </Flex>
+
+          <Flex flexDirection="column" alignItems="center" >
+            {caption}
+          </Flex>
         </Flex>
         <Flex flexDirection="column" alignItems="center">
           <TableContainer w="80vw" borderWidth="medium" borderRadius={20}>
             <Table variant='striped' colorScheme='gray' >
-              <TableCaption placement="top">連載中</TableCaption>
+              <TableCaption placement="top" color="blackAlpha">  ー 連載中 ー</TableCaption>
               <Thead>
                 <Tr>
                   <Th>話</Th>
@@ -205,7 +219,7 @@ const PostPage = () => {
           タブ機能
           <TableContainer w="80vw" borderWidth="medium" borderRadius={20} mt={20}>
             <Table variant='striped' colorScheme='gray' >
-              <TableCaption placement="top">届いた感想・提案</TableCaption>
+              <TableCaption placement="top" color="blackAlpha">ー 届いた感想・提案 ー</TableCaption>
               <Thead>
                 <Tr>
                   <Th>話</Th>
@@ -233,7 +247,7 @@ const PostPage = () => {
             </Table>
           </TableContainer>
         </Flex>
-      </>
+      </Flex>
     )
   } else {
     return (
@@ -250,9 +264,9 @@ const PostPage = () => {
 
 PostPage.getLayout = (page: ReactElement) => {
   return (
-    <LayoutNoFooter>
+    <Layout>
       {page}
-    </LayoutNoFooter>
+    </Layout>
   )
 }
 

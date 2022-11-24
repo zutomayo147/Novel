@@ -64,7 +64,7 @@ const PostPage = () => {
               概略
             </Text>
             <InputGroup mb={10}>
-              <Input placeholder="概略" value={caption} onChange={onChangeCaption} />
+              <Input placeholder="概略 20字まで" value={caption} onChange={onChangeCaption} />
             </InputGroup>
           </Flex>
         </Flex>
@@ -92,7 +92,7 @@ const PostPage = () => {
           <Button m="50px" disabled={title === "" || caption === "" || content === ""} onClick={onClickPost}
           >新規作成
           </Button>
-        </Flex>
+        </Input>
       </>
     )
   } else {

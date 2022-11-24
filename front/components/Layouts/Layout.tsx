@@ -10,11 +10,10 @@ type Props = {
 
 export const Layout: FC<Props> = ({ children }) => {
   return (
-    <Flex direction="column" w="100vw" h="100vh">
+    <Flex flexDirection="column" h = "100vh">
       <Header />
-      <Flex flex="1">
-        <main>{children}</main>
-      </Flex>
+      <main>{children}</main>
+      <Spacer/>
       <Footer />
     </Flex>
   )

@@ -10,7 +10,7 @@ services:
             context: ./front
             dockerfile: ./Dockerfile
         ports:
-            - 3000:3000
+            - 3033:3033
         environment:
             TZ: Asia/Tokyo
         tty: true

@@ -24,7 +24,7 @@ import useSignUp from "drf/auth/useSignUp"
 import { PrimaryButton } from "components/atoms/button/PrimaryButton"
 // import { ChangeEvent, ReactElement, ReactNode, useState } from "react"
 
-const Home = () => {
+const SignUp = () => {
 
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
@@ -98,7 +98,7 @@ const Home = () => {
     </>
   )
 }
-Home.getLayout = (page: ReactElement) => {
+SignUp.getLayout = (page: ReactElement) => {
   return (
     <Layout>
       {page}
@@ -106,4 +106,4 @@ Home.getLayout = (page: ReactElement) => {
   )
 }
 
-export default Home
+export default SignUp

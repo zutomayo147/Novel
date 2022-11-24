@@ -35,6 +35,7 @@ const PostPage = () => {
   // const inputEl = useRef("")
 
   const [title, setTitle] = useState("")
+  const [subtitle, setSubtitle] = useState("")
   // const [userName, setuserName] = useState("")
   const [caption, setCaption] = useState("")
   const [content, setContent] = useState("")
@@ -42,6 +43,7 @@ const PostPage = () => {
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const onChangeCaption = (e: ChangeEvent<HTMLInputElement>) => setCaption(e.target.value);
   const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
+  const onChangeSubtitle = (e: ChangeEvent<HTMLInputElement>) => setSubtitle(e.target.value);
   // const onClickPost = () => CreateNovel({ post_title, post_caption, post_content })
   const newNovel = CreateNovel()
   const onClickPost = () => newNovel({ title, caption, content })
@@ -52,21 +54,21 @@ const PostPage = () => {
       <>
         <Flex flexDirection="column" alignItems="center" w="100vw">
             
-          <Flex flexDirection='column' w="70vw">
+          <Flex flexDirection='column' w="50vw">
             <Text my={10} fontSize='42px'>
               新規小説作成
             </Text>
             <Text fontSize='28px'>
               タイトル
             </Text>
-            <InputGroup mb={10}>
+            <InputGroup mb={5}>
               <Input placeholder="タイトル" value={title} onChange={onChangeTitle} />
             </InputGroup>
             <Text fontSize='28px'>
-              概略
+              あらすじ
             </Text>
-            <InputGroup mb={10}>
-              <Input placeholder="概略" value={caption} onChange={onChangeCaption} />
+            <InputGroup mb={5}>
+              <Input placeholder="あらすじ" value={caption} onChange={onChangeCaption} />
             </InputGroup>
             <Text fontSize='28px'>
               タグ選択
@@ -74,11 +76,30 @@ const PostPage = () => {
             <InputGroup mb={10}>
               <Input placeholder="たぐ、後で" />
             </InputGroup>
-
+            <Divider mb="10" />
+            <Text fontSize='36px' mb="5">
+              第一話投稿
+            </Text>
+            <Text fontSize='28px'>
+              サブタイトル
+            </Text>
+            <InputGroup mb={10}>
+              <Input placeholder="サブタイトル" value={subtitle} onChange={onChangeSubtitle} />
+            </InputGroup>
+            <Text fontSize='28px'>
+              本文
+            </Text>
+            <Textarea
+              onChange={onChangeContent}
+              placeholder='本文'
+              h="50vh"
+              mb="10"
+              overflow="auto"
+            />
             <Link href="/snippets/">
             </Link>
             <Button my="50px" w="20vw" mr="auto" ml="auto" 
-            disabled={title === "" || caption === "" || content === ""} 
+            disabled={title === "" || caption === "" || content === "" || subtitle === ""} 
             onClick={onClickPost}
             >
               新規作成

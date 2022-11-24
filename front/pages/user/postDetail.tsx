@@ -145,7 +145,7 @@ const PostPage = () => {
 
   if (cookie.isLogin) {
     return (
-      <Flex marginInline="10vw"
+      <Flex mx="auto" w="50vw"
         flexDirection="column"
       >
         <ul>

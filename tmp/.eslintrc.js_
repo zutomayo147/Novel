@@ -4,6 +4,7 @@ module.exports = {
     es2022: true,
     node: true,
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: "module",
     ecmaFeatures: {
@@ -17,26 +18,45 @@ module.exports = {
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
-
+    // "eslint:all",
+    "plugin:@typescript-eslint/eslint-recommended",
+    // 'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    // "prettier/@typescript-eslint",
+    // 'plugin:prettier/recommended',
+    // "plugin:import/warnings",
+    // "prettier"
+    // "plugin:import/warnings",
+    "prettier"
   ],
   plugins: [
     "react",
     "react-hooks",
-    // "@typescript-eslint",
-    // "react-hooks"
+    "@typescript-eslint",
+    "react-hooks"
   ],
+  // overrides: [
+  //   {
+  //     "files": ["**/*.tsx"],
+  //     "rules": {
+  //       "react/prop-types": "off"
+  //     }
+  //   }
+  // ],
   settings: {
     "react": {
       "version": "detect"
     },
   },
   rules: {
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
     "react-hooks/exhaustive-deps": "off",
-    "react-hooks/rules-of-hooks": "off",
-    "react-hooks/exhaustive-deps": "warn"
+    // "import/order": [
+    //   "error",
+    //   {
+    //     "alphabetize": {
+    //       "order": "asc"
+    //     }
+    //   }
+    // ]
   },
   ignorePatterns: [
     "**/public/*",

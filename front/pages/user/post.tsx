@@ -92,7 +92,7 @@ const PostPage = () => {
           <Button m="50px" disabled={title === "" || caption === "" || content === ""} onClick={onClickPost}
           >新規作成
           </Button>
-        </Input>
+        </Flex>
       </>
     )
   } else {

@@ -170,15 +170,12 @@ const UserHome = () => {
             モック用スケルトン
             <Skeleton m={10}>
               <div>contents wrapped</div>
-              <div>won't be visible</div>
             </Skeleton>
             <Skeleton m={10}>
               <div>contents wrapped</div>
-              <div>won't be visible</div>
             </Skeleton>
             <Skeleton>
               <div>contents wrapped</div>
-              <div>won't be visible</div>
             </Skeleton>
           </Flex>
         </Flex>

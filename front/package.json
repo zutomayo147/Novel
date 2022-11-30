@@ -12,17 +12,6 @@
     "stylelintfix": "yarn stylelint --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{ts,tsx}'"
   },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint",
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  }
   "dependencies": {
     "@chakra-ui/avatar": "^2.2.1",
     "@chakra-ui/icons": "^2.0.12",

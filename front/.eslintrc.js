@@ -6,15 +6,15 @@ module.exports = {
   },
   parserOptions: {
     sourceType: "module",
-    ecmaFeatures: {
-      "jsx": true
-    },
+    // ecmaFeatures: {
+    //   "jsx": true
+    // },
     ecmaVersion: "latest",
     project: ['./tsconfig.json'],
     warnOnUnsupportedTypeScriptVersion: false,
   },
   extends: [
-    "next/core-web-vitals",
+    // "next/core-web-vitals",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended"

@@ -1,0 +1,11 @@
+# Ignore artifacts:
+build
+**/public/*
+**/node_modules/*
+**/.vscode/*
+.eslintrc.js
+.prettierrc.js
+**/*.md
+**/.next/*
+webpack.config.js
+*.svg

@@ -8,6 +8,8 @@ import React from 'react';
 // import { ChakraProvider } from '@chakra-ui/react' for toast
 import { ChakraProvider } from "@chakra-ui/provider";
 import '@nextcss/reset';
+import 'ress'
+
 
 // import Head from 'next/head'
 

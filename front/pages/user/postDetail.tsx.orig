@@ -1,5 +1,6 @@
 // import type { NextPage } from 'next'
-import { LayoutNoFooter } from "components/Layouts/LayoutNoFooter"
+// import { LayoutNoFooter } from "components/Layouts/LayoutNoFooter"
+import { Layout } from "components/Layouts/Layout"
 import Link from "next/link"
 import {
   Box,
@@ -145,7 +146,11 @@ const PostPage = () => {
 
   if (cookie.isLogin) {
     return (
+<<<<<<< HEAD
+      <Flex marginInline="10vw"
+=======
       <Flex mx="auto" w="50vw"
+>>>>>>> feat/front
         flexDirection="column"
       >
         <ul>
@@ -157,20 +162,44 @@ const PostPage = () => {
           <li>forkUser:{" " + forkUser}</li>
           <li>content:{" " + content}</li>
         </ul>
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> feat/front
         <Box ml={20}> {router.query.userName} / {router.query.title}</Box>
 
         <Flex my={10} flexDirection="column" alignItems="center"
           borderRadius="20" borderWidth="medium" padding="5">
           <Flex justifyContent="end" w="100%">
+<<<<<<< HEAD
+            <AiOutlineBranches onClick={onClickFork} size={30} />
+            <AiOutlineHeart size={30} />
+            <AiOutlineMessage size={28} />
+          </Flex>
+=======
               <AiOutlineBranches onClick={onClickFork} size={30} />
               <AiOutlineHeart size={30} />
               <AiOutlineMessage size={28} />
             </Flex>
+>>>>>>> feat/front
           <Flex fontSize="60px">
             {" " + router.query.title}
           </Flex>
           <Flex>履歴ツリー</Flex>
+<<<<<<< HEAD
+
+          <Flex w="100%"
+            flexDirection="column"
+            justifyContent="end"
+            my="2"
+          >
+            <Flex justifyContent="end" mr={20}>作者 : {router.query.userName}</Flex>
+            <Flex justifyContent="end" mr={20}>タグ</Flex>
+          </Flex>
+
+          <Flex flexDirection="column" alignItems="center" >
+=======
         
           <Flex w="100%"
             flexDirection="column" 
@@ -182,6 +211,7 @@ const PostPage = () => {
           </Flex>
           
           <Flex flexDirection="column" alignItems="center" >        
+>>>>>>> feat/front
             {caption}
           </Flex>
         </Flex>
@@ -263,9 +293,9 @@ const PostPage = () => {
 
 PostPage.getLayout = (page: ReactElement) => {
   return (
-    <LayoutNoFooter>
+    <Layout>
       {page}
-    </LayoutNoFooter>
+    </Layout>
   )
 }
 

@@ -74,7 +74,11 @@ const PostPage = () => {
               タグ選択
             </Text>
             <InputGroup mb={10}>
+<<<<<<< HEAD
+              <Input placeholder="概略 20字まで" value={caption} onChange={onChangeCaption} />
+=======
               <Input placeholder="たぐ、後で" />
+>>>>>>> feat/front
             </InputGroup>
             <Divider mb="10" />
             <Text fontSize='36px' mb="5">

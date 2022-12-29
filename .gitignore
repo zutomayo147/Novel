@@ -1,6 +1,7 @@
 # front
 front/node_modules
 front/.next/
+front/.yarn/cache/
 *.jpg
 
 # back
